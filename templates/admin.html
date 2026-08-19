@@ -1,0 +1,94 @@
+!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <style>
+.hero{
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+</style>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalonConnect</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="header">
+  <div class="nav">
+
+    <div class="logo-area">
+      <img src="static/img/logo_preto_hor.png" class="logo">
+    </div>
+
+<div id="loginContainer" style="display:flex;align-items:center;gap:12px;">
+
+    <button id="btnLogin" class="btn-login" onclick="toggleLogin()">
+        <span class="icon">👤</span>
+        LOGIN
+    </button>
+
+    <div id="userArea"></div>
+
+</div>
+
+  <div id="loginBox" style="
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    margin-top:10px;
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:2000;
+    width:220px;
+  ">
+    <input type="email" id="email" placeholder="Email" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="senha" placeholder="Senha" style="width:100%; margin-bottom:10px;">
+    <button onclick="logar()" style="width:100%;">
+    Entrar
+</button>
+  </div>
+
+</div>
+    </nav>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  </div>
+</header>
+<br><br><br><br>
+<a href="/orcamentos" style="
+background:#111;
+color:white;
+padding:15px 30px;
+text-decoration:none;
+border-radius:8px;
+display:inline-block;
+margin:40px;
+font-family:Poppins;
+">
+
+📋 Ver Orçamentos
+
+</a>
+<a href="/novo_salao" style="
+background:#28a745;
+color:white;
+padding:15px 30px;
+text-decoration:none;
+border-radius:8px;
+display:inline-block;
+margin:40px 10px;
+font-family:Poppins;
+font-weight:600;
+">
+🏢 Novo Salão
+</a>
+<a href="/saloes" class="btn">
+    🏢 Gerenciar Salões
+</a>
+<script src="static/js/script.js"></script>
+</body>
+</html>

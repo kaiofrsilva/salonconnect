@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financeiro - SalonConnect</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+
+        :root{
+            --bg:#f5f7fa;
+            --card:#fff;
+            --text:#171717;
+            --muted:#7b7f87;
+            --border:#e9ebef;
+            --dark:#111;
+            --green:#159447;
+            --green-bg:#e9f8ef;
+            --yellow:#b17a00;
+            --yellow-bg:#fff6dc;
+            --red:#cf3434;
+            --red-bg:#ffebeb;
+            --blue:#276ef1;
+            --blue-bg:#eaf1ff;
+            --shadow:0 8px 28px rgba(15,23,42,.06);
+        }
+
+        body{
+            font-family:'Poppins',sans-serif;
+            background:var(--bg);
+            color:var(--text);
+        }
+
+        button,input,select{font-family:inherit}
+
+        .header{
+            height:72px;
+            background:#000;
+            color:#fff;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            padding:0 35px;
+            position:sticky;
+            top:0;
+            z-index:50;
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:14px;
+        }
+
+        .brand-icon{
+            width:40px;
+            height:40px;
+            border-radius:11px;
+            background:#fff;
+            color:#111;
+            display:grid;
+            place-items:center;
+            font-size:19px;
+            font-weight:700;
+        }
+
+        .brand h1{font-size:19px;font-weight:600}
+        .brand span{display:block;color:#aaa;font-size:11px;margin-top:1px}
+
+        .btn-voltar{
+            color:#fff;
+            text-decoration:none;
+            border:1px solid #444;
+            padding:9px 15px;
+            border-radius:9px;
+            font-size:13px;
+            transition:.2s;
+        }
+
+        .btn-voltar:hover{background:#1d1d1d}
+
+        .container{
+            width:min(1500px,100%);
+            margin:30px auto;
+            padding:0 25px 45px;
+        }
+
+        .topo{
+            display:flex;
+            justify-content:space-between;
+            align-items:flex-end;
+            gap:20px;
+            margin-bottom:24px;
+        }
+
+        .titulo h2{font-size:29px;line-height:1.2}
+        .titulo p{font-size:13px;color:var(--muted);margin-top:6px}
+
+        .filtros{
+            display:flex;
+            gap:10px;
+            align-items:center;
+            flex-wrap:wrap;
+        }
+
+        .filtros label{
+            font-size:11px;
+            color:var(--muted);
+            display:block;
+            margin-bottom:4px;
+        }
+
+        .campo-filtro select{
+            min-width:150px;
+            height:42px;
+            border:1px solid #ddd;
+            border-radius:9px;
+            background:#fff;
+            padding:0 12px;
+            outline:none;
+        }
+
+        .btn-atualizar{
+            height:42px;
+            border:0;
+            border-radius:9px;
+            padding:0 16px;
+            background:#111;
+            color:#fff;
+            cursor:pointer;
+            font-size:12px;
+            font-weight:600;
+        }
+
+        .btn-atualizar:hover{background:#2a2a2a}
+
+        .resumo{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:16px;
+            margin-bottom:18px;
+        }
+
+        .card{
+            background:var(--card);
+            border:1px solid var(--border);
+            border-radius:15px;
+            box-shadow:var(--shadow);
+        }
+
+        .kpi{
+            padding:20px;
+            min-height:145px;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .kpi-top{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+        }
+
+        .kpi-label{font-size:12px;color:var(--muted)}
+        .kpi-icon{
+            width:36px;height:36px;border-radius:10px;
+            display:grid;place-items:center;font-size:16px;
+        }
+
+        .icon-blue{background:var(--blue-bg)}
+        .icon-green{background:var(--green-bg)}
+        .icon-yellow{background:var(--yellow-bg)}
+        .icon-red{background:var(--red-bg)}
+
+        .kpi-value{
+            font-size:25px;
+            font-weight:700;
+            margin-top:12px;
+            letter-spacing:-.5px;
+        }
+
+        .kpi-desc{
+            margin-top:5px;
+            color:var(--muted);
+            font-size:11px;
+        }
+
+        .grid-2{
+            display:grid;
+            grid-template-columns:1.45fr .85fr;
+            gap:18px;
+            margin-bottom:18px;
+        }
+
+        .box-title{
+            padding:18px 20px;
+            border-bottom:1px solid var(--border);
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            gap:10px;
+        }
+
+        .box-title h3{font-size:16px}
+        .box-title p{font-size:11px;color:var(--muted);margin-top:2px}
+
+        .box-body{padding:20px}
+
+        .metric-row{margin-bottom:20px}
+        .metric-head{
+            display:flex;
+            justify-content:space-between;
+            gap:10px;
+            font-size:12px;
+            margin-bottom:7px;
+        }
+
+        .metric-head span:last-child{font-weight:600}
+
+        .progress{
+            height:9px;
+            background:#eef0f3;
+            border-radius:20px;
+            overflow:hidden;
+        }
+
+        .progress > div{
+            height:100%;
+            width:0;
+            border-radius:20px;
+            transition:width .5s ease;
+        }
+
+        .green-bar{background:var(--green)}
+        .yellow-bar{background:#e0a900}
+        .blue-bar{background:var(--blue)}
+
+        .stats-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:10px;
+        }
+
+        .mini{
+            border:1px solid var(--border);
+            border-radius:11px;
+            padding:13px;
+        }
+
+        .mini .label{font-size:10px;color:var(--muted)}
+        .mini .value{font-size:17px;font-weight:700;margin-top:4px}
+
+        .chart-wrap{height:260px;position:relative}
+        canvas{width:100%!important;height:100%!important}
+
+        .legend{
+            display:flex;
+            flex-wrap:wrap;
+            gap:15px;
+            margin-top:12px;
+        }
+
+        .legend-item{
+            display:flex;
+            align-items:center;
+            gap:6px;
+            font-size:10px;
+            color:var(--muted);
+        }
+
+        .dot{width:8px;height:8px;border-radius:50%;background:#111}
+
+        .tabela-card{margin-bottom:18px}
+
+        .table-tools{
+            display:flex;
+            justify-content:space-between;
+            gap:12px;
+            flex-wrap:wrap;
+            padding:15px 20px;
+            border-bottom:1px solid var(--border);
+        }
+
+        .search{
+            flex:1;
+            min-width:220px;
+            height:40px;
+            border:1px solid #ddd;
+            border-radius:8px;
+            padding:0 12px;
+            outline:none;
+            font-size:12px;
+        }
+
+        .select-small{
+            height:40px;
+            border:1px solid #ddd;
+            border-radius:8px;
+            background:#fff;
+            padding:0 10px;
+            font-size:12px;
+        }
+
+        .table-wrapper{overflow-x:auto}
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            min-width:1000px;
+        }
+
+        th{
+            text-align:left;
+            padding:12px 15px;
+            background:#fafafa;
+            color:#777;
+            font-size:10px;
+            font-weight:600;
+            border-bottom:1px solid var(--border);
+            white-space:nowrap;
+        }
+
+        td{
+            padding:14px 15px;
+            font-size:12px;
+            border-bottom:1px solid #f0f1f3;
+            vertical-align:middle;
+        }
+
+        tbody tr:hover td{background:#fcfcfc}
+
+        .cliente{
+            font-weight:600;
+            color:#222;
+        }
+
+        .sub{
+            display:block;
+            color:#999;
+            font-size:10px;
+            margin-top:2px;
+        }
+
+        .money{font-weight:600;white-space:nowrap}
+        .money-green{color:var(--green)}
+        .money-yellow{color:var(--yellow)}
+        .money-red{color:var(--red)}
+
+        .badge{
+            display:inline-flex;
+            align-items:center;
+            padding:5px 9px;
+            border-radius:20px;
+            font-size:10px;
+            font-weight:600;
+            white-space:nowrap;
+        }
+
+        .badge-green{background:var(--green-bg);color:#137b3a}
+        .badge-yellow{background:var(--yellow-bg);color:#966900}
+        .badge-red{background:var(--red-bg);color:#b72828}
+        .badge-blue{background:var(--blue-bg);color:#205bc6}
+        .badge-gray{background:#f0f1f3;color:#666}
+
+        .section-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:18px;
+        }
+
+        .method-list{display:flex;flex-direction:column;gap:13px}
+
+        .method{
+            display:grid;
+            grid-template-columns:110px 1fr 100px;
+            gap:12px;
+            align-items:center;
+        }
+
+        .method-name{font-size:11px;font-weight:600}
+        .method-bar{
+            height:8px;background:#eef0f3;border-radius:20px;overflow:hidden
+        }
+        .method-bar div{height:100%;background:#111;border-radius:20px}
+        .method-value{text-align:right;font-size:11px;font-weight:600}
+
+        .estoque-summary{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:10px;
+            margin-bottom:15px;
+        }
+
+        .stock-card{
+            border:1px solid var(--border);
+            border-radius:11px;
+            padding:13px;
+        }
+
+        .stock-card .label{font-size:10px;color:var(--muted)}
+        .stock-card .value{font-size:17px;font-weight:700;margin-top:3px}
+
+        .alert-box{
+            margin-top:15px;
+            background:#fff7e1;
+            border:1px solid #f5df9e;
+            border-radius:10px;
+            padding:12px;
+            font-size:11px;
+            color:#785900;
+        }
+
+        .empty{
+            padding:35px 20px;
+            text-align:center;
+            color:#888;
+            font-size:12px;
+        }
+
+        .loading{
+            padding:30px;
+            text-align:center;
+            color:#888;
+            font-size:12px;
+        }
+
+        .footer-info{
+            text-align:right;
+            color:#999;
+            font-size:10px;
+            margin-top:5px;
+        }
+
+        @media(max-width:1100px){
+            .resumo{grid-template-columns:repeat(2,1fr)}
+            .grid-2,.section-grid{grid-template-columns:1fr}
+        }
+
+        @media(max-width:650px){
+            .header{padding:0 15px}
+            .container{padding:0 12px 35px;margin-top:20px}
+            .topo{align-items:flex-start;flex-direction:column}
+            .titulo h2{font-size:24px}
+            .resumo{grid-template-columns:1fr 1fr;gap:10px}
+            .kpi{padding:14px;min-height:130px}
+            .kpi-value{font-size:19px}
+            .kpi-icon{display:none}
+            .filtros{width:100%}
+            .campo-filtro{flex:1}
+            .campo-filtro select{width:100%;min-width:0}
+            .btn-atualizar{width:100%}
+            .stats-grid,.estoque-summary{grid-template-columns:1fr 1fr}
+            .brand span{display:none}
+        }
+    </style>
+</head>
+
+<body>
+<main class="container">
+
+    <div class="topo">
+        <div class="titulo">
+            <h2>Visão financeira</h2>
+            <p>Controle contratos, recebimentos, valores a receber e patrimônio em estoque.</p>
+        </div>
+
+        <div class="filtros">
+            <div class="campo-filtro">
+                <label>Mês de análise</label>
+                <select id="mesFiltro"></select>
+            </div>
+
+            <button class="btn-atualizar" onclick="carregarFinanceiro()">
+                ↻ Atualizar
+            </button>
+        </div>
+    </div>
+
+    <section class="resumo">
+
+        <div class="card kpi">
+            <div class="kpi-top">
+                <div class="kpi-label">Faturamento contratado</div>
+                <div class="kpi-icon icon-blue">▣</div>
+            </div>
+            <div class="kpi-value" id="faturamento">R$ 0,00</div>
+            <div class="kpi-desc" id="faturamentoDesc">Contratos do período</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="kpi-top">
+                <div class="kpi-label">Total recebido</div>
+                <div class="kpi-icon icon-green">✓</div>
+            </div>
+            <div class="kpi-value money-green" id="recebido">R$ 0,00</div>
+            <div class="kpi-desc" id="recebidoDesc">Pagamentos registrados</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="kpi-top">
+                <div class="kpi-label">A receber</div>
+                <div class="kpi-icon icon-yellow">!</div>
+            </div>
+            <div class="kpi-value money-yellow" id="aReceber">R$ 0,00</div>
+            <div class="kpi-desc" id="aReceberDesc">Saldo dos contratos</div>
+        </div>
+
+        <div class="card kpi">
+            <div class="kpi-top">
+                <div class="kpi-label">Valor atual do estoque</div>
+                <div class="kpi-icon icon-red">▤</div>
+            </div>
+            <div class="kpi-value" id="valorEstoque">R$ 0,00</div>
+            <div class="kpi-desc" id="estoqueDesc">Quantidade × preço unitário</div>
+        </div>
+
+    </section>
+
+    <section class="grid-2">
+
+        <div class="card">
+            <div class="box-title">
+                <div>
+                    <h3>Desempenho financeiro</h3>
+                    <p>Contratado x recebido x saldo a receber</p>
+                </div>
+            </div>
+
+            <div class="box-body">
+
+                <div class="metric-row">
+                    <div class="metric-head">
+                        <span>Recebimento sobre o faturamento</span>
+                        <span id="percentualRecebido">0%</span>
+                    </div>
+                    <div class="progress">
+                        <div id="barraRecebido" class="green-bar"></div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="mini">
+                        <div class="label">Contratos no período</div>
+                        <div class="value" id="qtdContratos">0</div>
+                    </div>
+
+                    <div class="mini">
+                        <div class="label">Contratos quitados</div>
+                        <div class="value" id="qtdQuitados">0</div>
+                    </div>
+
+                    <div class="mini">
+                        <div class="label">Ticket médio</div>
+                        <div class="value" id="ticketMedio">R$ 0,00</div>
+                    </div>
+
+                    <div class="mini">
+                        <div class="label">Próximos eventos</div>
+                        <div class="value" id="proximosEventos">0</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="box-title">
+                <div>
+                    <h3>Formas de pagamento</h3>
+                    <p>Distribuição dos valores recebidos</p>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="method-list" id="formasPagamento">
+                    <div class="loading">Carregando...</div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="card" style="margin-bottom:18px">
+        <div class="box-title">
+            <div>
+                <h3>Evolução dos últimos meses</h3>
+                <p>Faturamento e recebimentos registrados por mês de evento</p>
+            </div>
+        </div>
+
+        <div class="box-body">
+            <div class="chart-wrap">
+                <canvas id="grafico"></canvas>
+            </div>
+            <div class="legend">
+                <div class="legend-item"><span class="dot"></span> Faturamento</div>
+                <div class="legend-item"><span class="dot" style="opacity:.55"></span> Recebido</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="card tabela-card">
+
+        <div class="box-title">
+            <div>
+                <h3>Contratos e situação financeira</h3>
+                <p>Detalhamento dos contratos pertencentes a este salão</p>
+            </div>
+        </div>
+
+        <div class="table-tools">
+            <input id="pesquisaContrato"
+                   class="search"
+                   type="text"
+                   placeholder="Pesquisar cliente, aniversariante ou contrato..."
+                   oninput="filtrarContratos()">
+
+            <select id="statusFiltro"
+                    class="select-small"
+                    onchange="filtrarContratos()">
+                <option value="">Todos os status</option>
+                <option value="quitado">Quitados</option>
+                <option value="parcial">Pagamento parcial</option>
+                <option value="pendente">Pendentes</option>
+            </select>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Contrato</th>
+                        <th>Cliente / Evento</th>
+                        <th>Data</th>
+                        <th>Forma</th>
+                        <th>Valor contratado</th>
+                        <th>Recebido</th>
+                        <th>A receber</th>
+                        <th>Situação</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaContratos">
+                    <tr><td colspan="8" class="loading">Carregando contratos...</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+    <section class="section-grid">
+
+        <div class="card">
+            <div class="box-title">
+                <div>
+                    <h3>Patrimônio em estoque</h3>
+                    <p>Valor dos itens ativos atualmente cadastrados</p>
+                </div>
+            </div>
+
+            <div class="box-body">
+
+                <div class="estoque-summary">
+                    <div class="stock-card">
+                        <div class="label">Itens</div>
+                        <div class="value" id="estoqueItens">0</div>
+                    </div>
+
+                    <div class="stock-card">
+                        <div class="label">Estoque baixo</div>
+                        <div class="value money-red" id="estoqueBaixo">0</div>
+                    </div>
+
+                    <div class="stock-card">
+                        <div class="label">Consumo registrado</div>
+                        <div class="value" id="custoConsumo">R$ 0,00</div>
+                    </div>
+                </div>
+
+                <div id="alertaEstoque" class="alert-box" style="display:none"></div>
+
+                <div class="table-wrapper">
+                    <table style="min-width:650px">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Quantidade</th>
+                                <th>Preço unitário</th>
+                                <th>Valor total</th>
+                                <th>Nível</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaEstoque"></tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="box-title">
+                <div>
+                    <h3>Indicadores do mês</h3>
+                    <p>Resumo para tomada de decisão</p>
+                </div>
+            </div>
+
+            <div class="box-body">
+                <div class="metric-row">
+                    <div class="metric-head">
+                        <span>Percentual recebido</span>
+                        <span id="indicadorRecebido">0%</span>
+                    </div>
+                    <div class="progress">
+                        <div id="barraIndicador" class="blue-bar"></div>
+                    </div>
+                </div>
+
+                <div class="metric-row">
+                    <div class="metric-head">
+                        <span>Percentual ainda a receber</span>
+                        <span id="indicadorRestante">0%</span>
+                    </div>
+                    <div class="progress">
+                        <div id="barraRestante" class="yellow-bar"></div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="mini">
+                        <div class="label">Maior contrato</div>
+                        <div class="value" id="maiorContrato">R$ 0,00</div>
+                    </div>
+
+                    <div class="mini">
+                        <div class="label">Maior saldo pendente</div>
+                        <div class="value" id="maiorPendente">R$ 0,00</div>
+                    </div>
+
+                    <div class="mini">
+                        <div class="label">Saídas de estoque</div>
+                        <div class="value" id="saidasEstoque">0</div>
+                    </div>
+
+                    <div class="mini">
+                        <div class="label">Custo das saídas</div>
+                        <div class="value" id="valorSaidas">R$ 0,00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="footer-info" id="ultimaAtualizacao"></div>
+
+</main>
+
+<script>
+    let dadosFinanceiro = null;
+    let graficoCanvas = null;
+
+    const moeda = valor =>
+        new Intl.NumberFormat("pt-BR", {
+            style:"currency",
+            currency:"BRL"
+        }).format(Number(valor || 0));
+
+    const numero = valor =>
+        new Intl.NumberFormat("pt-BR", {
+            maximumFractionDigits:2
+        }).format(Number(valor || 0));
+
+    function escapeHtml(text){
+        return String(text ?? "")
+            .replaceAll("&","&amp;")
+            .replaceAll("<","&lt;")
+            .replaceAll(">","&gt;")
+            .replaceAll('"',"&quot;")
+            .replaceAll("'","&#039;");
+    }
+
+    function dataBR(data){
+        if(!data) return "-";
+        const partes = String(data).split("-");
+        if(partes.length === 3 && partes[0].length === 4){
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+        return data;
+    }
+
+    function statusFinanceiro(contrato){
+        const total = Number(contrato.valor_total || 0);
+        const pago = Number(contrato.valor_pago || 0);
+        const restante = Math.max(0, Number(contrato.valor_restante || (total-pago)));
+
+        if(total > 0 && restante <= 0.01){
+            return ["quitado","Quitado","badge-green"];
+        }
+
+        if(pago > 0){
+            return ["parcial","Pagamento parcial","badge-yellow"];
+        }
+
+        return ["pendente","Pendente","badge-red"];
+    }
+
+    function preencherMeses(){
+        const select = document.getElementById("mesFiltro");
+        const agora = new Date();
+
+        for(let i=0;i<12;i++){
+            const d = new Date(agora.getFullYear(), agora.getMonth()-i, 1);
+            const value =
+                d.getFullYear() + "-" +
+                String(d.getMonth()+1).padStart(2,"0");
+
+            const label = d.toLocaleDateString("pt-BR", {
+                month:"long",
+                year:"numeric"
+            });
+
+            const option = document.createElement("option");
+            option.value = value;
+            option.textContent = label.charAt(0).toUpperCase() + label.slice(1);
+            select.appendChild(option);
+        }
+
+        select.value =
+            agora.getFullYear() + "-" +
+            String(agora.getMonth()+1).padStart(2,"0");
+    }
+
+    async function carregarFinanceiro(){
+        const mes = document.getElementById("mesFiltro").value;
+
+        try{
+            const resposta = await fetch(
+                "/api/financeiro?mes=" + encodeURIComponent(mes)
+            );
+
+            const dados = await resposta.json();
+
+            if(!resposta.ok || !dados.sucesso){
+                throw new Error(
+                    dados.mensagem || "Não foi possível carregar o financeiro."
+                );
+            }
+
+            dadosFinanceiro = dados;
+
+            renderizarResumo(dados);
+            renderizarFormas(dados);
+            renderizarContratos(dados.contratos || []);
+            renderizarEstoque(dados.estoque || []);
+            renderizarGrafico(dados.evolucao || []);
+
+            document.getElementById("ultimaAtualizacao").textContent =
+                "Atualizado em " +
+                new Date().toLocaleString("pt-BR");
+
+        }catch(erro){
+            console.error(erro);
+            alert(erro.message || "Erro ao carregar o financeiro.");
+        }
+    }
+
+    function renderizarResumo(d){
+        document.getElementById("faturamento").textContent =
+            moeda(d.resumo.faturamento);
+
+        document.getElementById("recebido").textContent =
+            moeda(d.resumo.recebido);
+
+        document.getElementById("aReceber").textContent =
+            moeda(d.resumo.a_receber);
+
+        document.getElementById("valorEstoque").textContent =
+            moeda(d.resumo.valor_estoque);
+
+        document.getElementById("faturamentoDesc").textContent =
+            `${d.resumo.qtd_contratos} contrato(s) no período`;
+
+        document.getElementById("recebidoDesc").textContent =
+            `${d.resumo.qtd_quitados} contrato(s) quitado(s)`;
+
+        document.getElementById("aReceberDesc").textContent =
+            `${d.resumo.qtd_pendentes} contrato(s) com saldo`;
+
+        document.getElementById("estoqueDesc").textContent =
+            `${d.resumo.qtd_itens_estoque} item(ns) ativo(s)`;
+
+        document.getElementById("qtdContratos").textContent =
+            d.resumo.qtd_contratos;
+
+        document.getElementById("qtdQuitados").textContent =
+            d.resumo.qtd_quitados;
+
+        document.getElementById("ticketMedio").textContent =
+            moeda(d.resumo.ticket_medio);
+
+        document.getElementById("proximosEventos").textContent =
+            d.resumo.proximos_eventos;
+
+        const percentual = Math.min(
+            100,
+            Math.max(0, Number(d.resumo.percentual_recebido || 0))
+        );
+
+        const restante = Math.min(
+            100,
+            Math.max(0, 100 - percentual)
+        );
+
+        document.getElementById("percentualRecebido").textContent =
+            percentual.toFixed(1) + "%";
+
+        document.getElementById("barraRecebido").style.width =
+            percentual + "%";
+
+        document.getElementById("indicadorRecebido").textContent =
+            percentual.toFixed(1) + "%";
+
+        document.getElementById("barraIndicador").style.width =
+            percentual + "%";
+
+        document.getElementById("indicadorRestante").textContent =
+            restante.toFixed(1) + "%";
+
+        document.getElementById("barraRestante").style.width =
+            restante + "%";
+
+        document.getElementById("estoqueItens").textContent =
+            d.resumo.qtd_itens_estoque;
+
+        document.getElementById("estoqueBaixo").textContent =
+            d.resumo.estoque_baixo;
+
+        document.getElementById("custoConsumo").textContent =
+            moeda(d.resumo.custo_consumo);
+
+        document.getElementById("maiorContrato").textContent =
+            moeda(d.resumo.maior_contrato);
+
+        document.getElementById("maiorPendente").textContent =
+            moeda(d.resumo.maior_pendente);
+
+        document.getElementById("saidasEstoque").textContent =
+            numero(d.resumo.qtd_saidas);
+
+        document.getElementById("valorSaidas").textContent =
+            moeda(d.resumo.valor_saidas);
+
+        const alerta = document.getElementById("alertaEstoque");
+
+        if(Number(d.resumo.estoque_baixo) > 0){
+            alerta.style.display = "block";
+            alerta.innerHTML =
+                `<strong>Atenção:</strong> ${d.resumo.estoque_baixo}
+                 item(ns) estão no nível mínimo ou abaixo dele.`;
+        }else{
+            alerta.style.display = "none";
+        }
+    }
+
+    function renderizarFormas(d){
+        const box = document.getElementById("formasPagamento");
+        const formas = d.formas_pagamento || [];
+
+        if(!formas.length){
+            box.innerHTML =
+                `<div class="empty">Nenhum recebimento registrado no período.</div>`;
+            return;
+        }
+
+        const max = Math.max(
+            ...formas.map(item => Number(item.valor || 0)),
+            1
+        );
+
+        box.innerHTML = formas.map(item => `
+            <div class="method">
+                <div class="method-name">${escapeHtml(item.forma || "Não informado")}</div>
+                <div class="method-bar">
+                    <div style="width:${Math.min(100,(item.valor/max)*100)}%"></div>
+                </div>
+                <div class="method-value">${moeda(item.valor)}</div>
+            </div>
+        `).join("");
+    }
+
+    function renderizarContratos(lista){
+        const tbody = document.getElementById("tabelaContratos");
+
+        if(!lista.length){
+            tbody.innerHTML =
+                `<tr><td colspan="8" class="empty">Nenhum contrato encontrado para este período.</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = lista.map(c => {
+            const status = statusFinanceiro(c);
+
+            return `
+                <tr data-status="${status[0]}">
+
+                    <td>
+                        <strong>#${escapeHtml(c.id)}</strong>
+                        <span class="sub">${escapeHtml(c.status || "Finalizado")}</span>
+                    </td>
+
+                    <td>
+                        <span class="cliente">${escapeHtml(c.cliente || "-")}</span>
+                        <span class="sub">${escapeHtml(c.aniversariante || "Evento")}</span>
+                    </td>
+
+                    <td>${dataBR(c.data_evento)}</td>
+
+                    <td>
+                        <span class="badge badge-blue">
+                            ${escapeHtml(c.forma_pagamento || "Não informado")}
+                        </span>
+                    </td>
+
+                    <td class="money">${moeda(c.valor_total)}</td>
+
+                    <td class="money money-green">${moeda(c.valor_pago)}</td>
+
+                    <td class="money ${Number(c.valor_restante||0)>0 ? "money-yellow" : "money-green"}">
+                        ${moeda(c.valor_restante)}
+                    </td>
+
+                    <td>
+                        <span class="badge ${status[2]}">${status[1]}</span>
+                    </td>
+
+                </tr>
+            `;
+        }).join("");
+    }
+
+    function filtrarContratos(){
+        const busca =
+            document.getElementById("pesquisaContrato")
+                .value
+                .toLowerCase()
+                .trim();
+
+        const status =
+            document.getElementById("statusFiltro").value;
+
+        document.querySelectorAll("#tabelaContratos tr").forEach(tr => {
+            const texto = tr.innerText.toLowerCase();
+            const okBusca = !busca || texto.includes(busca);
+            const okStatus = !status || tr.dataset.status === status;
+
+            tr.style.display =
+                okBusca && okStatus ? "" : "none";
+        });
+    }
+
+    function renderizarEstoque(lista){
+        const tbody = document.getElementById("tabelaEstoque");
+
+        if(!lista.length){
+            tbody.innerHTML =
+                `<tr><td colspan="5" class="empty">Nenhum item ativo no estoque.</td></tr>`;
+            return;
+        }
+
+        tbody.innerHTML = lista.map(item => {
+            const valorTotal =
+                Number(item.quantidade || 0) *
+                Number(item.preco || 0);
+
+            let classe = "badge-green";
+            if(item.nivel === "medio") classe = "badge-yellow";
+            if(item.nivel === "baixo") classe = "badge-red";
+
+            return `
+                <tr>
+                    <td>
+                        <span class="cliente">${escapeHtml(item.nome)}</span>
+                        <span class="sub">${escapeHtml(item.categoria || "Sem categoria")}</span>
+                    </td>
+                    <td>${numero(item.quantidade)} ${escapeHtml(item.unidade || "")}</td>
+                    <td>${moeda(item.preco)}</td>
+                    <td class="money">${moeda(valorTotal)}</td>
+                    <td>
+                        <span class="badge ${classe}">
+                            ${escapeHtml(item.nivel_label)}
+                        </span>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+    }
+
+    function renderizarGrafico(evolucao){
+        const canvas = document.getElementById("grafico");
+        const ctx = canvas.getContext("2d");
+
+        const rect = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+
+        ctx.setTransform(dpr,0,0,dpr,0,0);
+
+        const w = rect.width;
+        const h = rect.height;
+
+        ctx.clearRect(0,0,w,h);
+
+        if(!evolucao.length){
+            ctx.fillStyle = "#888";
+            ctx.font = "12px Poppins";
+            ctx.textAlign = "center";
+            ctx.fillText("Sem dados suficientes para o gráfico.",w/2,h/2);
+            return;
+        }
+
+        const margem = {left:50,right:20,top:15,bottom:35};
+        const largura = w - margem.left - margem.right;
+        const altura = h - margem.top - margem.bottom;
+
+        const valores = [];
+
+        evolucao.forEach(item => {
+            valores.push(Number(item.faturamento || 0));
+            valores.push(Number(item.recebido || 0));
+        });
+
+        const max = Math.max(...valores,1);
+        const passoX =
+            evolucao.length === 1
+                ? largura
+                : largura / (evolucao.length-1);
+
+        ctx.strokeStyle = "#eceef1";
+        ctx.lineWidth = 1;
+
+        for(let i=0;i<=4;i++){
+            const y = margem.top + altura - (altura*i/4);
+
+            ctx.beginPath();
+            ctx.moveTo(margem.left,y);
+            ctx.lineTo(w-margem.right,y);
+            ctx.stroke();
+
+            ctx.fillStyle = "#999";
+            ctx.font = "9px Poppins";
+            ctx.textAlign = "right";
+
+            const valor = max*i/4;
+            ctx.fillText(moedaAbreviada(valor),margem.left-7,y+3);
+        }
+
+        desenharLinha(
+            ctx,
+            evolucao,
+            item => Number(item.faturamento||0),
+            "#111",
+            margem,
+            largura,
+            altura,
+            max,
+            passoX
+        );
+
+        desenharLinha(
+            ctx,
+            evolucao,
+            item => Number(item.recebido||0),
+            "#777",
+            margem,
+            largura,
+            altura,
+            max,
+            passoX
+        );
+
+        evolucao.forEach((item,i) => {
+            const x = margem.left + i*passoX;
+
+            ctx.fillStyle = "#888";
+            ctx.font = "9px Poppins";
+            ctx.textAlign = "center";
+
+            ctx.fillText(
+                item.label,
+                x,
+                h-10
+            );
+        });
+    }
+
+    function moedaAbreviada(valor){
+        valor = Number(valor||0);
+
+        if(valor >= 1000000)
+            return "R$ " + (valor/1000000).toFixed(1) + "M";
+
+        if(valor >= 1000)
+            return "R$ " + (valor/1000).toFixed(1) + "k";
+
+        return "R$ " + Math.round(valor);
+    }
+
+    function desenharLinha(
+        ctx,
+        lista,
+        obter,
+        cor,
+        margem,
+        largura,
+        altura,
+        max,
+        passoX
+    ){
+        ctx.strokeStyle = cor;
+        ctx.lineWidth = 2.5;
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+
+        ctx.beginPath();
+
+        lista.forEach((item,i) => {
+            const valor = obter(item);
+            const x = margem.left + i*passoX;
+            const y =
+                margem.top +
+                altura -
+                (valor/max)*altura;
+
+            if(i===0) ctx.moveTo(x,y);
+            else ctx.lineTo(x,y);
+        });
+
+        ctx.stroke();
+
+        lista.forEach((item,i) => {
+            const valor = obter(item);
+            const x = margem.left + i*passoX;
+            const y =
+                margem.top +
+                altura -
+                (valor/max)*altura;
+
+            ctx.fillStyle = "#fff";
+            ctx.strokeStyle = cor;
+            ctx.lineWidth = 2;
+
+            ctx.beginPath();
+            ctx.arc(x,y,4,0,Math.PI*2);
+            ctx.fill();
+            ctx.stroke();
+        });
+    }
+
+    preencherMeses();
+
+    document
+        .getElementById("mesFiltro")
+        .addEventListener("change", carregarFinanceiro);
+
+    window.addEventListener("resize", () => {
+        if(dadosFinanceiro){
+            renderizarGrafico(dadosFinanceiro.evolucao || []);
+        }
+    });
+
+    carregarFinanceiro();
+    function gerarRelatorioPDF() {
+
+    const mes = document.getElementById("mesFiltro").value;
+
+    if (!mes) {
+        alert("Selecione o mês do relatório.");
+        return;
+    }
+
+    window.open(
+        "/financeiro/relatorio-pdf?mes=" +
+        encodeURIComponent(mes),
+        "_blank"
+    );
+}
+</script>
+<center>
+<button class="btn-atualizar"
+        onclick="gerarRelatorioPDF()">
+    📄 Gerar relatório PDF
+</button>
+</center><br>
+</body>
+</html>

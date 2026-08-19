@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contrato</title>
+
+<style>
+
+/* =========================================================
+   SALONCONNECT — IDENTIDADE VISUAL
+   ========================================================= */
+
+:root{
+    --bg:#F4F6F8;
+    --white:#FFFFFF;
+
+    --panel:#FFFFFF;
+    --panel2:#F8FAFC;
+
+    --line:#E5E7EB;
+    --line2:#EEF0F3;
+
+    --text:#1F2937;
+    --text2:#374151;
+
+    --muted:#6B7280;
+    --muted2:#9CA3AF;
+
+    --primary:#2563EB;
+    --primary-light:#EFF6FF;
+    --primary-border:#DBEAFE;
+
+    --green:#16A34A;
+    --green-light:#ECFDF3;
+
+    --red:#DC2626;
+    --red-light:#FEF2F2;
+
+    --gold:#D97706;
+    --gold-light:#FFF7ED;
+
+    --shadow:0 2px 10px rgba(15,23,42,.04);
+    --shadow-hover:0 6px 18px rgba(15,23,42,.07);
+}
+
+
+/* =========================================================
+   RESET
+   ========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Arial,sans-serif;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    padding:25px;
+    overflow-x:hidden;
+}
+
+
+/* =========================================================
+   CONTAINER PRINCIPAL
+   ========================================================= */
+
+.container{
+    width:min(1400px,100%);
+    margin:0 auto;
+}
+
+
+/* =========================================================
+   DUAS COLUNAS
+   ========================================================= */
+
+.duas-colunas{
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        minmax(0,1fr);
+
+    gap:16px;
+
+    align-items:start;
+}
+
+.coluna-principal{
+    min-width:0;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:16px;
+}
+
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card{
+    width:100%;
+
+    background:var(--white);
+
+    border:1px solid var(--line);
+
+    border-radius:12px;
+
+    box-shadow:var(--shadow);
+
+    padding:22px;
+
+    margin:0;
+
+    transition:
+        box-shadow .18s ease,
+        border-color .18s ease;
+}
+
+.card:hover{
+    box-shadow:var(--shadow-hover);
+}
+
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+h1{
+    color:var(--text);
+
+    font-size:26px;
+
+    font-weight:700;
+
+    letter-spacing:-.6px;
+
+    margin-bottom:22px;
+
+    text-align:left;
+}
+
+h2{
+    color:var(--text);
+
+    font-size:17px;
+
+    font-weight:700;
+
+    margin-bottom:16px;
+}
+
+h3{
+    color:var(--text2);
+
+    font-size:13px;
+
+    font-weight:600;
+
+    margin-top:16px;
+    margin-bottom:10px;
+}
+
+h3 small{
+    font-size:11px;
+
+    font-weight:600;
+
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   TEXTOS
+   ========================================================= */
+
+p{
+    line-height:1.6;
+
+    color:var(--text2);
+
+    font-size:13px;
+
+    text-align:left;
+}
+
+.destaque{
+    font-weight:700;
+    color:var(--text);
+}
+
+
+/* =========================================================
+   GRIDS
+   ========================================================= */
+
+.grid-2,
+.grid-3{
+    display:grid;
+
+    width:100%;
+
+    gap:12px;
+}
+
+.grid-2{
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+}
+
+.grid-3{
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+}
+
+
+/* =========================================================
+   BUFFET
+   ========================================================= */
+
+.buffet-title{
+    text-align:left;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+    margin-bottom:16px;
+}
+
+.buffet-group{
+    margin-bottom:12px;
+
+    padding:13px;
+
+    border:1px solid var(--line);
+
+    border-radius:9px;
+
+    background:var(--panel2);
+}
+
+.buffet-group:last-child{
+    margin-bottom:12px;
+}
+
+.buffet-header{
+    display:flex;
+
+    gap:9px;
+
+    align-items:center;
+
+    margin-bottom:10px;
+}
+
+.buffet-header input{
+    flex:1;
+}
+
+
+/* =========================================================
+   COLUNAS / LISTAS
+   ========================================================= */
+
+.coluna div{
+    margin-bottom:8px;
+}
+
+.lista{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+
+    width:100%;
+}
+
+.lista-check{
+    display:flex;
+
+    flex-direction:column;
+
+    gap:6px;
+}
+
+.lista-check label{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    min-height:34px;
+
+    padding:7px 9px;
+
+    border:1px solid var(--line2);
+
+    border-radius:7px;
+
+    background:var(--panel2);
+
+    color:var(--text2);
+
+    font-size:11px;
+
+    cursor:pointer;
+
+    transition:
+        background .18s ease,
+        border-color .18s ease;
+}
+
+.lista-check label:hover{
+    background:var(--white);
+
+    border-color:var(--primary-border);
+}
+
+.lista-check input[type="checkbox"]{
+    width:14px;
+    height:14px;
+
+    min-width:14px;
+
+    accent-color:var(--primary);
+
+    cursor:pointer;
+}
+
+
+/* =========================================================
+   FORMULÁRIOS
+   ========================================================= */
+
+.form-group{
+    display:flex;
+
+    flex-direction:column;
+
+    min-width:0;
+
+    margin-bottom:12px;
+}
+
+.form-group label{
+    display:block;
+
+    margin-bottom:5px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    font-weight:600;
+}
+
+input,
+select,
+textarea{
+    width:100%;
+
+    min-width:0;
+
+    height:36px;
+
+    padding:7px 10px;
+
+    border:1px solid var(--line);
+
+    border-radius:7px;
+
+    outline:none;
+
+    background:var(--white);
+
+    color:var(--text);
+
+    font-size:11px;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease,
+        background .18s ease;
+}
+
+input:hover,
+select:hover,
+textarea:hover{
+    border-color:#D1D5DB;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.08);
+}
+
+textarea{
+    min-height:80px;
+
+    height:auto;
+
+    resize:vertical;
+
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   INPUT EXTRA
+   ========================================================= */
+
+.extra-input{
+    width:140px;
+
+    padding:8px 10px;
+
+    margin-top:7px;
+
+    border:1px solid var(--line);
+
+    border-radius:7px;
+
+    font-size:11px;
+
+    outline:none;
+}
+
+.extra-input:focus{
+    border-color:var(--primary);
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.08);
+}
+
+
+/* =========================================================
+   CHECK ITEM
+   ========================================================= */
+
+.check-item{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    width:100%;
+
+    min-height:42px;
+
+    padding:9px 11px;
+
+    border:1px solid var(--line);
+
+    border-radius:8px;
+
+    background:var(--panel2);
+
+    transition:
+        background .18s ease,
+        border-color .18s ease;
+}
+
+.check-item:hover{
+    background:var(--white);
+
+    border-color:var(--primary-border);
+}
+
+.check-item label{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin:0;
+
+    color:var(--text2);
+
+    font-size:11px;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+}
+
+.check-item input[type="checkbox"]{
+    width:14px;
+    height:14px;
+
+    min-width:14px;
+
+    accent-color:var(--primary);
+}
+
+.check-item strong{
+    margin-left:auto;
+
+    color:var(--green);
+
+    font-size:11px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+
+/* =========================================================
+   ITENS
+   ========================================================= */
+
+.item{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    width:100%;
+
+    min-width:0;
+
+    min-height:36px;
+
+    margin-bottom:6px;
+
+    padding:7px 9px;
+
+    border:1px solid var(--line2);
+
+    border-radius:7px;
+
+    background:var(--panel2);
+
+    transition:
+        background .18s ease,
+        border-color .18s ease;
+}
+
+.item:hover{
+    background:var(--white);
+
+    border-color:var(--primary-border);
+}
+
+.item input[type="checkbox"]{
+    width:14px;
+    height:14px;
+
+    min-width:14px;
+
+    accent-color:var(--primary);
+}
+
+.item input[type="text"]{
+    flex:1;
+
+    min-width:0;
+}
+
+.item input[type="number"]{
+    width:120px;
+
+    min-width:120px;
+}
+
+
+/* =========================================================
+   QUANTIDADE EXTRA
+   ========================================================= */
+
+.qtd-extra-inline{
+    display:flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-left:12px;
+}
+
+.qtd-extra-inline label{
+    margin:0;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    font-weight:600;
+}
+
+.qtd-extra-inline input{
+    width:70px;
+
+    text-align:center;
+}
+
+.nome-extra{
+    white-space:nowrap;
+
+    color:var(--text2);
+}
+
+.valor-extra-inline{
+    display:flex;
+
+    align-items:center;
+
+    gap:5px;
+
+    color:var(--green);
+
+    font-size:11px;
+
+    font-weight:700;
+
+    white-space:nowrap;
+}
+
+.valor-extra-inline input{
+    width:75px;
+
+    padding:7px;
+
+    text-align:center;
+
+    font-weight:600;
+}
+
+
+/* =========================================================
+   TOTAL
+   ========================================================= */
+
+.total-box{
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:16px;
+
+    background:var(--panel2);
+
+    border:1px solid var(--line);
+
+    border-radius:9px;
+
+    color:var(--text);
+
+    box-shadow:none;
+}
+
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.btn-info,
+.btn-finalizar,
+.btn-add,
+.btn-remove{
+    border:none;
+
+    cursor:pointer;
+
+    border-radius:7px;
+
+    font-family:Inter,Arial,sans-serif;
+
+    font-weight:600;
+
+    transition:
+        background .18s ease,
+        box-shadow .18s ease,
+        transform .18s ease;
+}
+
+
+/* INFORMAÇÕES */
+
+.btn-info{
+    background:var(--primary);
+
+    color:#fff;
+
+    padding:8px 14px;
+
+    min-height:34px;
+
+    font-size:10px;
+}
+
+.btn-info:hover{
+    background:#1D4ED8;
+
+    box-shadow:
+        0 3px 8px rgba(37,99,235,.18);
+}
+
+
+/* FINALIZAR / SALVAR */
+
+.btn-finalizar{
+    background:var(--green);
+
+    color:#fff;
+
+    padding:9px 20px;
+
+    min-height:36px;
+
+    font-size:10px;
+}
+
+.btn-finalizar:hover{
+    background:#15803D;
+
+    box-shadow:
+        0 3px 8px rgba(22,163,74,.18);
+}
+
+
+/* ADICIONAR */
+
+.btn-add{
+    background:var(--primary);
+
+    color:#fff;
+
+    padding:7px 12px;
+
+    min-height:31px;
+
+    font-size:10px;
+}
+
+.btn-add:hover{
+    background:#1D4ED8;
+}
+
+
+/* REMOVER */
+
+.btn-remove{
+    background:var(--red);
+
+    color:#fff;
+
+    padding:7px 12px;
+
+    min-height:31px;
+
+    font-size:10px;
+}
+
+.btn-remove:hover{
+    background:#B91C1C;
+}
+
+
+/* CLIQUE */
+
+.btn-info:active,
+.btn-finalizar:active,
+.btn-add:active,
+.btn-remove:active{
+    transform:translateY(1px);
+}
+
+
+/* =========================================================
+   LINHA
+   ========================================================= */
+
+hr{
+    margin:18px 0;
+
+    border:none;
+
+    border-top:1px solid var(--line2);
+}
+
+
+/* =========================================================
+   RESPONSIVO — TABLET
+   ========================================================= */
+
+@media(max-width:900px){
+
+    body{
+        padding:15px;
+    }
+
+    .duas-colunas{
+        grid-template-columns:1fr;
+    }
+
+    .grid-3{
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+    }
+
+    .card{
+        padding:17px;
+    }
+
+    .check-item{
+        flex-wrap:wrap;
+    }
+
+    .qtd-extra-inline{
+        margin-left:0;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO — CELULAR
+   ========================================================= */
+
+@media(max-width:680px){
+
+    body{
+        padding:10px;
+    }
+
+    .grid-2,
+    .grid-3{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:13px;
+    }
+
+    h1{
+        font-size:21px;
+
+        margin-bottom:17px;
+    }
+
+    h2{
+        font-size:15px;
+    }
+
+    .buffet-header{
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .item{
+        flex-wrap:wrap;
+    }
+
+    .item input[type="number"]{
+        width:100%;
+
+        min-width:0;
+    }
+
+    .check-item{
+        align-items:flex-start;
+
+        flex-direction:column;
+    }
+
+    .check-item strong{
+        margin-left:0;
+    }
+
+    .qtd-extra-inline{
+        width:100%;
+
+        margin-left:0;
+    }
+
+    .qtd-extra-inline input{
+        width:90px;
+    }
+
+    .valor-extra-inline{
+        width:100%;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVO — CELULAR PEQUENO
+   ========================================================= */
+
+@media(max-width:480px){
+
+    body{
+        padding:7px;
+    }
+
+    .card{
+        padding:10px;
+
+        border-radius:9px;
+    }
+
+    h1{
+        font-size:19px;
+    }
+
+    input,
+    select,
+    textarea{
+        font-size:11px;
+    }
+
+    .btn-info,
+    .btn-finalizar{
+        width:100%;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="duas-colunas">
+
+        <!-- =====================================================
+             COLUNA ESQUERDA
+             ===================================================== -->
+
+        <div class="coluna-principal">
+
+            <!-- SERVIÇOS -->
+
+            <div class="card">
+
+                <h2>🐾 Serviços Oferecidos</h2>
+
+                <div class="form-group">
+
+                    <label>Descrição dos Serviços</label>
+
+                    <textarea
+                        id="servicos"
+                        name="servicos"
+                        rows="4"
+                        placeholder="Digite aqui todos os serviços oferecidos pelo salão..."></textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- BUFFET -->
+
+            <div class="card">
+
+                <h2 class="buffet-title">
+                    🍽️ BUFFET
+                </h2>
+
+                <div id="buffetContainer"></div>
+
+                <button
+                    type="button"
+                    class="btn-info"
+                    onclick="novoGrupo()">
+
+                    ➕ Adicionar Serviço
+
+                </button>
+
+            </div>
+
+
+            <!-- DOCES -->
+
+            <div class="card">
+
+                <h2 class="buffet-title">
+                    🍬 DOCES
+                </h2>
+
+                <div id="docesContainer"></div>
+
+                <button
+                    type="button"
+                    class="btn-info"
+                    onclick="novoGrupoDoces()">
+
+                    ➕ Adicionar Categoria de Doces
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             COLUNA DIREITA
+             ===================================================== -->
+
+        <div class="coluna-principal">
+
+            <!-- ADICIONAIS -->
+
+            <div class="card">
+
+                <h2 class="buffet-title">
+                    ✨ ADICIONAIS
+                </h2>
+
+                <div id="adicionaisContainer"></div>
+
+                <button
+                    type="button"
+                    class="btn-info"
+                    onclick="novoGrupoAdicional()">
+
+                    ➕ Adicionar Categoria
+
+                </button>
+
+            </div>
+
+
+            <!-- NEGOCIAÇÃO -->
+
+            <div class="card">
+
+                <h2>
+                    💰 Negociação
+                </h2>
+
+                <div class="form-group">
+
+                    <label>
+                        Pacote do Evento
+                    </label>
+
+                    <div id="pacotesContainer"></div>
+
+                    <button
+                        type="button"
+                        class="btn-info"
+                        onclick="novoPacote()">
+
+                        ➕ Adicionar Pacote
+
+                    </button>
+
+                </div>
+
+
+                <hr>
+
+
+                <h3>
+                    👥 Convidados Extras
+                </h3>
+
+
+                <div class="convidado-extra">
+
+                    <div class="check-item">
+
+                        <label>
+
+                            <input
+                                type="checkbox"
+                                onchange="toggleConvidadosExtras(this)">
+
+                            <span class="nome-extra">
+                                Convidados Extras
+                            </span>
+
+                        </label>
+
+
+                        <div class="valor-extra-inline">
+
+                            <span>R$</span>
+
+                            <input
+                                type="number"
+                                id="valorExtra"
+                                value="65"
+                                min="0"
+                                step="0.01">
+
+                            <span>cada</span>
+
+                        </div>
+
+
+                        <div
+                            class="qtd-extra-inline"
+                            id="qtdExtra"
+                            style="display:none;">
+
+                            <span>Qtd.</span>
+
+                            <input
+                                type="number"
+                                min="1"
+                                value="1">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <br>
+
+
+                <div class="total-box">
+
+                    <button
+                        type="button"
+                        class="btn-finalizar"
+                        onclick="salvarConfiguracao()">
+
+                        💾 Salvar Informações do Contrato
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const buffet = document.getElementById("buffetContainer");
+
+function novoGrupo(){
+
+    const grupo = document.createElement("div");
+
+    grupo.className = "buffet-group";
+
+    grupo.innerHTML = `
+
+        <div class="buffet-header">
+
+            <input
+                type="text"
+                placeholder="Nome do serviço (Ex.: Salgados, Massas...)">
+
+            <button
+                type="button"
+                class="btn-remove"
+                onclick="this.closest('.buffet-group').remove()">
+
+                🗑 Remover
+
+            </button>
+
+        </div>
+
+        <div class="itens"></div>
+
+        <button
+            type="button"
+            class="btn-add"
+            onclick="novoItem(this)">
+
+            ➕ Adicionar Item
+
+        </button>
+
+    `;
+
+    buffet.appendChild(grupo);
+
+}
+
+
+function novoItem(botao){
+
+    const lista =
+        botao.parentElement.querySelector(".itens");
+
+    const item =
+        document.createElement("div");
+
+    item.className = "item";
+
+    item.innerHTML = `
+
+        <input type="checkbox">
+
+        <input
+            type="text"
+            placeholder="Nome do item">
+
+        <button
+            type="button"
+            class="btn-remove"
+            onclick="this.parentElement.remove()">
+
+            ❌
+
+        </button>
+
+    `;
+
+    lista.appendChild(item);
+
+}
+
+
+const doces =
+    document.getElementById("docesContainer");
+
+
+function novoGrupoDoces(){
+
+    const grupo =
+        document.createElement("div");
+
+    grupo.className = "buffet-group";
+
+    grupo.innerHTML = `
+
+        <div class="buffet-header">
+
+            <input
+                type="text"
+                placeholder="Nome da categoria (Ex.: Brigadeiros, Chocolates, Balas...)">
+
+            <button
+                type="button"
+                class="btn-remove"
+                onclick="this.closest('.buffet-group').remove()">
+
+                🗑 Remover
+
+            </button>
+
+        </div>
+
+        <div class="itens"></div>
+
+        <button
+            type="button"
+            class="btn-add"
+            onclick="novoItemDoce(this)">
+
+            ➕ Adicionar Doce
+
+        </button>
+
+    `;
+
+    doces.appendChild(grupo);
+
+}
+
+
+function novoItemDoce(botao){
+
+    const lista =
+        botao.parentElement.querySelector(".itens");
+
+    const item =
+        document.createElement("div");
+
+    item.className = "item";
+
+    item.innerHTML = `
+
+        <input type="checkbox">
+
+        <input
+            type="text"
+            placeholder="Nome do doce">
+
+        <button
+            type="button"
+            class="btn-remove"
+            onclick="this.parentElement.remove()">
+
+            ❌
+
+        </button>
+
+    `;
+
+    lista.appendChild(item);
+
+}
+
+
+const adicionais =
+    document.getElementById("adicionaisContainer");
+
+
+function novoGrupoAdicional(){
+
+    const grupo =
+        document.createElement("div");
+
+    grupo.className = "buffet-group";
+
+    grupo.innerHTML = `
+
+        <div class="buffet-header">
+
+            <input
+                type="text"
+                placeholder="Nome da categoria (Ex.: Decoração, Bebidas, Brinquedos...)">
+
+            <button
+                type="button"
+                class="btn-remove"
+                onclick="this.closest('.buffet-group').remove()">
+
+                🗑 Remover
+
+            </button>
+
+        </div>
+
+        <div class="itens"></div>
+
+        <button
+            type="button"
+            class="btn-add"
+            onclick="novoItemAdicional(this)">
+
+            ➕ Adicionar Item
+
+        </button>
+
+    `;
+
+    adicionais.appendChild(grupo);
+
+}
+
+
+function novoItemAdicional(botao){
+
+    const lista =
+        botao.parentElement.querySelector(".itens");
+
+    const item =
+        document.createElement("div");
+
+    item.className = "item";
+
+    item.innerHTML = `
+
+        <input type="checkbox">
+
+        <input
+            type="text"
+            placeholder="Nome do adicional">
+
+        <input
+            type="number"
+            placeholder="Valor (R$)"
+            min="0"
+            step="0.01">
+
+        <button
+            type="button"
+            class="btn-remove"
+            onclick="this.parentElement.remove()">
+
+            ❌
+
+        </button>
+
+    `;
+
+    lista.appendChild(item);
+
+}
+
+
+function toggleConvidadosExtras(checkbox){
+
+    const campo =
+        document.getElementById("qtdExtra");
+
+    if(checkbox.checked){
+
+        campo.style.display = "flex";
+
+    }else{
+
+        campo.style.display = "none";
+
+        campo.querySelector("input").value = 1;
+
+    }
+
+}
+
+
+function adicionarSinal(){
+
+    const lista =
+        document.getElementById("listaSinais");
+
+    const novo =
+        document.createElement("div");
+
+    novo.className = "grid-3 sinal-item";
+
+    novo.style.marginTop = "15px";
+
+    novo.innerHTML = `
+
+        <input
+            type="number"
+            placeholder="Valor do sinal">
+
+        <input
+            type="date">
+
+        <select>
+
+            <option>PIX</option>
+
+            <option>DINHEIRO</option>
+
+            <option>CARTÃO</option>
+
+        </select>
+
+    `;
+
+    lista.appendChild(novo);
+
+}
+
+
+function salvarConfiguracao(){
+
+    const dados = {
+
+        servicos:
+            document.getElementById("servicos").value,
+
+
+        buffet:
+
+            [...document.querySelectorAll(
+                "#buffetContainer .buffet-group"
+            )].map(grupo=>{
+
+                return {
+
+                    categoria:
+                        grupo.querySelector(
+                            ".buffet-header input"
+                        ).value,
+
+                    itens:
+
+                        [...grupo.querySelectorAll(
+                            ".item input[type='text']"
+                        )].map(item=>item.value)
+
+                };
+
+            }),
+
+
+        pacotes:
+
+            [...document.querySelectorAll(
+                "#pacotesContainer .buffet-group"
+            )].map(p=>{
+
+                let inputs =
+                    p.querySelectorAll("input");
+
+                return {
+
+                    nome:inputs[0].value,
+
+                    convidados:inputs[1].value,
+
+                    valor:inputs[2].value
+
+                };
+
+            }),
+
+
+        doces:
+
+            [...document.querySelectorAll(
+                "#docesContainer .buffet-group"
+            )].map(grupo=>{
+
+                return {
+
+                    categoria:
+                        grupo.querySelector(
+                            ".buffet-header input"
+                        ).value,
+
+                    itens:
+
+                        [...grupo.querySelectorAll(
+                            ".item input[type='text']"
+                        )].map(item=>item.value)
+
+                };
+
+            }),
+
+
+        adicionais:
+
+            [...document.querySelectorAll(
+                "#adicionaisContainer .buffet-group"
+            )].map(grupo=>{
+
+                return {
+
+                    categoria:
+                        grupo.querySelector(
+                            ".buffet-header input"
+                        ).value,
+
+                    itens:
+
+                        [...grupo.querySelectorAll(".item")]
+                        .map(item=>{
+
+                            return {
+
+                                nome:
+                                    item.querySelector(
+                                        "input[type='text']"
+                                    ).value,
+
+                                valor:
+                                    item.querySelector(
+                                        "input[type='number']"
+                                    ).value
+
+                            };
+
+                        })
+
+                };
+
+            }),
+
+
+        valorExtra:
+            document.getElementById("valorExtra").value
+
+    };
+
+
+    fetch("/salvar_configuracao", {
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify(dados)
+
+    })
+
+    .then(response=>response.json())
+
+    .then(resultado=>{
+
+        alert(resultado.mensagem);
+
+    })
+
+    .catch(erro=>{
+
+        console.error(erro);
+
+        alert("Erro ao salvar a configuração.");
+
+    });
+
+}
+
+
+function novoPacote(){
+
+    const container =
+        document.getElementById("pacotesContainer");
+
+    const div =
+        document.createElement("div");
+
+    div.className="buffet-group";
+
+    div.innerHTML=`
+
+        <div class="grid-3">
+
+            <input
+                type="text"
+                placeholder="Nome do pacote">
+
+            <input
+                type="number"
+                placeholder="Quantidade convidados">
+
+            <input
+                type="number"
+                placeholder="Valor R$">
+
+        </div>
+
+        <button
+            type="button"
+            class="btn-remove"
+            onclick="this.parentElement.remove()">
+
+            ❌ Remover
+
+        </button>
+
+    `;
+
+    container.appendChild(div);
+
+}
+
+
+window.addEventListener(
+    "DOMContentLoaded",
+    async () => {
+
+        try{
+
+            const response =
+                await fetch("/configuracao");
+
+            const dados =
+                await response.json();
+
+            if(!dados) return;
+
+
+            /* SERVIÇOS */
+
+            document.getElementById("servicos").value =
+                dados.servicos || "";
+
+
+            /* BUFFET */
+
+            buffet.innerHTML = "";
+
+            (dados.buffet || []).forEach(grupo=>{
+
+                novoGrupo();
+
+                const ultimo =
+                    buffet.lastElementChild;
+
+                ultimo.querySelector(
+                    ".buffet-header input"
+                ).value =
+                    grupo.categoria;
+
+                grupo.itens.forEach(item=>{
+
+                    novoItem(
+                        ultimo.querySelector(
+                            ".btn-add"
+                        )
+                    );
+
+                    const itens =
+                        ultimo.querySelectorAll(
+                            ".item"
+                        );
+
+                    itens[itens.length-1]
+                        .querySelector(
+                            "input[type='text']"
+                        )
+                        .value = item;
+
+                });
+
+            });
+
+
+            /* DOCES */
+
+            doces.innerHTML="";
+
+            (dados.doces || []).forEach(grupo=>{
+
+                novoGrupoDoces();
+
+                const ultimo =
+                    doces.lastElementChild;
+
+                ultimo.querySelector(
+                    ".buffet-header input"
+                ).value =
+                    grupo.categoria;
+
+                grupo.itens.forEach(item=>{
+
+                    novoItemDoce(
+                        ultimo.querySelector(
+                            ".btn-add"
+                        )
+                    );
+
+                    const itens =
+                        ultimo.querySelectorAll(
+                            ".item"
+                        );
+
+                    itens[itens.length-1]
+                        .querySelector(
+                            "input[type='text']"
+                        )
+                        .value=item;
+
+                });
+
+            });
+
+
+            /* ADICIONAIS */
+
+            adicionais.innerHTML="";
+
+            (dados.adicionais || []).forEach(grupo=>{
+
+                novoGrupoAdicional();
+
+                const ultimo =
+                    adicionais.lastElementChild;
+
+                ultimo.querySelector(
+                    ".buffet-header input"
+                ).value =
+                    grupo.categoria;
+
+                grupo.itens.forEach(item=>{
+
+                    novoItemAdicional(
+                        ultimo.querySelector(
+                            ".btn-add"
+                        )
+                    );
+
+                    const itens =
+                        ultimo.querySelectorAll(
+                            ".item"
+                        );
+
+                    const ultimoItem =
+                        itens[itens.length-1];
+
+                    ultimoItem.querySelector(
+                        "input[type='text']"
+                    ).value =
+                        item.nome;
+
+                    ultimoItem.querySelector(
+                        "input[type='number']"
+                    ).value =
+                        item.valor;
+
+                });
+
+            });
+
+
+            /* PACOTES */
+
+            document.getElementById(
+                "pacotesContainer"
+            ).innerHTML="";
+
+            (dados.pacotes || []).forEach(p=>{
+
+                novoPacote();
+
+                const ultimo =
+                    document.querySelector(
+                        "#pacotesContainer .buffet-group:last-child"
+                    );
+
+                const inputs =
+                    ultimo.querySelectorAll("input");
+
+                inputs[0].value =
+                    p.nome;
+
+                inputs[1].value =
+                    p.convidados;
+
+                inputs[2].value =
+                    p.valor;
+
+            });
+
+
+            /* VALOR CONVIDADO EXTRA */
+
+            document.getElementById(
+                "valorExtra"
+            ).value =
+                dados.valorExtra || 0;
+
+        }
+        catch(e){
+
+            console.log(e);
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

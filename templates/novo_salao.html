@@ -1,0 +1,2091 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SalonConnect - Assine seu plano</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   SALONCONNECT
+   ========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Poppins, sans-serif;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f4f6f8 0%,
+            #eef8fc 100%
+        );
+
+    min-height:100vh;
+
+    color:#222;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+header{
+
+    height:70px;
+
+    background:#000;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:white;
+
+}
+
+.logo{
+
+    font-size:25px;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+}
+
+.logo span{
+
+    color:#f5a623;
+
+}
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.container{
+    width:92%;
+    max-width:900px;
+    margin:15px auto 20px;
+}
+
+/* =========================================================
+   TITULO
+   ========================================================= */
+
+.title{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.title h1{
+    font-size:22px;
+    margin-bottom:4px;
+}
+
+.title p{
+    font-size:12px;
+}
+
+/* =========================================================
+   ETAPAS
+   ========================================================= */
+
+.steps{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:15px;
+    transform:scale(.85);
+}
+
+.step{
+
+    display:flex;
+
+    align-items:center;
+
+    color:#aaa;
+
+    font-size:13px;
+
+}
+
+.step-number{
+
+    width:32px;
+
+    height:32px;
+
+    border-radius:50%;
+
+    background:#ddd;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:600;
+
+    margin-right:8px;
+
+}
+
+.step.active{
+
+    color:#000;
+
+}
+
+.step.active .step-number{
+
+    background:#f5a623;
+
+    color:#000;
+
+}
+
+.line{
+    width:55px;
+    height:2px;
+    background:#ddd;
+    margin:0 10px;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.card{
+    background:white;
+    border-radius:14px;
+    padding:20px;
+    box-shadow:0 10px 35px rgba(0,0,0,.08);
+}
+
+/* =========================================================
+   PLANOS
+   ========================================================= */
+
+.plans{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.plan{
+    border:2px solid #eee;
+    border-radius:12px;
+    padding:18px;
+
+    position:relative;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    background:white;
+
+}
+
+.plan:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+
+}
+
+.plan.selected{
+
+    border-color:#f5a623;
+
+    box-shadow:0 0 0 3px rgba(245,166,35,.15);
+
+}
+
+.plan.popular{
+
+    border-color:#f5a623;
+
+}
+
+.badge{
+
+    position:absolute;
+
+    top:-13px;
+
+    right:15px;
+
+    background:#f5a623;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+.plan h2{
+    font-size:18px;
+    margin-bottom:7px;
+}
+
+.price{
+    font-size:25px;
+    font-weight:700;
+    margin:10px 0;
+}
+
+.price small{
+
+    font-size:13px;
+
+    font-weight:400;
+
+    color:#777;
+
+}
+
+.plan ul{
+    list-style:none;
+    margin:14px 0;
+}
+
+.plan li{
+    margin:7px 0;
+    font-size:12px;
+
+}
+
+.plan li::before{
+
+    content:"✓";
+
+    color:#28a745;
+
+    font-weight:bold;
+
+    margin-right:8px;
+
+}
+
+.plan-button{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#111;
+
+    color:white;
+
+    font-family:Poppins;
+
+    cursor:pointer;
+
+}
+
+.plan.selected .plan-button{
+
+    background:#f5a623;
+
+    color:#000;
+
+}
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:20px;
+
+}
+
+.field{
+
+    margin-bottom:5px;
+
+}
+
+.field.full{
+
+    grid-column:1 / -1;
+
+}
+
+label{
+
+    display:block;
+
+    font-size:13px;
+
+    font-weight:500;
+
+    margin-bottom:7px;
+
+}
+
+input{
+
+    width:100%;
+
+    padding:13px;
+
+    border:1px solid #d5d5d5;
+
+    border-radius:8px;
+
+    outline:none;
+
+    font-family:Poppins;
+
+    transition:.2s;
+
+}
+
+input:focus{
+
+    border-color:#f5a623;
+
+    box-shadow:0 0 0 3px rgba(245,166,35,.1);
+
+}
+
+/* =========================================================
+   PLANO ESCOLHIDO
+   ========================================================= */
+
+.selected-plan{
+
+    background:#f8f8f8;
+
+    padding:18px;
+
+    border-radius:10px;
+
+    margin-bottom:25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.selected-plan strong{
+
+    font-size:18px;
+
+}
+
+.selected-plan span{
+
+    color:#777;
+
+    font-size:13px;
+
+}
+
+/* =========================================================
+   PAGAMENTO
+   ========================================================= */
+
+.payment-methods{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:15px;
+
+    margin:20px 0;
+
+}
+
+.method{
+
+    border:2px solid #eee;
+
+    border-radius:10px;
+
+    padding:18px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.method:hover{
+
+    border-color:#ccc;
+
+}
+
+.method.selected{
+
+    border-color:#f5a623;
+
+    background:#fffaf0;
+
+}
+
+.method-icon{
+
+    font-size:28px;
+
+    margin-bottom:8px;
+
+}
+
+.method strong{
+
+    display:block;
+
+}
+
+.method small{
+
+    color:#777;
+
+}
+
+.payment-box{
+
+    display:none;
+
+}
+
+.payment-box.active{
+
+    display:block;
+
+}
+
+.card-grid{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr;
+
+    gap:15px;
+
+}
+
+/* =========================================================
+   PIX
+   ========================================================= */
+
+.pix-box{
+
+    text-align:center;
+
+    padding:25px;
+
+    background:#f8f8f8;
+
+    border-radius:12px;
+
+}
+
+.fake-qr{
+
+    width:180px;
+
+    height:180px;
+
+    margin:20px auto;
+
+    background:
+
+        repeating-linear-gradient(
+            45deg,
+            #000 0px,
+            #000 4px,
+            #fff 4px,
+            #fff 8px
+        );
+
+    border:10px solid white;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.1);
+
+}
+
+/* =========================================================
+   BOTOES
+   ========================================================= */
+
+.actions{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:30px;
+
+}
+
+button{
+
+    font-family:Poppins;
+
+}
+
+.btn{
+
+    flex:1;
+
+    padding:14px;
+
+    border:none;
+
+    border-radius:9px;
+
+    cursor:pointer;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+.btn-primary{
+
+    background:#f5a623;
+
+    color:#000;
+
+}
+
+.btn-secondary{
+
+    background:#eee;
+
+    color:#333;
+
+}
+
+/* =========================================================
+   SUCESSO
+   ========================================================= */
+
+.success{
+
+    display:none;
+
+    text-align:center;
+
+    padding:45px 20px;
+
+}
+
+.success-icon{
+
+    width:80px;
+
+    height:80px;
+
+    background:#28a745;
+
+    color:white;
+
+    border-radius:50%;
+
+    margin:0 auto 20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:40px;
+
+}
+
+.success h2{
+
+    margin-bottom:10px;
+
+}
+
+.success p{
+
+    color:#777;
+
+}
+
+.access-box{
+
+    margin:25px auto;
+
+    max-width:500px;
+
+    background:#f8f8f8;
+
+    padding:20px;
+
+    border-radius:12px;
+
+}
+
+.access-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:9px 0;
+
+    border-bottom:1px solid #eee;
+
+    font-size:14px;
+
+}
+
+.access-row:last-child{
+
+    border-bottom:none;
+
+}
+
+.status{
+
+    color:#28a745;
+
+    font-weight:600;
+
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media(max-width:800px){
+
+    .plans{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .form-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .field.full{
+
+        grid-column:auto;
+
+    }
+
+}
+
+@media(max-width:600px){
+
+    .card{
+
+        padding:22px;
+
+    }
+
+    .steps{
+
+        transform:scale(.85);
+
+    }
+
+    .line{
+
+        width:25px;
+
+        margin:0 5px;
+
+    }
+
+    .payment-methods{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .card-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+/* =========================================================
+   AJUSTE DO PAGAMENTO NO POP-UP
+   ========================================================= */
+
+#paymentPage{
+    padding:18px;
+}
+
+#paymentPage .selected-plan{
+    padding:12px;
+    margin-bottom:15px;
+}
+
+#paymentPage .selected-plan strong{
+    font-size:15px;
+}
+
+#paymentPage h2{
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+#paymentPage .payment-methods{
+    margin:12px 0;
+    gap:10px;
+}
+
+#paymentPage .method{
+    padding:12px;
+}
+
+#paymentPage .method-icon{
+    font-size:22px;
+    margin-bottom:4px;
+}
+
+#paymentPage .method strong{
+    font-size:13px;
+}
+
+#paymentPage .method small{
+    font-size:10px;
+}
+
+#paymentPage .card-grid{
+    gap:10px;
+}
+
+#paymentPage input{
+    padding:10px;
+    font-size:12px;
+}
+
+#paymentPage label{
+    font-size:11px;
+    margin-bottom:4px;
+}
+
+#paymentPage .pix-box{
+    padding:15px;
+}
+
+#paymentPage .fake-qr{
+    width:130px;
+    height:130px;
+    margin:10px auto;
+}
+
+#paymentPage .actions{
+    margin-top:15px;
+}
+
+#paymentPage .btn{
+    padding:11px;
+    font-size:13px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+    <div class="title">
+
+        <h1>Escolha o melhor plano para o seu salão</h1>
+
+        <p>Tenha todas as ferramentas para administrar seu salão de festas.</p>
+
+    </div>
+
+
+    <!-- =====================================================
+         ETAPAS
+         ===================================================== -->
+
+    <div class="steps">
+
+        <div class="step active" id="step1">
+
+            <div class="step-number">1</div>
+
+            Plano
+
+        </div>
+
+        <div class="line"></div>
+
+        <div class="step" id="step2">
+
+            <div class="step-number">2</div>
+
+            Cadastro
+
+        </div>
+
+        <div class="line"></div>
+
+        <div class="step" id="step3">
+
+            <div class="step-number">3</div>
+
+            Pagamento
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ETAPA 1 - PLANOS
+         ===================================================== -->
+
+    <div class="card" id="plansPage">
+
+        <div class="plans">
+
+
+            <div class="plan" data-plan="Essencial" data-price="49.90">
+
+                <h2>Essencial</h2>
+
+                <p>Para começar a organizar seu salão.</p>
+
+                <div class="price">
+
+                    R$ 49,90
+
+                    <small>/mês</small>
+
+                </div>
+
+                <ul>
+
+                    <li>Dashboard</li>
+
+                    <li>Agenda</li>
+
+                    <li>Cadastro de clientes</li>
+
+                    <li>Contratos</li>
+
+                    <li>Gestão básica</li>
+
+                </ul>
+
+                <button class="plan-button">
+
+                    Escolher plano
+
+                </button>
+
+            </div>
+
+
+            <div class="plan popular" data-plan="Profissional" data-price="99.90">
+
+                <div class="badge">
+
+                    MAIS POPULAR
+
+                </div>
+
+                <h2>Profissional</h2>
+
+                <p>Para salões que querem crescer.</p>
+
+                <div class="price">
+
+                    R$ 99,90
+
+                    <small>/mês</small>
+
+                </div>
+
+                <ul>
+
+                    <li>Todos do Essencial</li>
+
+                    <li>Estoque</li>
+
+                    <li>Financeiro</li>
+
+                    <li>Relatórios</li>
+
+                    <li>Controle de festas</li>
+
+                </ul>
+
+                <button class="plan-button">
+
+                    Escolher plano
+
+                </button>
+
+            </div>
+
+
+            <div class="plan" data-plan="Premium" data-price="149.90">
+
+                <h2>Premium</h2>
+
+                <p>Controle completo do seu negócio.</p>
+
+                <div class="price">
+
+                    R$ 149,90
+
+                    <small>/mês</small>
+
+                </div>
+
+                <ul>
+
+                    <li>Todos do Profissional</li>
+
+                    <li>Funcionários</li>
+
+                    <li>Relatórios avançados</li>
+
+                    <li>Configurações avançadas</li>
+
+                    <li>Todos os recursos</li>
+
+                </ul>
+
+                <button class="plan-button">
+
+                    Escolher plano
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         ETAPA 2 - CADASTRO
+         ===================================================== -->
+
+    <div class="card" id="registerPage" style="display:none;">
+
+        <div class="selected-plan">
+
+            <div>
+
+                <span>Plano escolhido</span>
+
+                <br>
+
+                <strong id="selectedPlanName"></strong>
+
+            </div>
+
+            <strong id="selectedPlanPrice"></strong>
+
+        </div>
+
+
+        <h2 style="margin-bottom:25px;">
+
+            Crie sua conta
+
+        </h2>
+
+
+        <form id="registerForm">
+
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>Nome do salão</label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        required
+                        placeholder="Ex.: Espaço ZOO"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Responsável</label>
+
+                    <input
+                        type="text"
+                        id="responsavel"
+                        required
+                        placeholder="Nome do responsável"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>E-mail</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        required
+                        placeholder="email@exemplo.com"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Telefone</label>
+
+                    <input
+                        type="text"
+                        id="telefone"
+                        placeholder="(21) 99999-9999"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>CNPJ</label>
+
+                    <input
+                        type="text"
+                        id="cnpj"
+                        placeholder="00.000.000/0000-00"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Cidade</label>
+
+                    <input
+                        type="text"
+                        id="cidade"
+                        placeholder="Rio de Janeiro"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Senha</label>
+
+                    <input
+                        type="password"
+                        id="senha"
+                        required
+                        placeholder="Crie uma senha"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>Confirmar senha</label>
+
+                    <input
+                        type="password"
+                        id="confirmarSenha"
+                        required
+                        placeholder="Digite novamente"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div class="actions">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    onclick="voltarPlanos()"
+                >
+
+                    Voltar
+
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+
+                    Continuar para pagamento
+
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+    <!-- =====================================================
+         ETAPA 3 - PAGAMENTO
+         ===================================================== -->
+
+    <div class="card" id="paymentPage" style="display:none;">
+
+        <div class="selected-plan">
+
+            <div>
+
+                <span>Você está assinando</span>
+
+                <br>
+
+                <strong id="paymentPlanName"></strong>
+
+            </div>
+
+            <strong id="paymentPlanPrice"></strong>
+
+        </div>
+
+
+        <h2>
+
+            Forma de pagamento
+
+        </h2>
+
+
+        <div class="payment-methods">
+
+
+            <div class="method" data-method="credito">
+
+                <div class="method-icon">💳</div>
+
+                <strong>Cartão de crédito</strong>
+
+                <small>Pagamento fictício</small>
+
+            </div>
+
+
+            <div class="method" data-method="debito">
+
+                <div class="method-icon">💳</div>
+
+                <strong>Cartão de débito</strong>
+
+                <small>Pagamento fictício</small>
+
+            </div>
+
+
+            <div class="method" data-method="pix">
+
+                <div class="method-icon">◆</div>
+
+                <strong>PIX</strong>
+
+                <small>Pagamento fictício</small>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CARTÃO -->
+
+        <div class="payment-box" id="cardPayment">
+
+
+            <div class="card-grid">
+
+
+                <div>
+
+                    <label>Número do cartão</label>
+
+                    <input
+                        type="text"
+                        id="numeroCartao"
+                        maxlength="19"
+                        placeholder="0000 0000 0000 0000"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>Validade</label>
+
+                    <input
+                        type="text"
+                        id="validade"
+                        maxlength="5"
+                        placeholder="MM/AA"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label>CVV</label>
+
+                    <input
+                        type="text"
+                        id="cvv"
+                        maxlength="4"
+                        placeholder="123"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <div style="margin-top:18px;">
+
+                <label>Nome no cartão</label>
+
+                <input
+                    type="text"
+                    id="nomeCartao"
+                    placeholder="NOME DO TITULAR"
+                >
+
+            </div>
+
+
+            <div style="margin-top:18px;">
+
+                <label>CPF do titular</label>
+
+                <input
+                    type="text"
+                    id="cpfCartao"
+                    placeholder="000.000.000-00"
+                >
+
+            </div>
+
+
+        </div>
+
+
+        <!-- PIX -->
+
+        <div class="payment-box" id="pixPayment">
+
+
+            <div class="pix-box">
+
+                <h3>Pagamento via PIX</h3>
+
+                <p style="color:#777;margin-top:8px;">
+
+                    Esta é uma simulação de pagamento.
+
+                </p>
+
+
+                <div class="fake-qr"></div>
+
+
+                <p>
+
+                    <strong>PIX COPIA E COLA</strong>
+
+                </p>
+
+
+                <div style="
+                    background:white;
+                    padding:12px;
+                    border-radius:8px;
+                    margin-top:10px;
+                    font-size:12px;
+                    word-break:break-all;
+                ">
+
+                    salonconnect-pagamento-ficticio-2026-001
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <div style="
+            margin-top:25px;
+            padding:14px;
+            background:#fff8e8;
+            border-radius:8px;
+            font-size:12px;
+            color:#777;
+        ">
+
+            ⚠️ <strong>Ambiente de demonstração:</strong>
+            nenhum pagamento real será realizado.
+
+        </div>
+
+
+        <div class="actions">
+
+
+            <button
+                class="btn btn-secondary"
+                onclick="voltarCadastro()"
+            >
+
+                Voltar
+
+            </button>
+
+
+            <button
+                class="btn btn-primary"
+                id="payButton"
+                onclick="processarPagamento()"
+            >
+
+                Pagar agora
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         SUCESSO
+         ===================================================== -->
+
+    <div class="card success" id="successPage">
+
+
+        <div class="success-icon">
+
+            ✓
+
+        </div>
+
+
+        <h2>
+
+            Pagamento aprovado!
+
+        </h2>
+
+
+        <p>
+
+            Seu salão foi cadastrado com sucesso.
+
+        </p>
+
+
+        <div class="access-box">
+
+
+            <div class="access-row">
+
+                <span>Salão</span>
+
+                <strong id="successNome"></strong>
+
+            </div>
+
+
+            <div class="access-row">
+
+                <span>Plano</span>
+
+                <strong id="successPlano"></strong>
+
+            </div>
+
+
+            <div class="access-row">
+
+                <span>Valor</span>
+
+                <strong id="successValor"></strong>
+
+            </div>
+
+
+            <div class="access-row">
+
+                <span>Pagamento</span>
+
+                <strong id="successMetodo"></strong>
+
+            </div>
+
+
+            <div class="access-row">
+
+                <span>Status</span>
+
+                <strong class="status">
+
+                    ATIVO
+
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+        <p>
+
+            Seu acesso ao plano foi liberado.
+
+        </p>
+
+
+        <div class="actions">
+
+
+            <button
+                class="btn btn-primary"
+                onclick="entrarNoSistema()"
+            >
+
+                Acessar meu salão
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   VARIÁVEIS
+   ========================================================= */
+
+let planoSelecionado = "";
+
+let valorSelecionado = 0;
+
+let metodoPagamento = "";
+
+
+/* =========================================================
+   ESCOLHER PLANO
+   ========================================================= */
+
+document.querySelectorAll(".plan").forEach(plan => {
+
+    plan.addEventListener("click", function(){
+
+        document
+            .querySelectorAll(".plan")
+            .forEach(p => p.classList.remove("selected"));
+
+        this.classList.add("selected");
+
+        planoSelecionado =
+            this.dataset.plan;
+
+        valorSelecionado =
+            parseFloat(this.dataset.price);
+
+        document.getElementById("selectedPlanName")
+            .innerText =
+            planoSelecionado;
+
+        document.getElementById("selectedPlanPrice")
+            .innerText =
+            formatarMoeda(valorSelecionado);
+
+        document.getElementById("plansPage")
+            .style.display = "none";
+
+        document.getElementById("registerPage")
+            .style.display = "block";
+
+        ativarEtapa(2);
+
+    });
+
+});
+
+
+/* =========================================================
+   FORMATAÇÃO
+   ========================================================= */
+
+function formatarMoeda(valor){
+
+    return valor.toLocaleString(
+        "pt-BR",
+        {
+            style:"currency",
+            currency:"BRL"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ETAPAS
+   ========================================================= */
+
+function ativarEtapa(numero){
+
+    document
+        .querySelectorAll(".step")
+        .forEach(step =>
+            step.classList.remove("active")
+        );
+
+    if(numero >= 1)
+        document.getElementById("step1")
+            .classList.add("active");
+
+    if(numero >= 2)
+        document.getElementById("step2")
+            .classList.add("active");
+
+    if(numero >= 3)
+        document.getElementById("step3")
+            .classList.add("active");
+
+}
+
+
+/* =========================================================
+   CADASTRO
+   ========================================================= */
+
+document
+    .getElementById("registerForm")
+    .addEventListener("submit", function(e){
+
+        e.preventDefault();
+
+        const senha =
+            document.getElementById("senha").value;
+
+        const confirmar =
+            document.getElementById("confirmarSenha").value;
+
+        if(senha !== confirmar){
+
+            alert("As senhas não são iguais.");
+
+            return;
+
+        }
+
+        document.getElementById("paymentPlanName")
+            .innerText =
+            planoSelecionado;
+
+        document.getElementById("paymentPlanPrice")
+            .innerText =
+            formatarMoeda(valorSelecionado);
+
+        document.getElementById("registerPage")
+            .style.display = "none";
+
+        document.getElementById("paymentPage")
+            .style.display = "block";
+
+        ativarEtapa(3);
+
+    });
+
+
+/* =========================================================
+   MÉTODO DE PAGAMENTO
+   ========================================================= */
+
+document.querySelectorAll(".method").forEach(method => {
+
+    method.addEventListener("click", function(){
+
+        document
+            .querySelectorAll(".method")
+            .forEach(m =>
+                m.classList.remove("selected")
+            );
+
+        this.classList.add("selected");
+
+        metodoPagamento =
+            this.dataset.method;
+
+        document
+            .getElementById("cardPayment")
+            .classList.remove("active");
+
+        document
+            .getElementById("pixPayment")
+            .classList.remove("active");
+
+
+        if(
+            metodoPagamento === "credito" ||
+            metodoPagamento === "debito"
+        ){
+
+            document
+                .getElementById("cardPayment")
+                .classList.add("active");
+
+        }
+
+        if(metodoPagamento === "pix"){
+
+            document
+                .getElementById("pixPayment")
+                .classList.add("active");
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   PROCESSAR PAGAMENTO
+   ========================================================= */
+
+async function processarPagamento(){
+
+    if(!metodoPagamento){
+
+        alert("Escolha uma forma de pagamento.");
+
+        return;
+
+    }
+
+
+    if(
+        metodoPagamento === "credito" ||
+        metodoPagamento === "debito"
+    ){
+
+        const numero =
+            document.getElementById("numeroCartao").value;
+
+        const validade =
+            document.getElementById("validade").value;
+
+        const cvv =
+            document.getElementById("cvv").value;
+
+        const nomeCartao =
+            document.getElementById("nomeCartao").value;
+
+
+        if(
+            !numero ||
+            !validade ||
+            !cvv ||
+            !nomeCartao
+        ){
+
+            alert(
+                "Preencha todos os dados do cartão."
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    const button =
+        document.getElementById("payButton");
+
+
+    button.disabled = true;
+
+    button.innerText =
+        "Processando pagamento...";
+
+
+    /*
+    ========================================================
+    SIMULAÇÃO DO PAGAMENTO
+    ========================================================
+    */
+
+    setTimeout(async function(){
+
+        try{
+
+            const dados = {
+
+                nome:
+                    document.getElementById("nome").value,
+
+                responsavel:
+                    document.getElementById("responsavel").value,
+
+                email:
+                    document.getElementById("email").value,
+
+                telefone:
+                    document.getElementById("telefone").value,
+
+                cnpj:
+                    document.getElementById("cnpj").value,
+
+                cidade:
+                    document.getElementById("cidade").value,
+
+                plano:
+                    planoSelecionado,
+
+                senha:
+                    document.getElementById("senha").value
+
+            };
+
+
+            /*
+            ==================================================
+            ENVIA PARA O FLASK
+            ==================================================
+            */
+
+            const resposta =
+                await fetch(
+                    "/cadastrar_salao",
+                    {
+
+                        method:"POST",
+
+                        headers:{
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(dados)
+
+                    }
+                );
+
+
+            const resultado =
+                await resposta.json();
+
+
+            if(!resultado.sucesso){
+
+                alert(
+                    resultado.mensagem ||
+                    "Não foi possível concluir o cadastro."
+                );
+
+                button.disabled = false;
+
+                button.innerText =
+                    "Pagar agora";
+
+                return;
+
+            }
+
+
+            /*
+            ================================================
+            PAGAMENTO APROVADO
+            ================================================
+            */
+
+            mostrarSucesso(
+                resultado
+            );
+
+
+        }catch(error){
+
+            console.error(error);
+
+            alert(
+                "Erro ao comunicar com o servidor."
+            );
+
+            button.disabled = false;
+
+            button.innerText =
+                "Pagar agora";
+
+        }
+
+    }, 2000);
+
+}
+
+
+/* =========================================================
+   SUCESSO
+   ========================================================= */
+
+function mostrarSucesso(resultado){
+
+    document.getElementById("paymentPage")
+        .style.display = "none";
+
+    document.getElementById("successPage")
+        .style.display = "block";
+
+
+    document.getElementById("successNome")
+        .innerText =
+        resultado.nome;
+
+
+    document.getElementById("successPlano")
+        .innerText =
+        resultado.plano;
+
+
+    document.getElementById("successValor")
+        .innerText =
+        formatarMoeda(valorSelecionado);
+
+
+    let metodo = "";
+
+
+    if(metodoPagamento === "credito"){
+
+        metodo = "Cartão de crédito";
+
+    }
+
+
+    if(metodoPagamento === "debito"){
+
+        metodo = "Cartão de débito";
+
+    }
+
+
+    if(metodoPagamento === "pix"){
+
+        metodo = "PIX";
+
+    }
+
+
+    document.getElementById("successMetodo")
+        .innerText = metodo;
+
+}
+
+
+/* =========================================================
+   VOLTAR
+   ========================================================= */
+
+function voltarPlanos(){
+
+    document.getElementById("registerPage")
+        .style.display = "none";
+
+    document.getElementById("plansPage")
+        .style.display = "block";
+
+    ativarEtapa(1);
+
+}
+
+
+function voltarCadastro(){
+
+    document.getElementById("paymentPage")
+        .style.display = "none";
+
+    document.getElementById("registerPage")
+        .style.display = "block";
+
+    ativarEtapa(2);
+
+}
+
+
+/* =========================================================
+   ACESSAR SISTEMA
+   ========================================================= */
+
+function entrarNoSistema(){
+
+    if(window.parent && window.parent.fecharNovoSalao){
+        window.parent.fecharNovoSalao();
+    }
+
+}
+
+
+/* =========================================================
+   MÁSCARA CARTÃO
+   ========================================================= */
+
+document
+    .getElementById("numeroCartao")
+    .addEventListener("input", function(){
+
+        let value =
+            this.value
+            .replace(/\D/g,"")
+            .substring(0,16);
+
+        value =
+            value.match(/.{1,4}/g);
+
+        this.value =
+            value
+            ? value.join(" ")
+            : "";
+
+    });
+
+
+/* =========================================================
+   MÁSCARA VALIDADE
+   ========================================================= */
+
+document
+    .getElementById("validade")
+    .addEventListener("input", function(){
+
+        let value =
+            this.value
+            .replace(/\D/g,"")
+            .substring(0,4);
+
+        if(value.length >= 3){
+
+            value =
+                value.substring(0,2)
+                + "/"
+                + value.substring(2);
+
+        }
+
+        this.value = value;
+
+    });
+
+
+/* =========================================================
+   MÁSCARA CVV
+   ========================================================= */
+
+document
+    .getElementById("cvv")
+    .addEventListener("input", function(){
+
+        this.value =
+            this.value
+            .replace(/\D/g,"")
+            .substring(0,4);
+
+    });
+
+</script>
+
+</body>
+
+</html>
+```

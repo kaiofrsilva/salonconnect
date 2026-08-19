@@ -1,0 +1,307 @@
+!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <style>
+.hero{
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+</style>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SalonConnect</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="header">
+  <div class="nav">
+
+    <div class="logo-area">
+      <img src="static/img/logo_preto_hor.png" class="logo">
+    </div>
+
+<div id="loginContainer" style="display:flex;align-items:center;gap:12px;">
+
+    <button id="btnLogin" class="btn-login" onclick="toggleLogin()">
+        <span class="icon">👤</span>
+        LOGIN
+    </button>
+
+    <div id="userArea"></div>
+
+</div>
+
+  <div id="loginBox" style="
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    margin-top:10px;
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:2000;
+    width:220px;
+  ">
+    <input type="email" id="email" placeholder="Email" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="senha" placeholder="Senha" style="width:100%; margin-bottom:10px;">
+    <button onclick="logar()" style="width:100%;">
+    Entrar
+</button>
+  </div>
+
+</div>
+    </nav>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  </div>
+</header>
+
+    <title>Orçamentos - SalonConnect</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+
+        .voltar{
+
+            color:white;
+
+            text-decoration:none;
+
+            background:#444;
+
+            padding:10px 20px;
+
+            border-radius:8px;
+
+        }
+
+        .container{
+
+            width:95%;
+
+            margin:40px auto;
+
+        }
+
+        .titulo{
+
+            margin-bottom:20px;
+
+            font-size:28px;
+
+            color:#333;
+
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+            background:white;
+
+            border-radius:10px;
+
+            overflow:hidden;
+
+            box-shadow:0 10px 20px rgba(0,0,0,.08);
+
+        }
+
+        th{
+
+            background:#111;
+
+            color:white;
+
+            padding:15px;
+
+        }
+
+        td{
+
+            padding:15px;
+
+            border-bottom:1px solid #eee;
+
+            text-align:center;
+
+        }
+
+        tr:hover{
+
+            background:#f9f9f9;
+
+        }
+
+        .semDados{
+
+            margin-top:30px;
+
+            text-align:center;
+
+            font-size:18px;
+
+            color:#888;
+
+        }
+
+        .btn-excluir{
+
+    background:#dc3545;
+
+    color:white;
+
+    padding:8px 16px;
+
+    border-radius:6px;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-excluir:hover{
+
+    background:#b02a37;
+
+}
+.col-gestao{
+
+    max-width:220px;
+
+    white-space:normal;
+
+    word-wrap:break-word;
+
+    line-height:1.5;
+
+    text-align:left;
+
+}
+    </style>
+
+</head>
+
+<body>
+
+<header>
+
+    <h2>SalonConnect</h2>
+<br>
+    <a href="/admin" class="voltar">
+        ← Voltar
+    </a>
+
+</header>
+
+<div class="container">
+
+<h1 class="titulo">
+
+Orçamentos Recebidos
+
+</h1>
+
+{% if lista %}
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+
+<th>Gestão Atual</th>
+
+<th>Nome</th>
+
+<th>Salão</th>
+
+<th>Plano</th>
+
+<th>WhatsApp</th>
+
+<th>Email</th>
+
+<th>Funcionários</th>
+
+<th>Origem</th>
+
+<th>Data</th>
+
+<th>Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for o in lista %}
+
+<tr>
+
+<td>{{ o.id }}</td>
+
+<td class="col-gestao">
+    {{ o.gestao }}
+</td>
+
+<td>{{ o.nome }}</td>
+
+<td>{{ o.salao }}</td>
+
+<td>{{ o.plano }}</td>
+
+<td>{{ o.whatsapp }}</td>
+
+<td>{{ o.email }}</td>
+
+<td>{{ o.funcionarios }}</td>
+
+<td>{{ o.origem }}</td>
+
+<td>{{ o.data.strftime('%d/%m/%Y %H:%M') }}</td>
+
+<td>
+    <a href="/excluir_orcamento/{{ o.id }}"
+       onclick="return confirm('Deseja realmente excluir este orçamento?');"
+       class="btn-excluir">
+        Excluir
+    </a>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+{% else %}
+
+<div class="semDados">
+
+Nenhum orçamento encontrado.
+
+</div>
+
+{% endif %}
+
+</div>
+<script src="static/js/script.js"></script>
+</body>
+
+</html>

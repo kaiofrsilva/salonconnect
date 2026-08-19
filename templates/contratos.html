@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contratos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <header class="topbar">
+
+            <div>
+
+                <h1>
+                    Contratos
+                </h1>
+
+                <p>
+                    Todos os contratos.
+                </p>
+
+            </div>
+  </header>
+  <br>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',Arial,sans-serif;
+}
+
+:root{
+    --bg:#F4F6F8;
+    --panel:#FFFFFF;
+    --line:#E5E7EB;
+    --line2:#EEF0F3;
+    --text:#1F2937;
+    --text2:#374151;
+    --muted:#6B7280;
+    --muted2:#9CA3AF;
+    --primary:#2563EB;
+    --primary-light:#EFF6FF;
+    --primary-border:#DBEAFE;
+    --green:#16A34A;
+    --green-light:#ECFDF3;
+    --gold:#D97706;
+    --gold-light:#FFF7ED;
+    --red:#DC2626;
+    --red-light:#FEF2F2;
+    --shadow:0 2px 10px rgba(15,23,42,.04);
+    --shadow-hover:0 6px 18px rgba(15,23,42,.07);
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    padding:25px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.topbar h1{
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:-.5px;
+}
+
+.topbar p{
+    margin-top:4px;
+    font-size:13px;
+    color:var(--muted);
+}
+
+/* Pesquisa */
+
+.pesquisa{
+    margin-bottom:18px;
+}
+
+.pesquisa input{
+    width:100%;
+    height:46px;
+    padding:0 16px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#FFF;
+    font-size:14px;
+    color:var(--text);
+    outline:none;
+    transition:.2s;
+}
+
+.pesquisa input:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(37,99,235,.08);
+}
+
+/* Card */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+/* Cabeçalho */
+
+th{
+    background:#FFFFFF;
+    color:var(--muted2);
+    text-transform:uppercase;
+    letter-spacing:.7px;
+    font-size:11px;
+    font-weight:700;
+    padding:16px 14px;
+    border-bottom:1px solid var(--line);
+}
+
+/* Linhas */
+
+td{
+    padding:16px 14px;
+    border-bottom:1px solid var(--line2);
+    text-align:center;
+    font-size:14px;
+    color:var(--text2);
+}
+
+tbody tr:last-child td{
+    border-bottom:none;
+}
+
+tbody tr{
+    transition:.18s;
+}
+
+tbody tr:hover{
+    background:#F8FAFC;
+}
+
+/* Status */
+
+.status{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.status.aberto{
+    background:var(--green-light);
+    color:var(--green);
+}
+
+.status.finalizado{
+    background:var(--primary-light);
+    color:var(--primary);
+}
+
+.status.cancelado{
+    background:var(--red-light);
+    color:var(--red);
+}
+
+/* Ações */
+
+.acoes{
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn-acao{
+    width:36px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#FFF;
+    font-size:16px;
+    transition:.2s;
+}
+
+.btn-acao:hover{
+    background:var(--primary-light);
+    border-color:var(--primary-border);
+    transform:translateY(-1px);
+}
+
+/* Sem contratos */
+
+.sem{
+    text-align:center;
+    padding:40px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+/* Responsivo */
+
+@media (max-width:900px){
+
+    body{
+        padding:15px;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+
+    .topbar h1{
+        font-size:22px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+
+<div class="pesquisa">
+
+    <input
+        type="text"
+        id="pesquisa"
+        placeholder="Pesquisar cliente..."
+        onkeyup="filtrar()">
+
+</div>
+
+<table id="tabela">
+
+<thead>
+
+<tr>
+
+    <th>ID</th>
+
+    <th>Cliente</th>
+
+    <th>Data Evento</th>
+
+    <th>Aniversariante</th>
+
+    <th>Valor Total</th>
+
+    <th>Status</th>
+
+    <th>Ações</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% if contratos %}
+
+{% for contrato in contratos %}
+
+<tr>
+
+    <td>{{ contrato.id }}</td>
+
+    <td>{{ contrato.cliente }}</td>
+
+    <td>{{ contrato.data_evento }}</td>
+
+    <td>{{ contrato.aniversariante }}</td>
+
+    <td>
+        R$ {{ "%.2f"|format(contrato.valor_total) }}
+    </td>
+
+    <td>
+
+        <span class="status {{ contrato.status|lower }}">
+            {{ contrato.status }}
+        </span>
+
+    </td>
+
+    <td>
+
+        <div class="acoes">
+
+            <a href="/novo_contrato?id={{ contrato.id }}&modo=visualizar" class="btn-acao">
+                👁
+            </a>
+
+            <a href="/novo_contrato?id={{ contrato.id }}&modo=editar" class="btn-acao">
+                ✏️
+            </a>
+
+            <a
+                href="/excluir_contrato/{{ contrato.id }}"
+                class="btn-acao"
+                onclick="return confirm('Deseja excluir este contrato?')">
+                🗑
+            </a>
+
+        </div>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+{% else %}
+
+<tr>
+
+    <td colspan="7" class="sem">
+        Nenhum contrato encontrado.
+    </td>
+
+</tr>
+
+{% endif %}
+
+</tbody>
+
+</table>
+
+<script>
+
+function filtrar(){
+
+    let filtro = document
+        .getElementById("pesquisa")
+        .value
+        .toUpperCase();
+
+    let linhas = document.querySelectorAll("#tabela tbody tr");
+
+    linhas.forEach(l => {
+
+        let texto = l.innerText.toUpperCase();
+
+        l.style.display =
+            texto.indexOf(filtro) > -1 ? "" : "none";
+
+    });
+
+}
+</script>
+</body>
+</html>
