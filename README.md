@@ -476,25 +476,6 @@ Quando essas informações são controladas através de cadernos, planilhas ou s
 
 O SalonConnect foi desenvolvido com a proposta de **centralizar essas informações em uma única plataforma**.
 
----
-
-## 🔮 Próximos passos
-
-Algumas funcionalidades que podem ser desenvolvidas futuramente:
-
-* [ ] Integração com WhatsApp;
-* [ ] Notificações automáticas;
-* [ ] Integração com gateway de pagamento real;
-* [ ] Aplicativo mobile;
-* [ ] Melhorias no sistema financeiro;
-* [ ] Relatórios mais avançados;
-* [ ] Integração com serviços externos;
-* [ ] Sistema de backup automático;
-* [ ] Melhorias no assistente virtual;
-* [ ] Histórico completo de movimentações;
-* [ ] Novos níveis de permissões.
-
----
 
 ## 📈 Evolução do projeto
 
