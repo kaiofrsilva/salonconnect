@@ -109,6 +109,9 @@ button{
 /* =========================================================
    MENU LATERAL
 ========================================================= */
+/* =========================================================
+   SIDEBAR
+========================================================= */
 
 .sidebar{
 
@@ -133,7 +136,26 @@ button{
     z-index:100;
 
     overflow-y:auto;
+
+    transition:
+        width .25s ease,
+        transform .25s ease;
 }
+
+
+/* =========================================================
+   SIDEBAR MINIMIZADA
+========================================================= */
+
+.sidebar.collapsed{
+
+    width:72px;
+
+    padding:24px 10px;
+}
+
+
+/* LOGO */
 
 .logo{
 
@@ -144,12 +166,26 @@ button{
     gap:11px;
 
     padding:0 9px 28px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+}
+
+.sidebar.collapsed .logo{
+
+    justify-content:center;
+
+    padding-left:0;
+    padding-right:0;
 }
 
 .logo-mark{
 
     width:39px;
     height:39px;
+
+    flex:none;
 
     border-radius:11px;
 
@@ -166,38 +202,24 @@ button{
     box-shadow:0 4px 10px rgba(37,99,235,.18);
 }
 
-.logo strong{
 
-    font-size:16px;
+/* ESCONDE TEXTO DO LOGO */
 
-    color:var(--text);
+.sidebar.collapsed .logo > div:last-child{
+
+    display:none;
 }
 
-.logo small{
 
-    display:block;
+/* TÍTULOS */
 
-    color:var(--muted2);
+.sidebar.collapsed .menu-title{
 
-    font-size:9px;
-
-    margin-top:3px;
-
-    letter-spacing:.4px;
+    display:none;
 }
 
-.menu-title{
 
-    font-size:9px;
-
-    text-transform:uppercase;
-
-    letter-spacing:1.4px;
-
-    color:#9CA3AF;
-
-    padding:8px 11px 9px;
-}
+/* MENU */
 
 .menu{
 
@@ -229,6 +251,10 @@ button{
     transition:.2s;
 
     cursor:pointer;
+
+    white-space:nowrap;
+
+    overflow:hidden;
 }
 
 .menu a:hover{
@@ -247,14 +273,53 @@ button{
     font-weight:700;
 }
 
+
+/* ÍCONES */
+
 .icon{
 
     width:20px;
+
+    min-width:20px;
 
     text-align:center;
 
     font-size:15px;
 }
+
+
+/* QUANDO MINIMIZADA */
+
+.sidebar.collapsed .menu a{
+
+    justify-content:center;
+
+    padding:11px 0;
+}
+
+.sidebar.collapsed .menu a .icon{
+
+    width:100%;
+}
+
+
+/* ESCONDE TEXTO DOS LINKS */
+
+.sidebar.collapsed .menu a{
+
+    font-size:0;
+}
+
+
+/* MANTÉM ÍCONE */
+
+.sidebar.collapsed .menu a .icon{
+
+    font-size:15px;
+}
+
+
+/* SALÃO */
 
 .sidebar-bottom{
 
@@ -268,37 +333,86 @@ button{
 .salao-mini{
 
     padding:10px 11px;
-}
-
-.salao-mini small{
-
-    color:#9CA3AF;
-
-    font-size:9px;
-
-    display:block;
-}
-
-.salao-mini strong{
-
-    display:block;
-
-    font-size:12px;
-
-    margin-top:4px;
-
-    white-space:nowrap;
 
     overflow:hidden;
+}
 
-    text-overflow:ellipsis;
+.sidebar.collapsed .salao-mini{
 
-    color:var(--text);
+    display:none;
 }
 
 
 /* =========================================================
-   CONTEÚDO PRINCIPAL
+   BOTÃO ☰
+========================================================= */
+
+.sidebar-toggle{
+
+    position:fixed;
+
+    left:250px;
+
+    top:18px;
+
+    width:38px;
+    height:38px;
+
+    border:1px solid var(--line);
+
+    background:#FFFFFF;
+
+    color:#374151;
+
+    border-radius:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:19px;
+
+    cursor:pointer;
+
+    z-index:150;
+
+    box-shadow:var(--shadow);
+
+    transition:
+        left .25s ease,
+        background .2s,
+        transform .2s;
+}
+
+.sidebar-toggle:hover{
+
+    background:#F8FAFC;
+
+    transform:scale(1.03);
+}
+
+
+/* =========================================================
+   QUANDO SIDEBAR ESTÁ MINIMIZADA
+========================================================= */
+
+.sidebar.collapsed ~ .content{
+
+    margin-left:72px;
+
+    width:calc(100% - 72px);
+}
+
+.sidebar.collapsed ~ .content .sidebar-toggle{
+
+    left:87px;
+}
+
+
+/* =========================================================
+   CONTEÚDO
 ========================================================= */
 
 .content{
@@ -310,6 +424,10 @@ button{
     min-height:100vh;
 
     padding:25px 30px 35px;
+
+    transition:
+        margin-left .25s ease,
+        width .25s ease;
 }
 
 
@@ -1015,24 +1133,132 @@ canvas{
 
 @media(max-width:650px){
 
+    /* SIDEBAR FECHADA */
+
     .sidebar{
 
-        display:none;
+        width:235px;
+
+        transform:translateX(-100%);
+
+        box-shadow:
+            8px 0 25px rgba(15,23,42,.10);
     }
+
+
+    /* SIDEBAR ABERTA */
+
+    .sidebar.mobile-open{
+
+        transform:translateX(0);
+    }
+
+
+    /* NO CELULAR NÃO EXISTE ESTADO MINIMIZADO */
+
+    .sidebar.collapsed{
+
+        width:235px;
+
+        padding:24px 15px;
+
+        transform:translateX(-100%);
+    }
+
+
+    .sidebar.collapsed.mobile-open{
+
+        transform:translateX(0);
+    }
+
+
+    .sidebar.collapsed .logo > div:last-child{
+
+        display:block;
+    }
+
+
+    .sidebar.collapsed .menu-title{
+
+        display:block;
+    }
+
+
+    .sidebar.collapsed .menu a{
+
+        justify-content:flex-start;
+
+        padding:11px 12px;
+
+        font-size:12px;
+    }
+
+
+    .sidebar.collapsed .menu a .icon{
+
+        width:20px;
+
+        min-width:20px;
+
+        font-size:15px;
+    }
+
+
+    .sidebar.collapsed .salao-mini{
+
+        display:block;
+    }
+
+
+    /* CONTEÚDO */
 
     .content{
 
-        margin:0;
+        margin:0 !important;
 
-        width:100%;
+        width:100% !important;
 
-        padding:17px 13px 25px;
+        padding:70px 13px 25px;
     }
 
-    .mobile-menu{
+
+    /* BOTÃO */
+
+    .sidebar-toggle{
+
+        position:fixed;
+
+        left:13px !important;
+
+        top:17px;
+
+        z-index:300;
 
         display:flex;
     }
+
+
+    /* FUNDO ESCURO ATRÁS DO MENU */
+
+    .sidebar-overlay{
+
+        display:none;
+
+        position:fixed;
+
+        inset:0;
+
+        background:rgba(15,23,42,.30);
+
+        z-index:90;
+    }
+
+
+    .sidebar-overlay.active{
+
+        display:block;
+    }
+
 
     .topbar{
 
@@ -1099,6 +1325,7 @@ canvas{
 
         border-radius:8px;
     }
+
 }
 /* =====================================================
    SALONCONNECT IA
@@ -1704,16 +1931,13 @@ canvas{
             <strong>SalonConnect</strong>
 
             <small>
-                GESTÃO INTELIGENTE
+                <br>GESTÃO INTELIGENTE
             </small>
         </div>
 
     </div>
 
 
-    <div class="menu-title">
-        Menu principal
-    </div>
 
 
     <nav class="menu">
@@ -1901,14 +2125,24 @@ canvas{
 
 </aside>
 
-
+<div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+></div>
 
 <!-- =====================================================
      CONTEÚDO
 ===================================================== -->
 
 <main class="content">
-
+<button
+    class="sidebar-toggle"
+    id="sidebarToggle"
+    type="button"
+    aria-label="Abrir ou minimizar menu"
+>
+    ☰
+</button>
 
     <!-- =================================================
          DASHBOARD
@@ -1940,12 +2174,6 @@ canvas{
 
             <div class="top-actions">
 
-                <button
-                    class="mobile-menu"
-                    onclick="toggleMenuMobile()"
-                >
-                    ☰
-                </button>
 
                 <div
                     class="date"
@@ -3000,33 +3228,6 @@ window.addEventListener(
 /* =========================================================
    MOBILE
 ========================================================= */
-
-function toggleMenuMobile(){
-
-    const sidebar =
-        document.querySelector(".sidebar");
-
-
-    if(!sidebar){
-
-        return;
-
-    }
-
-
-    if(
-        sidebar.style.display === "flex"
-    ){
-
-        sidebar.style.display = "none";
-
-    }else{
-
-        sidebar.style.display = "flex";
-
-    }
-
-}
 
 
 /* =========================================================
@@ -4401,6 +4602,162 @@ async function enviarPergunta(){
 
 }
 
+</script>
+<script>
+    /* =========================================================
+   SIDEBAR — DESKTOP + MOBILE
+========================================================= */
+
+const sidebar =
+    document.querySelector(".sidebar");
+
+const sidebarToggle =
+    document.getElementById("sidebarToggle");
+
+const sidebarOverlay =
+    document.getElementById("sidebarOverlay");
+
+
+if(sidebarToggle){
+
+    sidebarToggle.addEventListener(
+        "click",
+        function(){
+
+            if(!sidebar){
+
+                return;
+
+            }
+
+
+            /*
+             * CELULAR
+             */
+
+            if(window.innerWidth <= 650){
+
+                sidebar.classList.toggle(
+                    "mobile-open"
+                );
+
+                if(sidebarOverlay){
+
+                    sidebarOverlay.classList.toggle(
+                        "active"
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+            /*
+             * DESKTOP
+             * Minimiza / expande
+             */
+
+            sidebar.classList.toggle(
+                "collapsed"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FECHAR MENU CLICANDO FORA — CELULAR
+========================================================= */
+
+if(sidebarOverlay){
+
+    sidebarOverlay.addEventListener(
+        "click",
+        function(){
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            sidebarOverlay.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FECHAR MENU AO CLICAR EM UMA OPÇÃO — CELULAR
+========================================================= */
+
+document
+    .querySelectorAll(".menu a")
+    .forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                function(){
+
+                    if(
+                        window.innerWidth <= 650 &&
+                        !this.classList.contains("menu-sair")
+                    ){
+
+                        sidebar.classList.remove(
+                            "mobile-open"
+                        );
+
+                        if(sidebarOverlay){
+
+                            sidebarOverlay.classList.remove(
+                                "active"
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   REDIMENSIONAMENTO
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        if(window.innerWidth > 650){
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            if(sidebarOverlay){
+
+                sidebarOverlay.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+
+    }
+);
 </script>
 </body>
 </html>
