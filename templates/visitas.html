@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SalonConnect | Visitas</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Inter,Arial,sans-serif;
+    background:#F4F6F8;
+    color:#1F2937;
+    padding:28px;
+}
+
+.container{
+    max-width:1150px;
+    margin:0 auto;
+}
+
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    margin-bottom:22px;
+}
+
+h1{
+    font-size:24px;
+    letter-spacing:-.5px;
+}
+
+.subtitle{
+    color:#6B7280;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.btn{
+    border:0;
+    border-radius:9px;
+    padding:11px 16px;
+    font-weight:700;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.btn-primary{
+    background:#2563EB;
+    color:#fff;
+}
+
+.btn-secondary{
+    background:#E5E7EB;
+    color:#374151;
+}
+
+.btn-edit{
+    background:#EFF6FF;
+    color:#2563EB;
+}
+
+.btn-delete{
+    background:#FEF2F2;
+    color:#DC2626;
+}
+
+.card{
+    background:#fff;
+    border:1px solid #E5E7EB;
+    border-radius:14px;
+    box-shadow:0 2px 10px rgba(15,23,42,.04);
+    margin-bottom:18px;
+}
+
+.form-card{
+    padding:22px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+}
+
+.field{
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+}
+
+.field.full{
+    grid-column:1/-1;
+}
+
+label{
+    font-size:11px;
+    font-weight:700;
+    color:#374151;
+}
+
+input,
+textarea{
+    width:100%;
+    border:1px solid #D1D5DB;
+    border-radius:9px;
+    padding:11px 12px;
+    font:inherit;
+    font-size:12px;
+    outline:none;
+    background:#fff;
+    color:#1F2937;
+}
+
+input:focus,
+textarea:focus{
+    border-color:#2563EB;
+    box-shadow:0 0 0 3px #EFF6FF;
+}
+
+textarea{
+    min-height:125px;
+    resize:vertical;
+}
+
+.actions{
+    display:flex;
+    gap:9px;
+    justify-content:flex-end;
+    margin-top:16px;
+}
+
+.section-title{
+    font-size:15px;
+    margin-bottom:14px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,
+td{
+    padding:13px 15px;
+    border-bottom:1px solid #EEF0F3;
+    text-align:left;
+    vertical-align:top;
+}
+
+th{
+    font-size:10px;
+    color:#6B7280;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+    background:#F8FAFC;
+}
+
+td{
+    font-size:12px;
+}
+
+.visitor-info{
+    white-space:pre-wrap;
+    line-height:1.5;
+    max-width:480px;
+}
+
+.muted{
+    color:#6B7280;
+    font-size:11px;
+}
+
+.badge{
+    display:inline-block;
+    background:#EFF6FF;
+    color:#2563EB;
+    border-radius:999px;
+    padding:5px 8px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.row-actions{
+    display:flex;
+    gap:7px;
+    flex-wrap:wrap;
+}
+
+.empty{
+    text-align:center;
+    padding:40px;
+    color:#6B7280;
+    font-size:12px;
+}
+
+.notice{
+    padding:11px 13px;
+    border-radius:9px;
+    margin-bottom:15px;
+    font-size:12px;
+    display:none;
+}
+
+.notice.success{
+    display:block;
+    background:#ECFDF3;
+    color:#166534;
+}
+
+.notice.error{
+    display:block;
+    background:#FEF2F2;
+    color:#991B1B;
+}
+
+@media(max-width:700px){
+
+    body{
+        padding:18px 12px;
+    }
+
+    .header{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .field.full{
+        grid-column:auto;
+    }
+
+    .actions{
+        justify-content:stretch;
+    }
+
+    .actions .btn{
+        flex:1;
+    }
+
+    table{
+        min-width:800px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- =====================================================
+         CABEÇALHO
+    ====================================================== -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>👥 Visitas</h1>
+
+            <div class="subtitle">
+                Registre e acompanhe os visitantes do salão.
+            </div>
+
+        </div>
+
+        <button
+            class="btn btn-primary"
+            type="button"
+            onclick="novaVisita()">
+
+            ＋ Nova visita
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         AVISOS
+    ====================================================== -->
+
+    <div id="notice" class="notice"></div>
+
+
+    <!-- =====================================================
+         FORMULÁRIO
+    ====================================================== -->
+
+    <section class="card form-card" id="formCard">
+
+        <h2 class="section-title">
+
+            {% if visita_edicao %}
+
+                Editar visita
+
+            {% else %}
+
+                Registrar nova visita
+
+            {% endif %}
+
+        </h2>
+
+
+        <form id="visitaForm">
+
+            <!-- ID usado somente na edição -->
+
+            <input
+                type="hidden"
+                id="visitId"
+                value="{{ visita_edicao.id if visita_edicao else '' }}">
+
+
+            <div class="form-grid">
+
+
+                <!-- =================================================
+                     NOME
+                ================================================== -->
+
+                <div class="field full">
+
+                    <label for="nome">
+                        Nome do visitante
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        maxlength="150"
+                        value="{{ visita_edicao.nome if visita_edicao else '' }}"
+                        placeholder="Digite o nome completo do visitante"
+                        required>
+
+                </div>
+
+
+                <!-- =================================================
+                     TELEFONE
+                ================================================== -->
+
+                <div class="field">
+
+                    <label for="telefone">
+                        Telefone
+                    </label>
+
+                    <input
+                        type="text"
+                        id="telefone"
+                        maxlength="30"
+                        value="{{ visita_edicao.telefone if visita_edicao else '' }}"
+                        placeholder="(00) 00000-0000">
+
+                </div>
+
+
+                <!-- =================================================
+                     E-MAIL
+                ================================================== -->
+
+                <div class="field">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        maxlength="150"
+                        value="{{ visita_edicao.email if visita_edicao else '' }}"
+                        placeholder="exemplo@email.com">
+
+                </div>
+
+
+                <!-- =================================================
+                     CPF / DOCUMENTO
+                ================================================== -->
+
+                <div class="field">
+
+                    <label for="cpf">
+                        CPF / Documento
+                    </label>
+
+                    <input
+                        type="text"
+                        id="cpf"
+                        maxlength="30"
+                        value="{{ visita_edicao.cpf if visita_edicao else '' }}"
+                        placeholder="Digite o CPF ou documento">
+
+                </div>
+
+
+                <!-- =================================================
+                     DATA
+                ================================================== -->
+
+                <div class="field">
+
+                    <label for="data">
+                        Data da visita
+                    </label>
+
+                    <input
+                        type="date"
+                        id="data"
+                        value="{{ visita_edicao.data if visita_edicao else '' }}"
+                        required>
+
+                </div>
+
+
+                <!-- =================================================
+                     HORÁRIO
+                ================================================== -->
+
+                <div class="field">
+
+                    <label for="hora">
+                        Horário
+                    </label>
+
+                    <input
+                        type="time"
+                        id="hora"
+                        value="{{ visita_edicao.hora if visita_edicao else '' }}"
+                        required>
+
+                </div>
+
+
+                <!-- =================================================
+                     INFORMAÇÕES
+                ================================================== -->
+
+                <div class="field full">
+
+                    <label for="informacoes_visitante">
+
+                        Informações sobre a visita
+
+                    </label>
+
+                    <textarea
+                        id="informacoes_visitante"
+                        maxlength="5000"
+                        required
+                        placeholder="Ex.: Motivo da visita, quem autorizou a entrada, interesse em contratar o salão, observações e outras informações...">{{ visita_edicao.informacoes_visitante if visita_edicao else '' }}</textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 BOTÕES
+            ================================================== -->
+
+            <div class="actions">
+
+                {% if visita_edicao %}
+
+                <button
+                    class="btn btn-secondary"
+                    type="button"
+                    onclick="novaVisita()">
+
+                    Cancelar edição
+
+                </button>
+
+                {% endif %}
+
+
+                <button
+                    class="btn btn-primary"
+                    type="submit">
+
+                    {% if visita_edicao %}
+
+                        Salvar alterações
+
+                    {% else %}
+
+                        Salvar visita
+
+                    {% endif %}
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- =====================================================
+         LISTA DE VISITAS
+    ====================================================== -->
+
+    <section class="card">
+
+        <div style="padding:20px 20px 5px">
+
+            <h2
+                class="section-title"
+                style="margin-bottom:5px">
+
+                Visitas registradas
+
+            </h2>
+
+            <div class="muted">
+
+                {{ visitas|length }} visita(s) cadastrada(s)
+
+            </div>
+
+        </div>
+
+
+        {% if visitas %}
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Visitante
+                        </th>
+
+                        <th>
+                            Contato
+                        </th>
+
+                        <th>
+                            CPF / Documento
+                        </th>
+
+                        <th>
+                            Data
+                        </th>
+
+                        <th>
+                            Horário
+                        </th>
+
+                        <th>
+                            Informações
+                        </th>
+
+                        <th>
+                            Ações
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for visita in visitas %}
+
+                    <tr>
+
+
+                        <!-- =========================================
+                             VISITANTE
+                        ========================================== -->
+
+                        <td>
+
+                            <strong>
+                                {{ visita.nome or "Visitante sem nome" }}
+                            </strong>
+
+                        </td>
+
+
+                        <!-- =========================================
+                             CONTATO
+                        ========================================== -->
+
+                        <td>
+
+                            {% if visita.telefone %}
+
+                                <div>
+                                    {{ visita.telefone }}
+                                </div>
+
+                            {% else %}
+
+                                <span class="muted">
+                                    Telefone não informado
+                                </span>
+
+                            {% endif %}
+
+
+                            {% if visita.email %}
+
+                                <div
+                                    class="muted"
+                                    style="margin-top:4px">
+
+                                    {{ visita.email }}
+
+                                </div>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             CPF
+                        ========================================== -->
+
+                        <td>
+
+                            {% if visita.cpf %}
+
+                                {{ visita.cpf }}
+
+                            {% else %}
+
+                                <span class="muted">
+                                    Não informado
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             DATA
+                        ========================================== -->
+
+                        <td>
+
+                            <span class="badge">
+
+                                {{ visita.data or "--" }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- =========================================
+                             HORA
+                        ========================================== -->
+
+                        <td>
+
+                            {{ visita.hora or "--" }}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             INFORMAÇÕES
+                        ========================================== -->
+
+                        <td>
+
+                            <div class="visitor-info">
+
+                                {{ visita.informacoes_visitante or "--" }}
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- =========================================
+                             AÇÕES
+                        ========================================== -->
+
+                        <td>
+
+                            <div class="row-actions">
+
+                                <button
+                                    class="btn btn-edit"
+                                    type="button"
+                                    onclick="editarVisita('{{ visita.id }}')">
+
+                                    Editar
+
+                                </button>
+
+
+                                <button
+                                    class="btn btn-delete"
+                                    type="button"
+                                    onclick="excluirVisita('{{ visita.id }}')">
+
+                                    Excluir
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+
+            <div class="empty">
+
+                Nenhuma visita foi registrada ainda.
+
+                <br>
+
+                Clique em
+                <strong>Nova visita</strong>
+                para cadastrar a primeira.
+
+            </div>
+
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   AVISOS
+============================================================ */
+
+function mostrarAviso(mensagem, tipo){
+
+    const el = document.getElementById("notice");
+
+    el.textContent = mensagem;
+
+    el.className = "notice " + tipo;
+
+
+    setTimeout(() => {
+
+        el.className = "notice";
+
+        el.textContent = "";
+
+    }, 3500);
+
+}
+
+
+/* ============================================================
+   NOVA VISITA
+============================================================ */
+
+function novaVisita(){
+
+    window.location.href = "/visitas";
+
+}
+
+
+/* ============================================================
+   EDITAR VISITA
+============================================================ */
+
+function editarVisita(id){
+
+    window.location.href =
+        "/visitas?editar=" +
+        encodeURIComponent(id);
+
+}
+
+
+/* ============================================================
+   EXCLUIR VISITA
+============================================================ */
+
+async function excluirVisita(id){
+
+    if(!confirm(
+        "Deseja realmente excluir esta visita?"
+    )){
+        return;
+    }
+
+
+    try{
+
+        const resposta = await fetch(
+            "/excluir_visita/" +
+            encodeURIComponent(id),
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json"
+                }
+            }
+        );
+
+
+        const resultado = await resposta.json();
+
+
+        if(
+            !resposta.ok ||
+            !resultado.sucesso
+        ){
+
+            throw new Error(
+                resultado.mensagem ||
+                "Não foi possível excluir a visita."
+            );
+
+        }
+
+
+        mostrarAviso(
+            resultado.mensagem ||
+            "Visita excluída com sucesso.",
+            "success"
+        );
+
+
+        setTimeout(() => {
+
+            window.location.href = "/visitas";
+
+        }, 500);
+
+
+    }catch(erro){
+
+        mostrarAviso(
+            erro.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   ENVIO DO FORMULÁRIO
+============================================================ */
+
+document
+.getElementById("visitaForm")
+.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        const visitId =
+            document
+            .getElementById("visitId")
+            .value
+            .trim();
+
+
+        /* ====================================================
+           PAYLOAD
+        ==================================================== */
+
+        const payload = {
+
+            nome:
+                document
+                .getElementById("nome")
+                .value
+                .trim(),
+
+            telefone:
+                document
+                .getElementById("telefone")
+                .value
+                .trim(),
+
+            email:
+                document
+                .getElementById("email")
+                .value
+                .trim(),
+
+            cpf:
+                document
+                .getElementById("cpf")
+                .value
+                .trim(),
+
+            data:
+                document
+                .getElementById("data")
+                .value,
+
+            hora:
+                document
+                .getElementById("hora")
+                .value,
+
+            informacoes_visitante:
+                document
+                .getElementById("informacoes_visitante")
+                .value
+                .trim()
+
+        };
+
+
+        /* ====================================================
+           VALIDAÇÃO
+        ==================================================== */
+
+        if(!payload.nome){
+
+            mostrarAviso(
+                "Informe o nome do visitante.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!payload.data){
+
+            mostrarAviso(
+                "Informe a data da visita.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!payload.hora){
+
+            mostrarAviso(
+                "Informe o horário da visita.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(!payload.informacoes_visitante){
+
+            mostrarAviso(
+                "Informe os detalhes da visita.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* ====================================================
+           DEFINE A ROTA
+        ==================================================== */
+
+        const url = visitId
+
+            ? "/editar_visita/" +
+              encodeURIComponent(visitId)
+
+            : "/salvar_visita";
+
+
+        try{
+
+            const resposta = await fetch(
+                url,
+                {
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(payload)
+                }
+            );
+
+
+            const resultado =
+                await resposta.json();
+
+
+            if(
+                !resposta.ok ||
+                !resultado.sucesso
+            ){
+
+                throw new Error(
+                    resultado.mensagem ||
+                    "Não foi possível salvar a visita."
+                );
+
+            }
+
+
+            mostrarAviso(
+                resultado.mensagem ||
+                "Visita salva com sucesso.",
+                "success"
+            );
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "/visitas";
+
+            }, 500);
+
+
+        }catch(erro){
+
+            mostrarAviso(
+                erro.message,
+                "error"
+            );
+
+        }
+
+    }
+);
+
+
+/* ============================================================
+   DATA E HORA AUTOMÁTICAS
+============================================================ */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const data =
+            document.getElementById("data");
+
+        const hora =
+            document.getElementById("hora");
+
+
+        /* ====================================================
+           DATA ATUAL
+        ==================================================== */
+
+        if(!data.value){
+
+            const agora =
+                new Date();
+
+
+            const ano =
+                agora.getFullYear();
+
+
+            const mes =
+                String(
+                    agora.getMonth() + 1
+                ).padStart(2,"0");
+
+
+            const dia =
+                String(
+                    agora.getDate()
+                ).padStart(2,"0");
+
+
+            data.value =
+                `${ano}-${mes}-${dia}`;
+
+        }
+
+
+        /* ====================================================
+           HORA ATUAL
+        ==================================================== */
+
+        if(!hora.value){
+
+            const agora =
+                new Date();
+
+
+            hora.value =
+                String(
+                    agora.getHours()
+                ).padStart(2,"0")
+                +
+                ":"
+                +
+                String(
+                    agora.getMinutes()
+                ).padStart(2,"0");
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

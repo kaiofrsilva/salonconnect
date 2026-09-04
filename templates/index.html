@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">  
+<style>
+
+/* =========================================================
+   SALONCONNECT — CHATBOT DA INDEX
+   ========================================================= */
+
+.chatbot-button{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+
+    width:62px;
+    height:62px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#000;
+    color:#fff;
+
+    font-size:27px;
+
+    cursor:pointer;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.25);
+
+    z-index:10000;
+
+    transition:.25s;
+}
+
+.chatbot-button:hover{
+    transform:scale(1.08);
+}
+
+
+/* =========================================================
+   JANELA
+   ========================================================= */
+
+.chatbot-box{
+    position:fixed;
+
+    right:25px;
+    bottom:100px;
+
+    width:360px;
+    max-width:calc(100vw - 30px);
+
+    height:520px;
+    max-height:calc(100vh - 130px);
+
+    background:#fff;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.25);
+
+    overflow:hidden;
+
+    display:none;
+
+    flex-direction:column;
+
+    z-index:10000;
+
+    font-family:'Poppins',sans-serif;
+
+    animation:chatAbrir .25s ease;
+}
+
+.chatbot-box.aberto{
+    display:flex;
+}
+
+@keyframes chatAbrir{
+
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+.header,
+.header .nav {
+    background-color: #000000 !important;
+}
+.chatbot-header{
+
+    background:#000;
+
+    color:#fff;
+
+    padding:17px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+.chatbot-header-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.chatbot-avatar{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    background:#f5a623;
+
+    color:#000;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:20px;
+}
+
+.chatbot-header-text strong{
+    display:block;
+    font-size:14px;
+}
+
+.chatbot-header-text span{
+    font-size:11px;
+    color:#ccc;
+}
+
+.chatbot-fechar{
+
+    background:none;
+    border:none;
+
+    color:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    width:35px;
+    height:35px;
+
+    border-radius:50%;
+}
+
+.chatbot-fechar:hover{
+    background:rgba(255,255,255,.1);
+}
+
+
+/* =========================================================
+   MENSAGENS
+   ========================================================= */
+
+.chatbot-mensagens{
+
+    flex:1;
+
+    padding:18px;
+
+    overflow-y:auto;
+
+    background:#f5f6f7;
+}
+
+
+/* barra */
+
+.chatbot-mensagens::-webkit-scrollbar{
+    width:5px;
+}
+
+.chatbot-mensagens::-webkit-scrollbar-thumb{
+    background:#ccc;
+    border-radius:10px;
+}
+
+
+/* mensagens */
+
+.chat-msg{
+
+    max-width:85%;
+
+    padding:11px 13px;
+
+    border-radius:13px;
+
+    margin-bottom:10px;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+    word-wrap:break-word;
+}
+
+.chat-msg.bot{
+
+    background:#fff;
+
+    color:#333;
+
+    border-top-left-radius:4px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+
+    margin-right:auto;
+}
+
+.chat-msg.user{
+
+    background:#000;
+
+    color:#fff;
+
+    border-top-right-radius:4px;
+
+    margin-left:auto;
+}
+
+
+/* =========================================================
+   BOTÕES RÁPIDOS
+   ========================================================= */
+
+.chatbot-opcoes{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    margin-top:10px;
+}
+
+.chatbot-opcao{
+
+    border:1px solid #ddd;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:7px 10px;
+
+    font-family:Poppins;
+
+    font-size:11px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.chatbot-opcao:hover{
+
+    border-color:#f5a623;
+
+    background:#fff8e8;
+}
+
+
+/* =========================================================
+   ÁREA DE DIGITAÇÃO
+   ========================================================= */
+
+.chatbot-input-area{
+
+    display:flex;
+
+    gap:8px;
+
+    padding:12px;
+
+    border-top:1px solid #eee;
+
+    background:#fff;
+}
+
+.chatbot-input{
+
+    flex:1;
+
+    border:1px solid #ddd;
+
+    border-radius:22px;
+
+    padding:10px 14px;
+
+    outline:none;
+
+    font-family:Poppins;
+
+    font-size:12px;
+}
+
+.chatbot-input:focus{
+
+    border-color:#f5a623;
+
+}
+
+.chatbot-enviar{
+
+    width:42px;
+    height:42px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:#f5a623;
+
+    color:#000;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+}
+
+.chatbot-enviar:hover{
+
+    transform:scale(1.05);
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+
+@media(max-width:600px){
+
+    .chatbot-button{
+
+        right:15px;
+        bottom:15px;
+
+        width:56px;
+        height:56px;
+
+    }
+
+    .chatbot-box{
+
+        right:15px;
+        bottom:85px;
+
+        width:calc(100vw - 30px);
+
+        height:500px;
+
+    }
+
+}
+
+</style>
+  <style>
+.hero{
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+/* ==========================
+   MODAL NOVO SALÃO
+========================== */
+.modal-salao{
+    display:none;
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.65);
+
+    z-index:9999;
+
+    justify-content:center;
+    align-items:center;
+
+    backdrop-filter:blur(4px);
+
+    padding:20px;
+}
+
+.modal-conteudo{
+    position:relative;
+
+    width:70%;
+    max-width:850px;
+
+    height:88vh;
+    max-height:850px;
+
+    background:#fff;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.35);
+
+    animation:aparecer .25s ease;
+}
+
+/* IFRAME COM ROLAGEM */
+.modal-conteudo iframe{
+    width:100%;
+    height:100%;
+
+    border:0;
+
+    display:block;
+}
+
+/* BOTÃO FECHAR */
+.fechar-modal{
+    position:absolute;
+
+    top:15px;
+    right:18px;
+
+    width:42px;
+    height:42px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#111;
+    color:#fff;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+    z-index:10;
+}
+
+.fechar-modal:hover{
+    background:#333;
+}
+
+@keyframes aparecer{
+
+    from{
+        opacity:0;
+        transform:scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+/* ==========================
+   MOBILE
+========================== */
+
+@media(max-width:600px){
+
+    .modal-salao{
+        padding:10px;
+    }
+
+    .modal-conteudo{
+        width:100%;
+        height:94vh;
+        max-height:none;
+
+        border-radius:15px;
+    }
+
+}
+</style>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>SalonConnect</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="header">
+  <div class="nav">
+
+    <div class="logo-area">
+      <img src="static/img/logo_preto_hor.png" class="logo">
+    </div>
+
+    <nav class="menu" id="menu">
+      <a href="#sobre">Sobre</a>
+<a href="#planos" class="active">Nossos Planos</a>
+<a href="#contato">Contato</a>
+<div style="position:relative; display:flex; align-items:center;">
+
+<button class="btn-login" onclick="toggleLogin()">
+  <span class="icon">👤</span>
+  LOGIN
+</button>
+  <span id="userArea"></span>
+
+  <div id="loginBox" style="
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    margin-top:10px;
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:2000;
+    width:220px;
+  ">
+    <input type="email" id="email" placeholder="Email" style="width:100%; margin-bottom:10px;">
+    <input type="password" id="senha" placeholder="Senha" style="width:100%; margin-bottom:10px;">
+    <button onclick="logar()" style="width:100%;">
+    Entrar
+</button>
+  </div>
+
+</div>
+    </nav>
+
+    <a href="#orcamento" class="btn-orcamento-header">
+    SOLICITAR ORÇAMENTO
+</a>
+
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+  </div>
+</header>
+
+<section class="hero"><br><br><br><br><br><br><br><br><br>
+  <h1>
+    Tudo que você precisa para <br>gerenciar seu salão
+    <strong>em um só lugar.</strong>
+  </h1>
+<p style="font-family: 'Poppins', sans-serif;">
+O SalonConnect é um sistema completo para gestão de salões de festas. Controle clientes, contratos e finanças com facilidade. Tudo organizado em um só lugar.
+</p>
+</section>
+<section class="sobre" id="sobre">
+  <div class="sobre-container">
+<!--
+  <h4>Sobre</h4><br><BR> 
+-->
+    <div class="sobre-topo">
+      <div class="sobre-imagem">
+        <img src="{{ url_for('static', filename='img/logo.png') }}">
+      </div>
+
+      <div class="sobre-texto">
+        <p style="font-family: 'Poppins', sans-serif; text-align: justify; text-indent: 30px;">
+    O SalonConnect é um sistema completo desenvolvido para transformar a forma como salões de festas são gerenciados. Pensado especialmente para empreendedores do setor de eventos, ele reúne em um único lugar todas as ferramentas necessárias para organizar, automatizar e profissionalizar o seu negócio. Com o crescimento do mercado de festas e eventos, a gestão eficiente se tornou essencial para garantir qualidade no atendimento, evitar erros e aumentar a lucratividade. Foi com esse objetivo que o SalonConnect surgiu: oferecer uma solução simples, moderna e poderosa para o dia a dia dos donos de salões.
+        </p>
+      </div>
+    </div>
+
+    <div class="sobre-resto">
+      <p style="font-family: 'Poppins', sans-serif; text-align: justify; text-indent: 30px;">
+Através do sistema, é possível controlar todas as etapas do seu negócio de forma prática e intuitiva. Desde o primeiro contato com o cliente até o fechamento do contrato e a realização do evento, tudo pode ser acompanhado em tempo real. O cadastro de clientes, a criação de orçamentos, a geração de contratos e o controle de estoque passam a ser processos rápidos, organizados e livres de complicações. Mais do que um sistema de gestão, o SalonConnect é uma ferramenta estratégica para o crescimento do seu salão. Ele permite que você tenha uma visão clara do seu negócio, tome decisões mais inteligentes e elimine falhas que podem gerar prejuízos. Com menos tempo gasto em tarefas operacionais, você pode focar no que realmente importa: atender melhor seus clientes e aumentar suas vendas. Nosso compromisso é oferecer tecnologia acessível e eficiente, ajudando você a levar seu salão a um novo nível de profissionalismo. Independentemente do tamanho do seu negócio, o SalonConnect se adapta à sua realidade e cresce junto com você.
+      </p>
+    </div>
+
+  </div>
+</section>
+<section class="galeria">
+  <div class="galeria-container">
+
+    <div class="item">
+      <img src="{{ url_for('static', filename='img/deskmob_index.gif') }}">
+      <p>Gestão de Clientes</p>
+    </div>
+
+    <div class="item">
+      <img src="{{ url_for('static', filename='img/lampada_index.gif') }}">
+      <p>Contratos e Orçamentos</p>
+    </div>
+
+    <div class="item">
+      <img src="{{ url_for('static', filename='img/lapis_index.gif') }}">
+      <p>Controle Financeiro</p>
+    </div>
+
+    <div class="item">
+      <img src="{{ url_for('static', filename='img/lupa_index.gif') }}">
+      <p>Gestão de Eventos</p>
+    </div>
+
+  </div>
+</section>
+<BR><BR><BR>
+<section class="planos" id="planos">
+   <h1>Nossos Planos</h1><br><br>
+
+  <div class="planos-container">
+
+    <!-- Essencial -->
+    <div class="plano">
+      <h3>Plano Essencial</h3>
+      <p class="desc">Ideal para pequenos salões que querem começar a se organizar.</p>
+
+      <ul>
+        <li>✓ Agenda</li>
+        <li>✓ Contratos</li>
+        <li>✓ Novo Contrato</li>
+        <li>✓ Financeiro</li>
+        <li>✓ Comprovantes</li>
+      </ul>
+    </div>
+
+    <!-- Profissional -->
+    <div class="plano destaque">
+      <h3>Plano Profissional</h3>
+      <p class="desc">Perfeito para salões que querem crescer e ter mais controle.</p>
+
+      <ul>
+        <li>✓ Visão Geral</li>
+        <li>✓ Agenda</li>
+        <li>✓ Contratos</li>
+        <li>✓ Novo Contrato</li>
+        <li>✓ Financeiro</li>
+        <li>✓ Comprovantes</li>
+        <li>✓ Visitas</li>
+      </ul>
+    </div>
+
+    <!-- Avançado -->
+    <div class="plano">
+      <h3>Plano Avançado</h3>
+      <p class="desc">Solução completa para máxima performance e gestão profissional.</p>
+
+      <ul>
+        <li>✓ Visão Geral</li>
+        <li>✓ Agenda</li>
+        <li>✓ Contratos</li>
+        <li>✓ Novo Contrato</li>
+        <li>✓ Financeiro</li>
+        <li>✓ Estoque</li>
+        <li>✓ Comprovantes</li>
+        <li>✓ Visitas</li>
+      </ul>
+    </div>
+
+  </div>
+<div style="
+  text-align: center;
+  margin-top: 45px;
+">
+
+<button class="btn-criar-salao" onclick="abrirNovoSalao()">
+    ESCOLHER UM PLANO
+</button>
+
+</div>
+</section>
+<section class="orcamento-section" id="orcamento">
+  <div class="orcamento-container">
+
+    <h2>Solicitar Orçamento</h2>
+
+    <p class="intro">
+      Quer transformar a gestão do seu salão de festas?  
+      Preencha o formulário abaixo e descubra como o SalonConnect pode organizar seus eventos, automatizar processos e aumentar seus resultados.
+    </p>
+<form class="form-orcamento" id="formOrcamento">
+
+  <label>Como você gerencia seu salão hoje?*</label>
+  <textarea id="gestao" name="gestao" required placeholder="Ex: uso planilhas..."></textarea>
+
+  <div class="grid-2">
+    <div>
+      <label>Nome Completo*</label>
+      <input type="text" id="nome" name="nome" required>
+    </div>
+
+    <div>
+      <label>E-mail*</label>
+      <input type="email" id="emailCliente" name="email" required>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <label>WhatsApp*</label>
+      <input type="tel" id="whatsapp" name="whatsapp" required>
+    </div>
+
+    <div>
+      <label>Nome do salão*</label>
+      <input type="text" id="salao" name="salao" required>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <label>Tamanho do seu salão</label>
+      <select id="tamanho" name="tamanho">
+        <option>Selecione</option>
+        <option>Até 50 eventos/mês</option>
+        <option>50 a 100 eventos/mês</option>
+        <option>Mais de 100 eventos/mês</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Nº de Funcionários</label>
+      <input type="number" id="funcionarios" name="funcionarios">
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <label>Como nos conheceu?</label>
+      <select id="origem" name="origem">
+        <option>Selecione</option>
+        <option>Google</option>
+        <option>Instagram</option>
+        <option>Indicação</option>
+        <option>Outros</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Qual plano você tem interesse?*</label>
+      <select id="plano" name="plano" required>
+        <option>Selecione</option>
+        <option>Plano Essencial</option>
+        <option>Plano Profissional</option>
+        <option>Plano Avançado</option>
+        <option>Quero entender melhor</option>
+      </select>
+    </div>
+  </div>
+
+<button type="submit" id="btnEnviar" class="btn-enviar">
+  ENVIAR
+</button>
+
+</form>
+</section>
+<section class="depoimentos">
+
+    <div class="depoimentos-container">
+
+        <h2>
+            O que nossos <span>clientes</span> dizem
+        </h2>
+
+        <p class="depoimentos-sub">
+            Veja como o SalonConnect vem ajudando salões de festas a organizar seus eventos e crescer com mais eficiência.
+        </p>
+
+        <div class="depoimentos-grid">
+
+            <div class="depoimento">
+
+                <p>
+                    O Salon mudou a organização do nosso salão. Hoje controlamos contratos, agenda e clientes em um único lugar. Conseguimos reduzir erros e atender nossos clientes muito mais rápido.
+                </p>
+
+                <div class="cliente">
+
+                    <img src="{{ url_for('static', filename='img/cliente1.png') }}">
+
+                    <div>
+                        <strong>Espaço Encantado</strong>
+                        <span>@espacoencantado</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="depoimento">
+
+                <p>
+                    Antes utilizávamos planilhas para tudo.
+                    Com o Salon conseguimos automatizar nossa rotina,
+                    controlar pagamentos e visualizar todos os eventos em poucos segundos.
+                </p>
+
+                <div class="cliente">
+
+                    <img src="{{ url_for('static', filename='img/cliente2.png') }}">
+
+                    <div>
+                        <strong>Buffet Sonho Feliz</strong>
+                        <span>@buffetsonhofeliz</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="depoimento">
+
+                <p>
+                    O SalonConnect trouxe muito mais profissionalismo para nossa empresa.
+                    O controle financeiro ficou muito mais simples e os contratos são gerados rapidamente.
+                    Recomendo para qualquer salão de festas.
+                </p>
+
+                <div class="cliente">
+
+                    <img src="{{ url_for('static', filename='img/cliente3.png') }}">
+
+                    <div>
+                        <strong>Casa de Festas Premium</strong>
+                        <span>@casadefestaspremium</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<section class="clientes">
+  <div class="clientes-container">
+
+    <h2>Nossos Clientes</h2>
+
+    <p class="sub">
+      Somos obcecados pelos objetivos de nossos clientes.<br>
+      Nossa paixão pela conquista é o que nos impulsiona em direção ao sucesso em cada trabalho.
+    </p>
+
+    <div class="logos">
+      <img src="{{ url_for('static', filename='img/s1.png') }}">
+      <img src="{{ url_for('static', filename='img/s2.png') }}">
+      <img src="{{ url_for('static', filename='img/s3.png') }}">
+      <img src="{{ url_for('static', filename='img/s4.png') }}">
+      <img src="{{ url_for('static', filename='img/s5.png') }}">
+    </div>
+
+  </div>
+</section>
+<section class="footer" id="contato">
+  <div class="footer-container">
+
+    <div class="footer-col">
+      <h4>ENTRE EM CONTATO</h4>
+      <p>Telefone: (21) 9 9876-6492</p>
+      <p>Email: comercial@salonconnect.com</p>
+      <p>Avenida Santa Cruz, 432</p>
+      <p>Rio de Janeiro/RJ</p>
+      <p>Cep 21862-660</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>NAVEGUE</h4>
+      <p>Sobre</p>
+      <p>Nossos Planos</p>
+      <p>Solicite seu orçamento</p>
+    </div>
+
+  </div>
+</section>
+<script src="static/js/script.js"></script>
+<script>
+
+document.getElementById("btnLogin").addEventListener("click", async function () {
+
+    const email = document.getElementById("email").value;
+
+    const senha = document.getElementById("senha").value;
+
+    const resposta = await fetch("/login", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            email: email,
+
+            senha: senha
+
+        })
+
+    });
+
+    const dados = await resposta.json();
+
+    if (dados.sucesso) {
+
+        window.location.href = "/admin";
+
+    } else {
+
+        alert(dados.mensagem);
+
+    }
+
+});
+
+</script>
+<script>
+
+document.getElementById("formOrcamento").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const dados = {
+
+        gestao: document.getElementById("gestao").value,
+
+        nome: document.getElementById("nome").value,
+
+        email: document.getElementById("emailCliente").value,
+
+        whatsapp: document.getElementById("whatsapp").value,
+
+        salao: document.getElementById("salao").value,
+
+        tamanho: document.getElementById("tamanho").value,
+
+        funcionarios: document.getElementById("funcionarios").value,
+
+        origem: document.getElementById("origem").value,
+
+        plano: document.getElementById("plano").value
+
+    };
+
+    try{
+
+        const resposta = await fetch("/orcamento",{
+
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body: JSON.stringify(dados)
+
+        });
+
+        const retorno = await resposta.json();
+
+        alert(retorno.mensagem);
+
+        document.getElementById("formOrcamento").reset();
+
+    }catch(erro){
+
+        alert("Erro ao enviar o orçamento.");
+
+        console.log(erro);
+
+    }
+
+});
+
+</script>
+<!-- POPUP NOVO SALÃO -->
+<div id="modalSalao" class="modal-salao">
+
+    <div class="modal-conteudo">
+
+        <button class="fechar-modal" onclick="fecharNovoSalao()">
+            ✕
+        </button>
+
+<iframe
+    id="frameSalao"
+    src=""
+    frameborder="0">
+</iframe>
+
+    </div>
+
+</div>
+<script>
+function abrirNovoSalao(){
+
+    const modal = document.getElementById("modalSalao");
+    const frame = document.getElementById("frameSalao");
+
+    frame.src = "{{ url_for('novo_salao') }}";
+
+    modal.style.display = "flex";
+
+    document.body.style.overflow = "hidden";
+}
+
+function fecharNovoSalao(){
+
+    document.getElementById("modalSalao").style.display = "none";
+
+    document.getElementById("frameSalao").src = "";
+
+    document.body.style.overflow = "auto";
+}
+
+// Fecha clicando fora
+document.getElementById("modalSalao").addEventListener("click", function(e){
+
+    if(e.target === this){
+        fecharNovoSalao();
+    }
+
+});
+</script>
+<!-- =========================================================
+     SALONCONNECT — CHATBOT
+     ========================================================= -->
+
+<button
+    class="chatbot-button"
+    id="chatbotButton"
+    onclick="abrirChatbot()"
+    aria-label="Abrir assistente">
+    💬
+</button>
+
+
+<div class="chatbot-box" id="chatbotBox">
+
+    <!-- CABEÇALHO -->
+
+    <div class="chatbot-header">
+
+        <div class="chatbot-header-info">
+
+            <div class="chatbot-avatar">
+                🤖
+            </div>
+
+            <div class="chatbot-header-text">
+
+                <strong>Assistente SalonConnect</strong>
+
+                <span>Online • Posso ajudar você</span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="chatbot-fechar"
+            onclick="fecharChatbot()">
+            ×
+        </button>
+
+    </div>
+
+
+    <!-- MENSAGENS -->
+
+    <div
+        class="chatbot-mensagens"
+        id="chatbotMensagens">
+
+        <div class="chat-msg bot">
+
+            Olá! 👋<br><br>
+
+            Sou o assistente do <strong>SalonConnect</strong>.
+
+            Posso ajudar você com informações sobre nossos
+            <strong>planos, valores e recursos</strong>.
+
+            <div class="chatbot-opcoes">
+
+                <button
+                    class="chatbot-opcao"
+                    onclick="perguntaRapida('Quais são os planos?')">
+                    📋 Ver planos
+                </button>
+<button
+    class="chatbot-opcao"
+    onclick="perguntaRapida('Como posso entrar em contato?')">
+    📞 Contato
+</button>
+                <button
+                    class="chatbot-opcao"
+                    onclick="perguntaRapida('Quais são os preços?')">
+                    💰 Ver preços
+                </button>
+
+                <button
+                    class="chatbot-opcao"
+                    onclick="perguntaRapida('Qual é o plano mais popular?')">
+                    ⭐ Mais popular
+                </button>
+
+                <button
+                    class="chatbot-opcao"
+                    onclick="perguntaRapida('Como faço para contratar?')">
+                    🚀 Como contratar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DIGITAÇÃO -->
+
+    <div class="chatbot-input-area">
+
+        <input
+            type="text"
+            id="chatbotInput"
+            class="chatbot-input"
+            placeholder="Digite sua pergunta..."
+            autocomplete="off">
+
+        <button
+            class="chatbot-enviar"
+            onclick="enviarMensagem()">
+            ➤
+        </button>
+
+    </div>
+
+</div>
+<script>
+
+/* =========================================================
+   SALONCONNECT — CHATBOT
+   ========================================================= */
+
+
+/* =========================================================
+   ABRIR / FECHAR
+   ========================================================= */
+
+function abrirChatbot(){
+
+    document
+        .getElementById("chatbotBox")
+        .classList.add("aberto");
+
+    document
+        .getElementById("chatbotButton")
+        .style.display = "none";
+
+    setTimeout(function(){
+
+        document
+            .getElementById("chatbotInput")
+            .focus();
+
+    },200);
+
+}
+
+
+function fecharChatbot(){
+
+    document
+        .getElementById("chatbotBox")
+        .classList.remove("aberto");
+
+    document
+        .getElementById("chatbotButton")
+        .style.display = "block";
+
+}
+
+
+/* =========================================================
+   PERGUNTA RÁPIDA
+   ========================================================= */
+
+function perguntaRapida(pergunta){
+
+    adicionarMensagem(
+        pergunta,
+        "user"
+    );
+
+    responder(pergunta);
+
+}
+
+
+/* =========================================================
+   ENVIAR
+   ========================================================= */
+
+function enviarMensagem(){
+
+    const input =
+        document.getElementById("chatbotInput");
+
+    const pergunta =
+        input.value.trim();
+
+
+    if(!pergunta){
+
+        return;
+
+    }
+
+
+    adicionarMensagem(
+        pergunta,
+        "user"
+    );
+
+
+    input.value = "";
+
+
+    responder(pergunta);
+
+}
+
+
+/* =========================================================
+   ENTER
+   ========================================================= */
+
+document
+    .getElementById("chatbotInput")
+    .addEventListener("keydown",function(event){
+
+        if(event.key === "Enter"){
+
+            event.preventDefault();
+
+            enviarMensagem();
+
+        }
+
+    });
+
+
+/* =========================================================
+   ADICIONAR MENSAGEM
+   ========================================================= */
+
+function adicionarMensagem(
+    mensagem,
+    tipo
+){
+
+    const container =
+        document.getElementById("chatbotMensagens");
+
+
+    const div =
+        document.createElement("div");
+
+
+    div.className =
+        "chat-msg " + tipo;
+
+
+    div.innerHTML =
+        mensagem;
+
+
+    container.appendChild(div);
+
+
+    container.scrollTop =
+        container.scrollHeight;
+
+}
+
+
+/* =========================================================
+   RESPOSTAS
+   ========================================================= */
+
+function responder(pergunta){
+
+    const texto =
+        pergunta
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g,"");
+
+
+    let resposta = "";
+
+
+    /* -----------------------------------------------
+       PLANOS
+    ----------------------------------------------- */
+
+    if(
+        texto.includes("plano") &&
+        (
+            texto.includes("quais") ||
+            texto.includes("tem") ||
+            texto.includes("existem") ||
+            texto.includes("disponiveis")
+        )
+    ){
+
+        resposta = `
+            Atualmente temos <strong>3 planos</strong>:
+
+            <br><br>
+
+            🟢 <strong>Essencial</strong> — R$ 49,90/mês<br>
+            🔵 <strong>Profissional</strong> — R$ 99,90/mês<br>
+            🟠 <strong>Premium</strong> — R$ 149,90/mês
+
+            <br><br>
+
+            Cada plano possui diferentes recursos para atender
+            diferentes necessidades do seu salão.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       PREÇOS
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("preco") ||
+        texto.includes("precos") ||
+        texto.includes("valor") ||
+        texto.includes("valores") ||
+        texto.includes("quanto custa") ||
+        texto.includes("custa")
+    ){
+
+        resposta = `
+            💰 Nossos planos possuem os seguintes valores:
+
+            <br><br>
+
+            <strong>Essencial:</strong> R$ 49,90/mês<br>
+            <strong>Profissional:</strong> R$ 99,90/mês<br>
+            <strong>Premium:</strong> R$ 149,90/mês
+
+            <br><br>
+
+            Você pode escolher o plano que melhor atende
+            às necessidades do seu salão.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       ESSENCIAL
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("essencial")
+    ){
+
+        resposta = `
+            🟢 <strong>Plano Essencial — R$ 49,90/mês</strong>
+
+            <br><br>
+
+            Ideal para começar a organizar seu salão.
+
+            <br><br>
+
+            ✓ Dashboard<br>
+            ✓ Agenda<br>
+            ✓ Cadastro de clientes<br>
+            ✓ Contratos<br>
+            ✓ Gestão básica
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       PROFISSIONAL
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("profissional")
+    ){
+
+        resposta = `
+            🔵 <strong>Plano Profissional — R$ 99,90/mês</strong>
+
+            <br><br>
+
+            Perfeito para salões que querem crescer.
+
+            <br><br>
+
+            ✓ Todos os recursos do Essencial<br>
+            ✓ Controle de estoque<br>
+            ✓ Controle financeiro<br>
+            ✓ Relatórios<br>
+            ✓ Controle de festas
+
+            <br><br>
+
+            ⭐ É o nosso <strong>plano mais popular</strong>.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       PREMIUM
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("premium") ||
+        texto.includes("avancado")
+    ){
+
+        resposta = `
+            🟠 <strong>Plano Premium — R$ 149,90/mês</strong>
+
+            <br><br>
+
+            É a solução completa para o seu negócio.
+
+            <br><br>
+
+            ✓ Todos os recursos do Profissional<br>
+            ✓ Funcionários<br>
+            ✓ Relatórios avançados<br>
+            ✓ Configurações avançadas<br>
+            ✓ Todos os recursos
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       ESTOQUE
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("estoque")
+    ){
+
+        resposta = `
+            📦 O <strong>controle de estoque</strong> está
+            disponível no <strong>Plano Profissional</strong>
+            e também no <strong>Premium</strong>.
+
+            <br><br>
+
+            O Profissional custa <strong>R$ 99,90/mês</strong>.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       FINANCEIRO
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("financeiro") ||
+        texto.includes("financas") ||
+        texto.includes("faturamento")
+    ){
+
+        resposta = `
+            💰 O controle financeiro está disponível
+            a partir do <strong>Plano Profissional</strong>.
+
+            <br><br>
+
+            O Profissional custa <strong>R$ 99,90/mês</strong>
+            e também inclui relatórios e controle de festas.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       MAIS POPULAR
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("popular") ||
+        texto.includes("melhor plano") ||
+        texto.includes("recomendado")
+    ){
+
+        resposta = `
+            ⭐ O nosso <strong>Plano Profissional</strong>
+            é o mais popular.
+
+            <br><br>
+
+            Ele custa <strong>R$ 99,90/mês</strong> e oferece
+            um equilíbrio entre recursos e custo.
+
+            <br><br>
+
+            Inclui estoque, financeiro, relatórios e
+            controle de festas.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       CONTRATAR
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("contratar") ||
+        texto.includes("assinar") ||
+        texto.includes("assinatura") ||
+        texto.includes("comprar")
+    ){
+
+        resposta = `
+            🚀 É muito fácil!
+
+            <br><br>
+
+            Vá até a seção <strong>Nossos Planos</strong>
+            e clique em <strong>ESCOLHER UM PLANO</strong>.
+
+            <br><br>
+
+            Você poderá escolher seu plano, realizar seu
+            cadastro e seguir para a etapa de pagamento.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       SALONCONNECT
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("salonconnect") ||
+        texto.includes("sistema") ||
+        texto.includes("o que voces fazem") ||
+        texto.includes("o que e")
+    ){
+
+        resposta = `
+            💻 O <strong>SalonConnect</strong> é um sistema
+            desenvolvido para facilitar a gestão de salões
+            de festas.
+
+            <br><br>
+
+            Ele ajuda a organizar clientes, agenda,
+            contratos, estoque, financeiro e eventos
+            em um único lugar.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       AGENDA
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("agenda") ||
+        texto.includes("eventos")
+    ){
+
+        resposta = `
+            📅 Sim!
+
+            O SalonConnect possui <strong>controle de agenda
+            de eventos</strong>, permitindo organizar os
+            compromissos do seu salão.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       CLIENTES
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("cliente") ||
+        texto.includes("clientes")
+    ){
+
+        resposta = `
+            👥 O cadastro de clientes está disponível
+            desde o <strong>Plano Essencial</strong>.
+
+            <br><br>
+
+            Assim você consegue manter os dados dos seus
+            clientes organizados dentro do sistema.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       CONTRATOS
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("contrato") ||
+        texto.includes("contratos")
+    ){
+
+        resposta = `
+            📄 O SalonConnect possui recursos para
+            <strong>gestão de contratos</strong>.
+
+            <br><br>
+
+            O recurso está disponível desde o
+            <strong>Plano Essencial</strong>.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       SAUDAÇÕES
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("oi") ||
+        texto.includes("ola") ||
+        texto.includes("olá") ||
+        texto.includes("bom dia") ||
+        texto.includes("boa tarde") ||
+        texto.includes("boa noite")
+    ){
+
+        resposta = `
+            Olá! 👋
+
+            <br><br>
+
+            Como posso ajudar?
+
+            <br><br>
+
+            Posso falar sobre <strong>planos, preços,
+            recursos ou contratação</strong>.
+        `;
+
+    }
+
+
+    /* -----------------------------------------------
+       OBRIGADO
+    ----------------------------------------------- */
+
+    else if(
+        texto.includes("obrigado") ||
+        texto.includes("obrigada") ||
+        texto.includes("valeu")
+    ){
+
+        resposta = `
+            Por nada! 😊
+
+            <br><br>
+
+            Se precisar de mais alguma informação sobre
+            o SalonConnect, estou por aqui.
+        `;
+
+    }
+
+/* -----------------------------------------------
+   CONTATO
+----------------------------------------------- */
+
+else if(
+    texto.includes("contato") ||
+    texto.includes("telefone") ||
+    texto.includes("email") ||
+    texto.includes("e-mail") ||
+    texto.includes("endereco") ||
+    texto.includes("endereço") ||
+    texto.includes("localizacao") ||
+    texto.includes("localização") ||
+    texto.includes("onde fica") ||
+    texto.includes("como falar") ||
+    texto.includes("falar com voces") ||
+    texto.includes("falar com vocês")
+){
+
+    resposta = `
+        📞 <strong>Entre em contato com o SalonConnect</strong>
+
+        <br><br>
+
+        📱 <strong>Telefone:</strong><br>
+        (21) 9 9876-6492
+
+        <br><br>
+
+        📧 <strong>E-mail:</strong><br>
+        comercial@salonconnect.com
+
+        <br><br>
+
+        📍 <strong>Endereço:</strong><br>
+        Avenida Santa Cruz, 432<br>
+        Rio de Janeiro/RJ<br>
+        CEP 21862-660
+    `;
+
+}
+    /* -----------------------------------------------
+       NÃO ENTENDEU
+    ----------------------------------------------- */
+
+    else{
+
+        resposta = `
+            🤔 Não encontrei uma informação específica
+            sobre isso.
+
+            <br><br>
+
+            Posso ajudar com:
+
+            <br><br>
+
+            • Valores<br>
+            • Estoque<br>
+            • Financeiro<br>
+            • Agenda<br>
+            • Contratos<br>
+            • Como contratar
+        `;
+
+    }
+
+
+    /* =================================================
+       MOSTRAR RESPOSTA
+    ================================================= */
+
+    setTimeout(function(){
+
+        adicionarMensagem(
+            resposta,
+            "bot"
+        );
+
+    },400);
+
+}
+
+</script>
+<script>
+document.addEventListener('gesturestart', e => e.preventDefault());
+document.addEventListener('gesturechange', e => e.preventDefault());
+document.addEventListener('gestureend', e => e.preventDefault());
+
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (e) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+    }
+    lastTouchEnd = now;
+}, { passive: false });
+</script>
+</body>
+</html>

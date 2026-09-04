@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Agenda - SalonConnect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',Arial,sans-serif;
+}
+
+:root{
+    --bg:#F4F6F8;
+    --white:#FFF;
+    --panel:#FFFFFF;
+    --line:#E5E7EB;
+    --line2:#EEF0F3;
+    --text:#1F2937;
+    --text2:#374151;
+    --muted:#6B7280;
+    --muted2:#9CA3AF;
+    --primary:#2563EB;
+    --primary-light:#EFF6FF;
+    --primary-border:#DBEAFE;
+    --shadow:0 2px 10px rgba(15,23,42,.04);
+    --shadow-hover:0 6px 18px rgba(15,23,42,.07);
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+}
+
+.container{
+    width:min(1400px,95%);
+    margin:25px auto 35px;
+}
+
+/* Cabeçalho */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+    gap:20px;
+}
+
+.page-header h1{
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:-.5px;
+    color:var(--text);
+}
+
+.page-header p{
+    margin-top:4px;
+    font-size:13px;
+    color:var(--muted);
+}
+
+.today-btn{
+    border:1px solid var(--primary-border);
+    background:var(--primary-light);
+    color:var(--primary);
+    padding:10px 16px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.today-btn:hover{
+    background:#DBEAFE;
+}
+
+/* Calendário */
+
+.calendar-box{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:22px;
+    box-shadow:var(--shadow);
+}
+
+.calendar-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+    gap:10px;
+}
+
+.calendar-header h2{
+    font-size:20px;
+    font-weight:700;
+    color:var(--text);
+    text-transform:capitalize;
+}
+
+.navigation{
+    display:flex;
+    gap:8px;
+}
+
+.navigation button{
+    width:38px;
+    height:38px;
+    border:1px solid var(--line);
+    background:#FFF;
+    color:var(--text);
+    border-radius:10px;
+    cursor:pointer;
+    font-size:18px;
+    transition:.2s;
+}
+
+.navigation button:hover{
+    background:#F8FAFC;
+    border-color:#D6DCE5;
+}
+
+.weekdays,
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+}
+
+.weekday{
+    text-align:center;
+    padding:14px 5px;
+    font-size:11px;
+    font-weight:700;
+    color:var(--muted2);
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    border-bottom:1px solid var(--line);
+}
+
+.day{
+    min-height:125px;
+    padding:10px;
+    background:#FFF;
+    border-right:1px solid var(--line2);
+    border-bottom:1px solid var(--line2);
+    transition:.15s;
+}
+
+.day:hover{
+    background:#FAFBFC;
+}
+
+.day:nth-child(7n){
+    border-right:none;
+}
+
+.day.other-month{
+    background:#FAFAFA;
+    color:#BBB;
+}
+
+.day-number{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:700;
+    color:var(--text2);
+    margin-bottom:8px;
+}
+
+.day.today .day-number{
+    background:var(--primary);
+    color:#FFF;
+}
+
+/* Eventos */
+
+.event{
+    background:var(--primary-light);
+    border:1px solid var(--primary-border);
+    border-left:3px solid var(--primary);
+    border-radius:8px;
+    padding:7px;
+    margin-bottom:6px;
+    cursor:pointer;
+    transition:.2s;
+    overflow:hidden;
+}
+
+.event:hover{
+    background:#DBEAFE;
+    transform:translateX(2px);
+}
+
+.event-time{
+    font-size:10px;
+    font-weight:700;
+    color:var(--primary);
+}
+
+.event-name{
+    font-size:11px;
+    font-weight:600;
+    color:var(--text);
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.event-client{
+    font-size:9px;
+    color:var(--muted);
+}
+
+/* Estados */
+
+.empty,
+.loading{
+    text-align:center;
+    padding:35px 10px;
+    color:var(--muted);
+    font-size:14px;
+}
+
+.error{
+    display:none;
+    background:#FEF2F2;
+    border:1px solid #FECACA;
+    color:#B91C1C;
+    padding:14px;
+    border-radius:10px;
+    margin-bottom:16px;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:1000;
+}
+
+.modal-overlay.active{
+    display:flex;
+}
+
+.modal-contrato{
+    width:min(460px,95%);
+    background:#FFF;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:24px;
+    position:relative;
+    box-shadow:0 25px 70px rgba(15,23,42,.22);
+    animation:abrirModal .2s ease;
+}
+
+@keyframes abrirModal{
+    from{
+        opacity:0;
+        transform:translateY(15px) scale(.97);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+.modal-fechar{
+    position:absolute;
+    top:12px;
+    right:15px;
+    width:34px;
+    height:34px;
+    border:none;
+    background:transparent;
+    border-radius:8px;
+    font-size:24px;
+    color:var(--muted);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.modal-fechar:hover{
+    background:#F3F4F6;
+    color:var(--text);
+}
+
+.modal-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    padding-right:34px;
+    margin-bottom:22px;
+}
+
+.modal-icone{
+    width:50px;
+    height:50px;
+    border-radius:12px;
+    background:var(--primary-light);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
+    flex-shrink:0;
+}
+
+.modal-header h2{
+    font-size:20px;
+    font-weight:700;
+    color:var(--text);
+    margin:0;
+    line-height:1.2;
+}
+
+.modal-header p{
+    margin-top:4px;
+    font-size:12px;
+    color:var(--muted);
+}
+
+.modal-informacoes{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+}
+
+.modal-info{
+    background:#F8FAFC;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px;
+}
+
+.modal-info span{
+    display:block;
+    font-size:10px;
+    color:var(--muted2);
+    margin-bottom:6px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+
+.modal-info strong{
+    display:block;
+    font-size:13px;
+    color:var(--text);
+    word-break:break-word;
+}
+
+.modal-acoes{
+    margin-top:22px;
+}
+
+.btn-editar{
+    width:100%;
+    height:44px;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:#FFF;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn-editar:hover{
+    background:#1D4ED8;
+}
+
+/* Responsivo */
+
+@media (max-width:800px){
+
+    .container{
+        width:98%;
+        margin-top:15px;
+    }
+
+    .calendar-box{
+        padding:12px;
+        overflow-x:auto;
+    }
+
+    .weekdays,
+    .calendar{
+        min-width:700px;
+    }
+
+    .calendar-header{
+        flex-wrap:wrap;
+    }
+
+    .day{
+        min-height:110px;
+    }
+}
+
+@media (max-width:520px){
+
+    .modal-contrato{
+        width:100%;
+        padding:20px;
+    }
+
+    .modal-header{
+        align-items:flex-start;
+    }
+
+    .modal-informacoes{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+<main class="container">
+
+    <div class="page-header">
+        <div>
+            <h1>Agenda</h1>
+            <p>Visualize os contratos e eventos do salão logado.</p>
+        </div>
+
+        <button class="today-btn" onclick="irParaHoje()">
+            Hoje
+        </button>
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <section class="calendar-box">
+
+        <div class="calendar-header">
+            <div class="navigation">
+                <button onclick="mesAnterior()">‹</button>
+                <button onclick="proximoMes()">›</button>
+            </div>
+
+            <h2 id="mesAno"></h2>
+
+            <div style="width: 80px;"></div>
+        </div>
+
+        <div class="weekdays">
+            <div class="weekday">Dom</div>
+            <div class="weekday">Seg</div>
+            <div class="weekday">Ter</div>
+            <div class="weekday">Qua</div>
+            <div class="weekday">Qui</div>
+            <div class="weekday">Sex</div>
+            <div class="weekday">Sáb</div>
+        </div>
+
+        <div id="calendar" class="calendar">
+            <div class="loading">Carregando agenda...</div>
+        </div>
+
+    </section>
+
+</main>
+<div id="modalContrato" class="modal-overlay">
+
+    <div class="modal-contrato">
+
+        <button
+            class="modal-fechar"
+            onclick="fecharPopupContrato()"
+        >
+            ×
+        </button>
+
+        <div class="modal-header">
+            <span class="modal-icone">🎂</span>
+
+            <div>
+                <h2 id="modalAniversariante">
+                    Aniversariante
+                </h2>
+
+                <p>Informações da festa</p>
+            </div>
+        </div>
+
+        <div class="modal-informacoes">
+
+            <div class="modal-info">
+                <span>Data da festa</span>
+                <strong id="modalData">
+                    -
+                </strong>
+            </div>
+
+            <div class="modal-info">
+                <span>Início</span>
+                <strong id="modalHoraInicio">
+                    -
+                </strong>
+            </div>
+
+            <div class="modal-info">
+                <span>Fim</span>
+                <strong id="modalHoraFim">
+                    -
+                </strong>
+            </div>
+
+        </div>
+
+        <div class="modal-acoes">
+
+<button
+    type="button"
+    class="btn-editar"
+    id="btnEditarContrato"
+>
+    Visualizar Contrato
+</button>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+    let dataAtual = new Date();
+    let contratos = [];
+
+    const nomesMeses = [
+        "janeiro",
+        "fevereiro",
+        "março",
+        "abril",
+        "maio",
+        "junho",
+        "julho",
+        "agosto",
+        "setembro",
+        "outubro",
+        "novembro",
+        "dezembro"
+    ];
+
+    async function carregarContratos() {
+        const error = document.getElementById("error");
+
+        try {
+            const resposta = await fetch("/api/agenda");
+
+            if (!resposta.ok) {
+                throw new Error("Não foi possível carregar os contratos.");
+            }
+
+            contratos = await resposta.json();
+            error.style.display = "none";
+
+            renderizarCalendario();
+
+        } catch (erro) {
+            console.error(erro);
+
+            error.textContent = erro.message;
+            error.style.display = "block";
+
+            contratos = [];
+            renderizarCalendario();
+        }
+    }
+
+    function normalizarData(valor) {
+        if (!valor) return null;
+
+        const texto = String(valor).trim();
+
+        // YYYY-MM-DD
+        if (/^\d{4}-\d{2}-\d{2}$/.test(texto)) {
+            const [ano, mes, dia] = texto.split("-").map(Number);
+            return new Date(ano, mes - 1, dia);
+        }
+
+        // DD/MM/YYYY
+        if (/^\d{2}\/\d{2}\/\d{4}$/.test(texto)) {
+            const [dia, mes, ano] = texto.split("/").map(Number);
+            return new Date(ano, mes - 1, dia);
+        }
+
+        const data = new Date(texto);
+
+        if (isNaN(data.getTime())) {
+            return null;
+        }
+
+        return new Date(
+            data.getFullYear(),
+            data.getMonth(),
+            data.getDate()
+        );
+    }
+
+    function chaveData(data) {
+        const ano = data.getFullYear();
+        const mes = String(data.getMonth() + 1).padStart(2, "0");
+        const dia = String(data.getDate()).padStart(2, "0");
+
+        return `${ano}-${mes}-${dia}`;
+    }
+
+    function renderizarCalendario() {
+        const calendario = document.getElementById("calendar");
+        const titulo = document.getElementById("mesAno");
+
+        const ano = dataAtual.getFullYear();
+        const mes = dataAtual.getMonth();
+
+        titulo.textContent = `${nomesMeses[mes]} de ${ano}`;
+
+        calendario.innerHTML = "";
+
+        const primeiroDia = new Date(ano, mes, 1);
+        const ultimoDia = new Date(ano, mes + 1, 0);
+
+        const inicio = primeiroDia.getDay();
+        const quantidadeDias = ultimoDia.getDate();
+
+        // Dias do mês anterior
+        const ultimoDiaMesAnterior = new Date(ano, mes, 0).getDate();
+
+        for (let i = inicio - 1; i >= 0; i--) {
+            const dia = ultimoDiaMesAnterior - i;
+            const data = new Date(ano, mes - 1, dia);
+
+            criarDia(data, true);
+        }
+
+        // Dias do mês atual
+        for (let dia = 1; dia <= quantidadeDias; dia++) {
+            const data = new Date(ano, mes, dia);
+
+            criarDia(data, false);
+        }
+
+        // Dias do próximo mês
+        const totalCelulas = inicio + quantidadeDias;
+        const faltantes = (7 - (totalCelulas % 7)) % 7;
+
+        for (let dia = 1; dia <= faltantes; dia++) {
+            const data = new Date(ano, mes + 1, dia);
+
+            criarDia(data, true);
+        }
+    }
+
+    function criarDia(data, outroMes) {
+        const calendario = document.getElementById("calendar");
+
+        const div = document.createElement("div");
+        div.className = "day";
+
+        if (outroMes) {
+            div.classList.add("other-month");
+        }
+
+        const hoje = new Date();
+
+        if (
+            data.getDate() === hoje.getDate() &&
+            data.getMonth() === hoje.getMonth() &&
+            data.getFullYear() === hoje.getFullYear()
+        ) {
+            div.classList.add("today");
+        }
+
+        const numero = document.createElement("div");
+        numero.className = "day-number";
+        numero.textContent = data.getDate();
+
+        div.appendChild(numero);
+
+        const chave = chaveData(data);
+
+        const eventos = contratos.filter(contrato => {
+            const dataContrato = normalizarData(contrato.data_evento);
+            return dataContrato && chaveData(dataContrato) === chave;
+        });
+
+     eventos.sort((a, b) => {
+    return String(a.hora_inicio || "").localeCompare(
+        String(b.hora_inicio || "")
+    );
+});
+
+eventos.forEach(contrato => {
+
+    const evento = document.createElement("div");
+    evento.className = "event";
+
+    const horaInicio = contrato.hora_inicio || "";
+    const horaFim = contrato.hora_fim || "";
+
+    let horario = "";
+
+    if (horaInicio && horaFim) {
+        horario = `${horaInicio} às ${horaFim}`;
+    } else if (horaInicio) {
+        horario = `${horaInicio} -`;
+    } else if (horaFim) {
+        horario = `- ${horaFim}`;
+    } else {
+        horario = "Horário não informado";
+    }
+
+    const aniversariante =
+        contrato.aniversariante || "Evento";
+
+    evento.innerHTML = `
+        <div class="event-time">
+            ${escapeHtml(horario)}
+        </div>
+
+        <div class="event-name">
+            ${escapeHtml(aniversariante)}
+        </div>
+    `;
+
+    evento.title = `${aniversariante} - ${horario}`;
+
+    // Clique no evento
+    evento.addEventListener("click", function () {
+        abrirPopupContrato(contrato);
+    });
+
+    div.appendChild(evento);
+});
+
+        calendario.appendChild(div);
+    }
+
+    function escapeHtml(texto) {
+        const div = document.createElement("div");
+        div.textContent = texto;
+        return div.innerHTML;
+    }
+function abrirPopupContrato(contrato) {
+
+    const modal = document.getElementById("modalContrato");
+
+    const aniversariante =
+        contrato.aniversariante || "Evento";
+
+    document.getElementById(
+        "modalAniversariante"
+    ).textContent = aniversariante;
+
+    document.getElementById(
+        "modalData"
+    ).textContent = formatarData(
+        contrato.data_evento
+    );
+
+    document.getElementById(
+        "modalHoraInicio"
+    ).textContent =
+        contrato.hora_inicio || "Não informado";
+
+    document.getElementById(
+        "modalHoraFim"
+    ).textContent =
+        contrato.hora_fim || "Não informado";
+
+    const botaoEditar =
+        document.getElementById("btnEditarContrato");
+
+botaoEditar.onclick = function () {
+    window.location.href =
+        `/novo_contrato?id=${contrato.id}&modo=visualizar`;
+};
+
+    modal.classList.add("active");
+}
+
+
+function fecharPopupContrato() {
+
+    document
+        .getElementById("modalContrato")
+        .classList.remove("active");
+}
+
+
+function formatarData(data) {
+
+    if (!data) {
+        return "Não informada";
+    }
+
+    const texto = String(data).trim();
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(texto)) {
+
+        const [ano, mes, dia] =
+            texto.split("-");
+
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    return texto;
+}
+
+
+// Fecha clicando fora do popup
+document
+    .getElementById("modalContrato")
+    .addEventListener("click", function(event) {
+
+        if (event.target === this) {
+            fecharPopupContrato();
+        }
+
+    });
+
+
+// Fecha com ESC
+document.addEventListener("keydown", function(event) {
+
+    if (event.key === "Escape") {
+        fecharPopupContrato();
+    }
+
+});
+    function mesAnterior() {
+        dataAtual.setMonth(dataAtual.getMonth() - 1);
+        renderizarCalendario();
+    }
+
+    function proximoMes() {
+        dataAtual.setMonth(dataAtual.getMonth() + 1);
+        renderizarCalendario();
+    }
+
+    function irParaHoje() {
+        dataAtual = new Date();
+        renderizarCalendario();
+    }
+
+    carregarContratos();
+</script>
+<script>
+document.addEventListener('gesturestart', e => e.preventDefault());
+document.addEventListener('gesturechange', e => e.preventDefault());
+document.addEventListener('gestureend', e => e.preventDefault());
+
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (e) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+    }
+    lastTouchEnd = now;
+}, { passive: false });
+</script>
+</body>
+</html>

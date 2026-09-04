@@ -1,0 +1,1942 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Serviços Contratados</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',Arial,sans-serif;
+}
+
+:root{
+
+    --bg:#F4F6F8;
+    --panel:#FFFFFF;
+    --line:#E5E7EB;
+    --line2:#EEF0F3;
+
+    --text:#1F2937;
+    --text2:#374151;
+
+    --muted:#6B7280;
+    --muted2:#9CA3AF;
+
+    --primary:#2563EB;
+    --primary-light:#EFF6FF;
+    --primary-border:#DBEAFE;
+
+    --green:#16A34A;
+    --green-light:#ECFDF3;
+
+    --gold:#D97706;
+    --gold-light:#FFF7ED;
+
+    --red:#DC2626;
+    --red-light:#FEF2F2;
+
+    --shadow:0 2px 10px rgba(15,23,42,.04);
+    --shadow-hover:0 6px 18px rgba(15,23,42,.07);
+}
+
+
+body{
+
+    background:var(--bg);
+    color:var(--text);
+    padding:25px;
+
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.topbar{
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    margin-bottom:22px;
+
+}
+
+.topbar h1{
+
+    font-size:26px;
+    font-weight:700;
+
+    letter-spacing:-.5px;
+
+}
+
+.topbar p{
+
+    margin-top:4px;
+
+    font-size:13px;
+
+    color:var(--muted);
+
+}
+
+
+/* =========================================================
+   CARD PRINCIPAL
+========================================================= */
+
+.card{
+
+    background:var(--panel);
+
+    border:1px solid var(--line);
+
+    border-radius:16px;
+
+    padding:22px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+
+}
+
+
+/* =========================================================
+   TÍTULO DA SEÇÃO
+========================================================= */
+
+.titulo-secao{
+
+    font-size:16px;
+
+    font-weight:700;
+
+    margin-bottom:16px;
+
+}
+
+
+/* =========================================================
+   SELEÇÃO DA FESTA
+========================================================= */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:7px;
+
+    margin-bottom:16px;
+
+}
+
+.form-group label{
+
+    font-size:12px;
+
+    font-weight:600;
+
+    color:var(--text2);
+
+}
+
+.form-group select,
+.form-group input,
+.form-group textarea{
+
+    width:100%;
+
+    border:1px solid var(--line);
+
+    border-radius:10px;
+
+    background:#FFF;
+
+    padding:11px 13px;
+
+    font-size:13px;
+
+    color:var(--text);
+
+    outline:none;
+
+    transition:.2s;
+
+}
+
+.form-group select:focus,
+.form-group input:focus,
+.form-group textarea:focus{
+
+    border-color:var(--primary);
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.08);
+
+}
+
+.form-group textarea{
+
+    min-height:90px;
+
+    resize:vertical;
+
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+        1fr 180px;
+
+    gap:14px;
+
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.botoes{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:10px;
+
+    margin-top:5px;
+
+}
+
+button{
+
+    border:none;
+
+    border-radius:10px;
+
+    padding:11px 18px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.btn-principal{
+
+    background:var(--primary);
+
+    color:#FFF;
+
+}
+
+.btn-principal:hover{
+
+    transform:translateY(-1px);
+
+    box-shadow:0 5px 12px rgba(37,99,235,.20);
+
+}
+
+.btn-cancelar{
+
+    background:#FFF;
+
+    color:var(--text2);
+
+    border:1px solid var(--line);
+
+}
+
+.btn-cancelar:hover{
+
+    background:#F8FAFC;
+
+}
+
+
+/* =========================================================
+   RESUMO
+========================================================= */
+
+.resumo{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:14px;
+
+    margin-bottom:20px;
+
+}
+
+.resumo-card{
+
+    background:#FFF;
+
+    border:1px solid var(--line);
+
+    border-radius:14px;
+
+    padding:18px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.resumo-card .label{
+
+    font-size:11px;
+
+    color:var(--muted);
+
+    text-transform:uppercase;
+
+    letter-spacing:.5px;
+
+}
+
+.resumo-card .valor{
+
+    margin-top:6px;
+
+    font-size:21px;
+
+    font-weight:700;
+
+    color:var(--text);
+
+}
+
+
+/* =========================================================
+   TABELA
+========================================================= */
+
+.tabela-container{
+
+    width:100%;
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    background:#FFF;
+
+}
+
+th{
+
+    background:#FFF;
+
+    color:var(--muted2);
+
+    text-transform:uppercase;
+
+    letter-spacing:.6px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    padding:15px 12px;
+
+    border-bottom:1px solid var(--line);
+
+    text-align:center;
+
+}
+
+td{
+
+    padding:15px 12px;
+
+    border-bottom:1px solid var(--line2);
+
+    text-align:center;
+
+    font-size:13px;
+
+    color:var(--text2);
+
+}
+
+tbody tr:hover{
+
+    background:#F8FAFC;
+
+}
+
+tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+
+/* =========================================================
+   SERVIÇO
+========================================================= */
+
+.servico-nome{
+
+    font-weight:600;
+
+    color:var(--text);
+
+}
+
+.informacoes{
+
+    max-width:300px;
+
+    color:var(--muted);
+
+    font-size:12px;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:999px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+}
+
+.status.pago{
+
+    background:var(--green-light);
+
+    color:var(--green);
+
+}
+
+.status.pendente{
+
+    background:var(--gold-light);
+
+    color:var(--gold);
+
+}
+
+
+/* =========================================================
+   AÇÕES
+========================================================= */
+
+.acoes{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:7px;
+
+}
+
+.btn-acao{
+
+    width:34px;
+
+    height:34px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:1px solid var(--line);
+
+    border-radius:9px;
+
+    background:#FFF;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+    transition:.2s;
+
+}
+
+.btn-acao:hover{
+
+    background:var(--primary-light);
+
+    border-color:var(--primary-border);
+
+}
+
+
+/* =========================================================
+   SEM SERVIÇOS
+========================================================= */
+
+.sem{
+
+    text-align:center;
+
+    padding:40px;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+
+    display:none;
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(15,23,42,.45);
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:20px;
+
+    z-index:999;
+
+}
+
+.modal.ativo{
+
+    display:flex;
+
+}
+
+.modal-conteudo{
+
+    width:100%;
+
+    max-width:550px;
+
+    background:#FFF;
+
+    border-radius:16px;
+
+    padding:24px;
+
+    box-shadow:0 20px 50px rgba(15,23,42,.20);
+
+}
+
+.modal-topo{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+}
+
+.modal-topo h2{
+
+    font-size:18px;
+
+}
+
+.fechar{
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:9px;
+
+    background:#F3F4F6;
+
+    color:var(--text2);
+
+    padding:0;
+
+    font-size:18px;
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media(max-width:900px){
+
+    body{
+
+        padding:15px;
+
+    }
+
+    .topbar h1{
+
+        font-size:22px;
+
+    }
+
+    .resumo{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    table{
+
+        min-width:850px;
+
+    }
+
+}
+
+
+/* =========================================================
+   BLOQUEIO DE ZOOM
+========================================================= */
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ========================================================
+     CABEÇALHO
+======================================================== -->
+
+<header class="topbar">
+
+    <div>
+
+        <h1>
+            Serviços Contratados
+        </h1>
+
+        <p>
+            Gerencie os serviços contratados para cada festa.
+        </p>
+
+    </div>
+
+</header>
+
+
+<!-- ========================================================
+     SELECIONAR FESTA
+======================================================== -->
+
+<div class="card">
+
+    <div class="titulo-secao">
+        Selecionar festa
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Festa / Contrato
+        </label>
+
+        <select
+            id="contratoSelect"
+            onchange="carregarServicos()">
+
+            <option value="">
+                Selecione uma festa
+            </option>
+
+            {% for contrato in contratos %}
+
+            <option
+                value="{{ contrato.id }}">
+
+                #{{ contrato.id }}
+                -
+                {{ contrato.cliente }}
+                -
+                {{ contrato.data_evento }}
+
+            </option>
+
+            {% endfor %}
+
+        </select>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================
+     RESUMO
+======================================================== -->
+
+<div
+    class="resumo"
+    id="resumo"
+    style="display:none;">
+
+    <div class="resumo-card">
+
+        <div class="label">
+            Serviços contratados
+        </div>
+
+        <div
+            class="valor"
+            id="qtdServicos">
+
+            0
+
+        </div>
+
+    </div>
+
+
+    <div class="resumo-card">
+
+        <div class="label">
+            Total dos serviços
+        </div>
+
+        <div
+            class="valor"
+            id="totalServicos">
+
+            R$ 0,00
+
+        </div>
+
+    </div>
+
+
+    <div class="resumo-card">
+
+        <div class="label">
+            Total pago
+        </div>
+
+        <div
+            class="valor"
+            id="totalPago">
+
+            R$ 0,00
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================
+     CADASTRAR SERVIÇO
+======================================================== -->
+
+<div
+    class="card"
+    id="cardCadastro"
+    style="display:none;">
+
+    <div class="titulo-secao">
+
+        Adicionar serviço
+
+    </div>
+
+
+    <div class="grid">
+
+        <div class="form-group">
+
+            <label>
+                Serviço
+            </label>
+
+            <input
+                type="text"
+                id="nomeServico"
+                placeholder="Ex: Fotógrafo">
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Valor
+            </label>
+
+            <input
+                type="number"
+                id="valorServico"
+                placeholder="0,00"
+                step="0.01"
+                min="0">
+
+        </div>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Informações do serviço
+        </label>
+
+        <textarea
+            id="informacoesServico"
+            placeholder="Digite as informações do serviço, fornecedor, telefone, horário, observações etc."></textarea>
+
+    </div>
+
+
+    <div class="form-group">
+
+        <label>
+            Pagamento
+        </label>
+
+        <select id="statusPagamento">
+
+            <option value="Pendente pagamento">
+                Pendente pagamento
+            </option>
+
+            <option value="Pago">
+                Pago
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="botoes">
+
+        <button
+            type="button"
+            class="btn-cancelar"
+            onclick="limparFormulario()">
+
+            Limpar
+
+        </button>
+
+
+        <button
+            type="button"
+            class="btn-principal"
+            onclick="salvarServico()">
+
+            + Adicionar serviço
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================
+     LISTA DE SERVIÇOS
+======================================================== -->
+
+<div
+    class="card"
+    id="cardLista"
+    style="display:none;">
+
+    <div class="titulo-secao">
+
+        Serviços desta festa
+
+    </div>
+<div style="display:flex; justify-content:flex-end; margin-bottom:15px;">
+
+<button
+    type="button"
+    class="btn-principal"
+    onclick="gerarPDF()">
+
+    📄 Gerar PDF da festa
+
+</button>
+
+</div>
+
+    <div class="tabela-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        Serviço
+                    </th>
+
+                    <th>
+                        Valor
+                    </th>
+
+                    <th>
+                        Informações
+                    </th>
+
+                    <th>
+                        Pagamento
+                    </th>
+
+                    <th>
+                        Ações
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="tabelaServicos">
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="sem">
+
+                        Nenhum serviço cadastrado.
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+<!-- ========================================================
+     MODAL EDITAR
+======================================================== -->
+
+<div
+    class="modal"
+    id="modalEditar">
+
+    <div class="modal-conteudo">
+
+        <div class="modal-topo">
+
+            <h2>
+                Editar serviço
+            </h2>
+
+            <button
+                class="fechar"
+                onclick="fecharModal()">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <input
+            type="hidden"
+            id="editarId">
+
+
+        <div class="grid">
+
+            <div class="form-group">
+
+                <label>
+                    Serviço
+                </label>
+
+                <input
+                    type="text"
+                    id="editarNome">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Valor
+                </label>
+
+                <input
+                    type="number"
+                    id="editarValor"
+                    step="0.01"
+                    min="0">
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Informações
+            </label>
+
+            <textarea
+                id="editarInformacoes"></textarea>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label>
+                Pagamento
+            </label>
+
+            <select id="editarStatus">
+
+                <option value="Pendente pagamento">
+                    Pendente pagamento
+                </option>
+
+                <option value="Pago">
+                    Pago
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <div class="botoes">
+
+            <button
+                class="btn-cancelar"
+                onclick="fecharModal()">
+
+                Cancelar
+
+            </button>
+
+            <button
+                class="btn-principal"
+                onclick="atualizarServico()">
+
+                Salvar alterações
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+let servicos = [];
+
+
+/* =========================================================
+   FORMATA MOEDA
+========================================================= */
+
+function moeda(valor){
+
+    return Number(valor || 0).toLocaleString(
+        "pt-BR",
+        {
+            style:"currency",
+            currency:"BRL"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CARREGAR SERVIÇOS
+========================================================= */
+
+async function carregarServicos(){
+
+    const contratoId =
+        document.getElementById(
+            "contratoSelect"
+        ).value;
+
+
+    const resumo =
+        document.getElementById(
+            "resumo"
+        );
+
+    const cadastro =
+        document.getElementById(
+            "cardCadastro"
+        );
+
+    const lista =
+        document.getElementById(
+            "cardLista"
+        );
+
+
+    if(!contratoId){
+
+        resumo.style.display = "none";
+
+        cadastro.style.display = "none";
+
+        lista.style.display = "none";
+
+        return;
+
+    }
+
+
+    resumo.style.display = "grid";
+
+    cadastro.style.display = "block";
+
+    lista.style.display = "block";
+
+
+    /*
+       A rota abaixo será criada
+       no app.py no próximo passo.
+    */
+
+    try{
+
+        const resposta =
+            await fetch(
+                "/api/servicos_contratados?contrato_id="
+                + contratoId
+            );
+
+
+        const dados =
+            await resposta.json();
+
+
+        if(!dados.sucesso){
+
+            alert(
+                dados.mensagem ||
+                "Não foi possível carregar os serviços."
+            );
+
+            return;
+
+        }
+
+
+        servicos =
+            dados.servicos || [];
+
+
+        renderizarServicos();
+
+
+    }catch(erro){
+
+        console.error(erro);
+
+        alert(
+            "Erro ao carregar os serviços."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   RENDERIZAR SERVIÇOS
+========================================================= */
+/* =========================================================
+   GERAR PDF DA FESTA
+========================================================= */
+function gerarPDF(){
+
+    const contratoId =
+        document.getElementById("contratoSelect").value;
+
+    if(!contratoId){
+
+        alert("Selecione uma festa primeiro.");
+
+        return;
+
+    }
+
+    window.open(
+        "/api/servicos_contratados/relatorio-pdf?contrato_id=" + contratoId,
+        "_blank"
+    );
+
+}
+function renderizarServicos(){
+
+    const tabela =
+        document.getElementById(
+            "tabelaServicos"
+        );
+
+
+    tabela.innerHTML = "";
+
+
+    if(servicos.length === 0){
+
+        tabela.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="5"
+                    class="sem">
+
+                    Nenhum serviço cadastrado.
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+
+    let total = 0;
+
+    let totalPago = 0;
+
+
+    servicos.forEach(servico => {
+
+        const valor =
+            Number(servico.valor || 0);
+
+
+        total += valor;
+
+
+        if(servico.status_pagamento === "Pago"){
+
+            totalPago += valor;
+
+        }
+
+
+        const tr =
+            document.createElement("tr");
+
+
+        const statusClasse =
+            servico.status_pagamento === "Pago"
+                ? "pago"
+                : "pendente";
+
+
+        tr.innerHTML = `
+
+            <td>
+
+                <div class="servico-nome">
+
+                    ${escapeHtml(
+                        servico.nome || ""
+                    )}
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                ${moeda(valor)}
+
+            </td>
+
+
+            <td>
+
+                <div class="informacoes">
+
+                    ${escapeHtml(
+                        servico.informacoes || "-"
+                    )}
+
+                </div>
+
+            </td>
+
+
+            <td>
+
+                <span
+                    class="status ${statusClasse}">
+
+                    ${escapeHtml(
+                        servico.status_pagamento
+                        || "Pendente pagamento"
+                    )}
+
+                </span>
+
+            </td>
+
+
+            <td>
+
+                <div class="acoes">
+
+                    <button
+                        class="btn-acao"
+                        title="Editar"
+                        onclick="abrirEditar(${servico.id})">
+
+                        ✏️
+
+                    </button>
+
+
+                    <button
+                        class="btn-acao"
+                        title="Excluir"
+                        onclick="excluirServico(${servico.id})">
+
+                        🗑
+
+                    </button>
+
+                </div>
+
+            </td>
+
+        `;
+
+
+        tabela.appendChild(tr);
+
+    });
+
+
+    document.getElementById(
+        "qtdServicos"
+    ).textContent =
+        servicos.length;
+
+
+    document.getElementById(
+        "totalServicos"
+    ).textContent =
+        moeda(total);
+
+
+    document.getElementById(
+        "totalPago"
+    ).textContent =
+        moeda(totalPago);
+
+}
+
+
+/* =========================================================
+   SALVAR SERVIÇO
+========================================================= */
+
+async function salvarServico(){
+
+    const contratoId =
+        document.getElementById(
+            "contratoSelect"
+        ).value;
+
+
+    if(!contratoId){
+
+        alert(
+            "Selecione uma festa primeiro."
+        );
+
+        return;
+
+    }
+
+
+    const nome =
+        document.getElementById(
+            "nomeServico"
+        ).value.trim();
+
+
+    const valor =
+        document.getElementById(
+            "valorServico"
+        ).value;
+
+
+    const informacoes =
+        document.getElementById(
+            "informacoesServico"
+        ).value.trim();
+
+
+    const status =
+        document.getElementById(
+            "statusPagamento"
+        ).value;
+
+
+    if(!nome){
+
+        alert(
+            "Informe o nome do serviço."
+        );
+
+        return;
+
+    }
+
+
+    if(valor === "" || Number(valor) < 0){
+
+        alert(
+            "Informe um valor válido."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const resposta =
+            await fetch(
+                "/api/servicos_contratados",
+                {
+
+                    method:"POST",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        contrato_id:
+                            contratoId,
+
+                        nome:
+                            nome,
+
+                        valor:
+                            Number(valor),
+
+                        informacoes:
+                            informacoes,
+
+                        status_pagamento:
+                            status
+
+                    })
+
+                }
+            );
+
+
+        const dados =
+            await resposta.json();
+
+
+        if(!dados.sucesso){
+
+            alert(
+                dados.mensagem ||
+                "Não foi possível salvar."
+            );
+
+            return;
+
+        }
+
+
+        limparFormulario();
+
+        carregarServicos();
+
+
+    }catch(erro){
+
+        console.error(erro);
+
+        alert(
+            "Erro ao salvar o serviço."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LIMPAR FORMULÁRIO
+========================================================= */
+
+function limparFormulario(){
+
+    document.getElementById(
+        "nomeServico"
+    ).value = "";
+
+
+    document.getElementById(
+        "valorServico"
+    ).value = "";
+
+
+    document.getElementById(
+        "informacoesServico"
+    ).value = "";
+
+
+    document.getElementById(
+        "statusPagamento"
+    ).value =
+        "Pendente pagamento";
+
+}
+
+
+/* =========================================================
+   ABRIR EDIÇÃO
+========================================================= */
+
+function abrirEditar(id){
+
+    const servico =
+        servicos.find(
+            item =>
+                Number(item.id) === Number(id)
+        );
+
+
+    if(!servico){
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "editarId"
+    ).value =
+        servico.id;
+
+
+    document.getElementById(
+        "editarNome"
+    ).value =
+        servico.nome || "";
+
+
+    document.getElementById(
+        "editarValor"
+    ).value =
+        servico.valor || 0;
+
+
+    document.getElementById(
+        "editarInformacoes"
+    ).value =
+        servico.informacoes || "";
+
+
+    document.getElementById(
+        "editarStatus"
+    ).value =
+        servico.status_pagamento
+        || "Pendente pagamento";
+
+
+    document.getElementById(
+        "modalEditar"
+    ).classList.add("ativo");
+
+}
+
+
+/* =========================================================
+   FECHAR MODAL
+========================================================= */
+
+function fecharModal(){
+
+    document.getElementById(
+        "modalEditar"
+    ).classList.remove("ativo");
+
+}
+
+
+/* =========================================================
+   ATUALIZAR SERVIÇO
+========================================================= */
+
+async function atualizarServico(){
+
+    const id =
+        document.getElementById(
+            "editarId"
+        ).value;
+
+
+    const nome =
+        document.getElementById(
+            "editarNome"
+        ).value.trim();
+
+
+    const valor =
+        document.getElementById(
+            "editarValor"
+        ).value;
+
+
+    const informacoes =
+        document.getElementById(
+            "editarInformacoes"
+        ).value.trim();
+
+
+    const status =
+        document.getElementById(
+            "editarStatus"
+        ).value;
+
+
+    if(!nome){
+
+        alert(
+            "Informe o nome do serviço."
+        );
+
+        return;
+
+    }
+
+
+    try{
+
+        const resposta =
+            await fetch(
+                "/api/servicos_contratados/"
+                + id,
+                {
+
+                    method:"PUT",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        nome:
+                            nome,
+
+                        valor:
+                            Number(valor),
+
+                        informacoes:
+                            informacoes,
+
+                        status_pagamento:
+                            status
+
+                    })
+
+                }
+            );
+
+
+        const dados =
+            await resposta.json();
+
+
+        if(!dados.sucesso){
+
+            alert(
+                dados.mensagem ||
+                "Não foi possível atualizar."
+            );
+
+            return;
+
+        }
+
+
+        fecharModal();
+
+        carregarServicos();
+
+    }catch(erro){
+
+        console.error(erro);
+
+        alert(
+            "Erro ao atualizar o serviço."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   EXCLUIR SERVIÇO
+========================================================= */
+
+async function excluirServico(id){
+
+    if(
+        !confirm(
+            "Deseja excluir este serviço?"
+        )
+    ){
+
+        return;
+
+    }
+
+
+    try{
+
+        const resposta =
+            await fetch(
+                "/api/servicos_contratados/"
+                + id,
+                {
+
+                    method:"DELETE"
+
+                }
+            );
+
+
+        const dados =
+            await resposta.json();
+
+
+        if(!dados.sucesso){
+
+            alert(
+                dados.mensagem ||
+                "Não foi possível excluir."
+            );
+
+            return;
+
+        }
+
+
+        carregarServicos();
+
+
+    }catch(erro){
+
+        console.error(erro);
+
+        alert(
+            "Erro ao excluir o serviço."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   PROTEÇÃO CONTRA HTML
+========================================================= */
+
+function escapeHtml(text){
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        text;
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   FECHAR MODAL CLICANDO FORA
+========================================================= */
+
+document.getElementById(
+    "modalEditar"
+).addEventListener(
+    "click",
+    function(event){
+
+        if(event.target === this){
+
+            fecharModal();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   BLOQUEIO DE GESTOS
+========================================================= */
+
+document.addEventListener(
+    "gesturestart",
+    e => e.preventDefault()
+);
+
+document.addEventListener(
+    "gesturechange",
+    e => e.preventDefault()
+);
+
+document.addEventListener(
+    "gestureend",
+    e => e.preventDefault()
+);
+
+
+let lastTouchEnd = 0;
+
+
+document.addEventListener(
+    "touchend",
+    function(e){
+
+        const now =
+            Date.now();
+
+
+        if(
+            now - lastTouchEnd <= 300
+        ){
+
+            e.preventDefault();
+
+        }
+
+
+        lastTouchEnd = now;
+
+    },
+    {
+        passive:false
+    }
+);
+
+</script>
+
+</body>
+
+</html>

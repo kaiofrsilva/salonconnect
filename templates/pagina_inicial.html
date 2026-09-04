@@ -1,0 +1,5489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SalonConnect | Página Inicial</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+
+    --bg:#F4F6F8;
+    --white:#FFFFFF;
+
+    --panel:#FFFFFF;
+    --panel2:#F8FAFC;
+
+    --line:#E5E7EB;
+    --line2:#EEF0F3;
+
+    --text:#1F2937;
+    --text2:#374151;
+
+    --muted:#6B7280;
+    --muted2:#9CA3AF;
+
+    --primary:#2563EB;
+    --primary-light:#EFF6FF;
+    --primary-border:#DBEAFE;
+
+    --green:#16A34A;
+    --green-light:#ECFDF3;
+
+    --gold:#D97706;
+    --gold-light:#FFF7ED;
+
+    --red:#DC2626;
+    --red-light:#FEF2F2;
+
+    --shadow:0 2px 10px rgba(15,23,42,.04);
+    --shadow-hover:0 6px 18px rgba(15,23,42,.07);
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+
+    font-family:Inter,Arial,sans-serif;
+
+    background:var(--bg);
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+}
+
+.app{
+
+    display:flex;
+
+    min-height:100vh;
+}
+
+.menu a.menu-sair {
+    color: #DC2626;
+    margin-top: 4px;
+}
+
+.menu a.menu-sair:hover {
+    background: #FEF2F2;
+    color: #B91C1C;
+}
+
+.menu a.menu-sair .icon {
+    color: #DC2626;
+}
+/* =========================================================
+   MENU LATERAL
+========================================================= */
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar{
+
+    width:235px;
+
+    background:#FFFFFF;
+
+    border-right:1px solid var(--line);
+
+    position:fixed;
+
+    left:0;
+    top:0;
+    bottom:0;
+
+    padding:24px 15px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    z-index:100;
+
+    overflow-y:auto;
+
+    transition:
+        width .25s ease,
+        transform .25s ease;
+}
+
+
+/* =========================================================
+   SIDEBAR MINIMIZADA
+========================================================= */
+
+.sidebar.collapsed{
+
+    width:72px;
+
+    padding:24px 10px;
+}
+
+
+/* LOGO */
+
+.logo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    padding:0 9px 28px;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+}
+
+.sidebar.collapsed .logo{
+
+    justify-content:center;
+
+    padding-left:0;
+    padding-right:0;
+}
+
+.logo-mark{
+
+    width:39px;
+    height:39px;
+
+    flex:none;
+
+    border-radius:11px;
+
+    background:var(--primary);
+
+    color:#FFFFFF;
+
+    display:grid;
+
+    place-items:center;
+
+    font-weight:800;
+
+    box-shadow:0 4px 10px rgba(37,99,235,.18);
+}
+
+
+/* ESCONDE TEXTO DO LOGO */
+
+.sidebar.collapsed .logo > div:last-child{
+
+    display:none;
+}
+
+
+/* TÍTULOS */
+
+.sidebar.collapsed .menu-title{
+
+    display:none;
+}
+
+
+/* MENU */
+
+.menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+}
+
+.menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    padding:11px 12px;
+
+    border-radius:9px;
+
+    color:#6B7280;
+
+    font-size:12px;
+
+    font-weight:500;
+
+    transition:.2s;
+
+    cursor:pointer;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+}
+
+.menu a:hover{
+
+    background:#F3F6FA;
+
+    color:#1F2937;
+}
+
+.menu a.active{
+
+    background:var(--primary-light);
+
+    color:var(--primary);
+
+    font-weight:700;
+}
+
+
+/* ÍCONES */
+
+.icon{
+
+    width:20px;
+
+    min-width:20px;
+
+    text-align:center;
+
+    font-size:15px;
+}
+
+
+/* QUANDO MINIMIZADA */
+
+.sidebar.collapsed .menu a{
+
+    justify-content:center;
+
+    padding:11px 0;
+}
+
+.sidebar.collapsed .menu a .icon{
+
+    width:100%;
+}
+
+
+/* ESCONDE TEXTO DOS LINKS */
+
+.sidebar.collapsed .menu a{
+
+    font-size:0;
+}
+
+
+/* MANTÉM ÍCONE */
+
+.sidebar.collapsed .menu a .icon{
+
+    font-size:15px;
+}
+
+
+/* SALÃO */
+
+.sidebar-bottom{
+
+    margin-top:auto;
+
+    border-top:1px solid var(--line);
+
+    padding-top:15px;
+}
+
+.salao-mini{
+
+    padding:10px 11px;
+
+    overflow:hidden;
+}
+
+.sidebar.collapsed .salao-mini{
+
+    display:none;
+}
+
+
+/* =========================================================
+   BOTÃO ☰
+========================================================= */
+
+.sidebar-toggle{
+
+    position:fixed;
+
+    left:250px;
+
+    top:18px;
+
+    width:38px;
+    height:38px;
+
+    border:1px solid var(--line);
+
+    background:#FFFFFF;
+
+    color:#374151;
+
+    border-radius:9px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:19px;
+
+    cursor:pointer;
+
+    z-index:150;
+
+    box-shadow:var(--shadow);
+
+    transition:
+        left .25s ease,
+        background .2s,
+        transform .2s;
+}
+
+.sidebar-toggle:hover{
+
+    background:#F8FAFC;
+
+    transform:scale(1.03);
+}
+
+
+/* =========================================================
+   QUANDO SIDEBAR ESTÁ MINIMIZADA
+========================================================= */
+
+.sidebar.collapsed ~ .content{
+
+    margin-left:72px;
+
+    width:calc(100% - 72px);
+}
+
+.sidebar.collapsed ~ .content .sidebar-toggle{
+
+    left:87px;
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.content{
+
+    margin-left:235px;
+
+    width:calc(100% - 235px);
+
+    min-height:100vh;
+
+    padding:25px 30px 35px;
+
+    transition:
+        margin-left .25s ease,
+        width .25s ease;
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard-content{
+
+    display:block;
+}
+
+.dashboard-content.hidden{
+
+    display:none;
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+}
+
+.topbar h1{
+
+    font-size:23px;
+
+    letter-spacing:-.6px;
+
+    color:var(--text);
+}
+
+.topbar p{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    margin-top:5px;
+}
+
+.top-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+}
+
+.date{
+
+    border:1px solid var(--line);
+
+    background:#FFFFFF;
+
+    border-radius:8px;
+
+    padding:9px 12px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    box-shadow:var(--shadow);
+}
+
+.avatar{
+
+    width:35px;
+    height:35px;
+
+    border-radius:50%;
+
+    background:var(--primary-light);
+
+    color:var(--primary);
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    border:1px solid var(--primary-border);
+}
+
+
+/* =========================================================
+   IFRAME
+========================================================= */
+
+.page-frame{
+
+    display:none;
+
+    width:100%;
+
+    height:calc(100vh - 50px);
+
+    min-height:700px;
+
+    border:none;
+
+    background:#F4F6F8;
+
+    border-radius:12px;
+
+    overflow:hidden;
+}
+
+.page-frame.active{
+
+    display:block;
+}
+
+
+/* =========================================================
+   KPI
+========================================================= */
+
+.kpis{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:13px;
+}
+
+.kpi{
+
+    background:#FFFFFF;
+
+    border:1px solid var(--line);
+
+    border-radius:13px;
+
+    padding:17px 18px;
+
+    min-height:118px;
+
+    box-shadow:var(--shadow);
+
+    transition:.2s;
+}
+
+.kpi:hover{
+
+    box-shadow:var(--shadow-hover);
+
+    transform:translateY(-1px);
+}
+
+.kpi-head{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:var(--muted);
+
+    font-size:10px;
+}
+
+.kpi-icon{
+
+    width:29px;
+    height:29px;
+
+    border-radius:8px;
+
+    background:#F3F6FA;
+
+    color:var(--primary);
+
+    display:grid;
+
+    place-items:center;
+
+    font-weight:700;
+}
+
+.kpi-value{
+
+    font-size:21px;
+
+    font-weight:700;
+
+    margin-top:16px;
+
+    letter-spacing:-.5px;
+
+    color:var(--text);
+}
+
+.kpi-bottom{
+
+    font-size:9px;
+
+    color:var(--muted2);
+
+    margin-top:4px;
+}
+
+.up{
+    color:var(--green);
+}
+
+.gold{
+    color:var(--gold);
+}
+
+.danger{
+    color:var(--red);
+}
+
+
+/* =========================================================
+   GRID
+========================================================= */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:1.55fr .9fr;
+
+    gap:14px;
+
+    margin-top:14px;
+}
+
+.card{
+
+    background:#FFFFFF;
+
+    border:1px solid var(--line);
+
+    border-radius:13px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+}
+
+.card-head{
+
+    padding:16px 18px;
+
+    border-bottom:1px solid var(--line2);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.card-head h2{
+
+    font-size:13px;
+
+    color:var(--text);
+}
+
+.card-head span{
+
+    font-size:9px;
+
+    color:var(--muted2);
+}
+
+.card-head a{
+
+    color:var(--primary) !important;
+}
+
+.card-body{
+
+    padding:17px;
+}
+
+.chart-wrap{
+
+    height:205px;
+}
+
+canvas{
+
+    max-width:100%;
+}
+
+
+/* =========================================================
+   AGENDA RESUMO
+========================================================= */
+
+.agenda{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+}
+
+.event{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:10px;
+
+    border:1px solid var(--line);
+
+    border-radius:9px;
+
+    background:#FFFFFF;
+
+    transition:.2s;
+}
+
+.event:hover{
+
+    background:#F8FAFC;
+
+    border-color:#D6DCE5;
+
+    transform:translateX(2px);
+}
+
+.event-date{
+
+    width:43px;
+    height:43px;
+
+    border-radius:8px;
+
+    background:var(--primary-light);
+
+    color:var(--primary);
+
+    display:grid;
+
+    place-items:center;
+
+    text-align:center;
+
+    flex:none;
+}
+
+.event-date strong{
+
+    font-size:15px;
+}
+
+.event-date small{
+
+    font-size:7px;
+
+    text-transform:uppercase;
+
+    color:#6B7280;
+}
+
+.event-info{
+
+    min-width:0;
+
+    flex:1;
+}
+
+.event-info strong{
+
+    display:block;
+
+    font-size:10px;
+
+    color:var(--text);
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+.event-info small{
+
+    color:var(--muted);
+
+    font-size:9px;
+
+    display:block;
+
+    margin-top:3px;
+}
+
+.event-time{
+
+    font-size:9px;
+
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   ESTOQUE
+========================================================= */
+
+.stock-row{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:16px;
+}
+
+.stock-row:last-child{
+
+    margin-bottom:0;
+}
+
+.stock-label{
+
+    width:82px;
+
+    font-size:9px;
+
+    color:var(--muted);
+}
+
+.bar{
+
+    height:7px;
+
+    background:#E9EDF2;
+
+    border-radius:20px;
+
+    flex:1;
+
+    overflow:hidden;
+}
+
+.bar i{
+
+    height:100%;
+
+    display:block;
+
+    border-radius:20px;
+
+    background:var(--primary);
+}
+
+.stock-num{
+
+    width:25px;
+
+    text-align:right;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    color:var(--text2);
+}
+
+
+/* =========================================================
+   CONTRATOS
+========================================================= */
+
+.contracts{
+
+    margin-top:14px;
+}
+
+.contract-table{
+
+    width:100%;
+
+    border-collapse:collapse;
+}
+
+.contract-table th{
+
+    font-size:8px;
+
+    color:#9CA3AF;
+
+    text-align:left;
+
+    text-transform:uppercase;
+
+    letter-spacing:.7px;
+
+    padding:11px 10px;
+
+    border-bottom:1px solid var(--line);
+}
+
+.contract-table td{
+
+    font-size:10px;
+
+    padding:12px 10px;
+
+    border-bottom:1px solid var(--line2);
+
+    color:var(--text2);
+}
+
+.contract-table tr:last-child td{
+
+    border-bottom:0;
+}
+
+.contract-table strong{
+
+    color:var(--text);
+}
+
+.status{
+
+    font-size:8px;
+
+    border-radius:20px;
+
+    padding:5px 8px;
+
+    background:#F3F4F6;
+
+    color:#6B7280;
+}
+
+.status.ok{
+
+    background:var(--green-light);
+
+    color:var(--green);
+}
+
+.status.pending{
+
+    background:var(--gold-light);
+
+    color:var(--gold);
+}
+
+.empty{
+
+    padding:22px;
+
+    text-align:center;
+
+    color:#9CA3AF;
+
+    font-size:10px;
+}
+
+
+/* =========================================================
+   LOADING DO IFRAME
+========================================================= */
+
+.frame-loading{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(244,246,248,.75);
+
+    backdrop-filter:blur(2px);
+
+    display:none;
+
+    align-items:center;
+
+    justify-content:center;
+
+    z-index:200;
+}
+
+.frame-loading.active{
+
+    display:flex;
+}
+
+.loader-box{
+
+    background:#FFFFFF;
+
+    border:1px solid var(--line);
+
+    border-radius:12px;
+
+    padding:20px 25px;
+
+    box-shadow:var(--shadow-hover);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:var(--text);
+
+    font-size:12px;
+}
+
+.spinner{
+
+    width:18px;
+    height:18px;
+
+    border:2px solid #DBEAFE;
+
+    border-top-color:var(--primary);
+
+    border-radius:50%;
+
+    animation:girar .7s linear infinite;
+}
+
+@keyframes girar{
+
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.mobile-menu{
+
+    display:none;
+
+    border:1px solid var(--line);
+
+    background:#FFFFFF;
+
+    border-radius:9px;
+
+    padding:8px;
+
+    color:var(--text);
+
+    cursor:pointer;
+}
+
+/* =====================================================
+   FILTRO MENSAL - VISÃO GERAL
+===================================================== */
+.month-filter-dashboard{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.month-filter-dashboard label{
+    font-size:11px;
+    font-weight:600;
+    color:#777;
+}
+.month-filter-dashboard select{
+    border:1px solid #e2e2e2;
+    background:#fff;
+    border-radius:10px;
+    padding:9px 30px 9px 12px;
+    font-size:12px;
+    font-weight:600;
+    color:#222;
+    cursor:pointer;
+    outline:none;
+}
+.month-filter-dashboard select:focus{
+    border-color:#aaa;
+}
+
+@media(max-width:1050px){
+
+    .sidebar{
+
+        width:205px;
+    }
+
+    .content{
+
+        margin-left:205px;
+
+        width:calc(100% - 205px);
+    }
+
+    .kpis{
+
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+
+        grid-template-columns:1fr;
+    }
+}
+
+.month-filter-dashboard select{max-width:170px;}
+@media(max-width:650px){
+
+    /* SIDEBAR FECHADA */
+
+    .sidebar{
+
+        width:235px;
+
+        transform:translateX(-100%);
+
+        box-shadow:
+            8px 0 25px rgba(15,23,42,.10);
+    }
+
+
+    /* SIDEBAR ABERTA */
+
+    .sidebar.mobile-open{
+
+        transform:translateX(0);
+    }
+
+
+    /* NO CELULAR NÃO EXISTE ESTADO MINIMIZADO */
+
+    .sidebar.collapsed{
+
+        width:235px;
+
+        padding:24px 15px;
+
+        transform:translateX(-100%);
+    }
+
+
+    .sidebar.collapsed.mobile-open{
+
+        transform:translateX(0);
+    }
+
+
+    .sidebar.collapsed .logo > div:last-child{
+
+        display:block;
+    }
+
+
+    .sidebar.collapsed .menu-title{
+
+        display:block;
+    }
+
+
+    .sidebar.collapsed .menu a{
+
+        justify-content:flex-start;
+
+        padding:11px 12px;
+
+        font-size:12px;
+    }
+
+
+    .sidebar.collapsed .menu a .icon{
+
+        width:20px;
+
+        min-width:20px;
+
+        font-size:15px;
+    }
+
+
+    .sidebar.collapsed .salao-mini{
+
+        display:block;
+    }
+
+
+    /* CONTEÚDO */
+
+    .content{
+
+        margin:0 !important;
+
+        width:100% !important;
+
+        padding:70px 13px 25px;
+    }
+
+
+    /* BOTÃO */
+
+    .sidebar-toggle{
+
+        position:fixed;
+
+        left:13px !important;
+
+        top:17px;
+
+        z-index:300;
+
+        display:flex;
+    }
+
+
+    /* FUNDO ESCURO ATRÁS DO MENU */
+
+    .sidebar-overlay{
+
+        display:none;
+
+        position:fixed;
+
+        inset:0;
+
+        background:rgba(15,23,42,.30);
+
+        z-index:90;
+    }
+
+
+    .sidebar-overlay.active{
+
+        display:block;
+    }
+
+
+    .topbar{
+
+        align-items:flex-start;
+    }
+
+    .topbar h1{
+
+        font-size:19px;
+    }
+
+    .date{
+
+        display:none;
+    }
+
+    .kpis{
+
+        grid-template-columns:1fr 1fr;
+
+        gap:8px;
+    }
+
+    .kpi{
+
+        padding:13px;
+
+        min-height:105px;
+    }
+
+    .kpi-value{
+
+        font-size:17px;
+
+        margin-top:12px;
+    }
+
+    .grid{
+
+        gap:10px;
+    }
+
+    .card-head{
+
+        padding:13px;
+    }
+
+    .card-body{
+
+        padding:13px;
+    }
+
+    .contract-table th:nth-child(2),
+    .contract-table td:nth-child(2){
+
+        display:none;
+    }
+
+    .page-frame{
+
+        height:calc(100vh - 30px);
+
+        min-height:600px;
+
+        border-radius:8px;
+    }
+
+}
+/* =====================================================
+   SALONCONNECT IA
+===================================================== */
+
+.assistente-fab {
+
+    position: fixed;
+
+    right: 28px;
+    bottom: 28px;
+
+    z-index: 500;
+
+    border: 1px solid #dbe3ef;
+
+    background: #ffffff;
+
+    color: #1f2937;
+
+    border-radius: 15px;
+
+    padding: 10px 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 30px rgba(15, 23, 42, .13);
+
+    transition: .2s;
+}
+
+
+.assistente-fab:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 35px rgba(15, 23, 42, .18);
+}
+
+
+.assistente-fab > span {
+
+    width: 35px;
+    height: 35px;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 18px;
+}
+
+
+.assistente-fab strong {
+
+    display: block;
+
+    text-align: left;
+
+    font-size: 11px;
+}
+
+
+.assistente-fab small {
+
+    display: block;
+
+    text-align: left;
+
+    color: #9ca3af;
+
+    font-size: 8px;
+
+    margin-top: 2px;
+}
+
+
+/* OVERLAY */
+
+.assistente-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(15, 23, 42, .28);
+
+    backdrop-filter: blur(3px);
+
+    z-index: 1000;
+
+    display: none;
+
+    align-items: flex-end;
+
+    justify-content: flex-end;
+
+    padding: 25px;
+}
+
+
+.assistente-overlay.active {
+
+    display: flex;
+}
+
+
+/* JANELA */
+
+.assistente {
+
+    width: 410px;
+
+    height: 620px;
+
+    max-width: 100%;
+
+    max-height: calc(100vh - 50px);
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    display: flex;
+
+    flex-direction: column;
+
+    box-shadow:
+        0 25px 70px rgba(15, 23, 42, .22);
+
+    animation: abrirAssistente .2s ease;
+}
+
+
+@keyframes abrirAssistente {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* HEADER */
+
+.assistente-header {
+
+    height: 70px;
+
+    padding: 0 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #eef0f3;
+
+    background: #ffffff;
+}
+
+
+.assistente-identidade {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.assistente-logo {
+
+    width: 39px;
+    height: 39px;
+
+    border-radius: 11px;
+
+    background: #2563eb;
+
+    color: white;
+
+    display: grid;
+
+    place-items: center;
+
+    font-weight: 800;
+}
+
+
+.assistente-identidade strong {
+
+    display: block;
+
+    font-size: 12px;
+
+    color: #1f2937;
+}
+
+
+.assistente-identidade small {
+
+    display: block;
+
+    color: #9ca3af;
+
+    font-size: 9px;
+
+    margin-top: 3px;
+}
+
+
+.assistente-fechar {
+
+    width: 32px;
+    height: 32px;
+
+    border: none;
+
+    background: #f3f4f6;
+
+    border-radius: 8px;
+
+    font-size: 21px;
+
+    color: #6b7280;
+
+    cursor: pointer;
+}
+
+
+/* MENSAGENS */
+
+.assistente-mensagens {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    padding: 20px;
+
+    background: #f8fafc;
+}
+
+
+.mensagem {
+
+    display: flex;
+
+    gap: 9px;
+
+    margin-bottom: 17px;
+}
+
+
+.msg-avatar {
+
+    width: 28px;
+    height: 28px;
+
+    flex: none;
+
+    border-radius: 8px;
+
+    background: #2563eb;
+
+    color: white;
+
+    display: grid;
+
+    place-items: center;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.msg-conteudo {
+
+    max-width: 86%;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 5px 13px 13px 13px;
+
+    padding: 11px 13px;
+
+    box-shadow: 0 2px 5px rgba(15,23,42,.025);
+}
+
+
+.msg-conteudo strong {
+
+    display: block;
+
+    font-size: 9px;
+
+    color: #2563eb;
+
+    margin-bottom: 6px;
+}
+
+
+.msg-conteudo p {
+
+    color: #374151;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+
+    white-space: pre-line;
+}
+
+
+/* MENSAGEM DO USUÁRIO */
+
+.usuario-msg {
+
+    justify-content: flex-end;
+}
+
+
+.usuario-msg .msg-conteudo {
+
+    background: #2563eb;
+
+    border-color: #2563eb;
+
+    border-radius: 13px 5px 13px 13px;
+}
+
+
+.usuario-msg .msg-conteudo p {
+
+    color: white;
+}
+
+
+/* SUGESTÕES */
+
+.sugestoes {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 5px;
+
+    margin-left: 37px;
+}
+
+
+.sugestoes button {
+
+    border: 1px solid #dbe3ef;
+
+    background: white;
+
+    color: #374151;
+
+    padding: 8px 10px;
+
+    border-radius: 9px;
+
+    font-size: 9px;
+
+    cursor: pointer;
+
+    transition: .15s;
+}
+
+
+.sugestoes button:hover {
+
+    border-color: #2563eb;
+
+    color: #2563eb;
+
+    background: #eff6ff;
+}
+
+
+/* DIGITANDO */
+
+.assistente-digitando {
+
+    display: none;
+
+    align-items: center;
+
+    gap: 4px;
+
+    padding: 8px 20px;
+
+    color: #9ca3af;
+
+    font-size: 9px;
+
+    background: #f8fafc;
+}
+
+
+.assistente-digitando.active {
+
+    display: flex;
+}
+
+
+.assistente-digitando span {
+
+    width: 5px;
+    height: 5px;
+
+    background: #9ca3af;
+
+    border-radius: 50%;
+
+    animation: pulsar 1s infinite;
+}
+
+
+.assistente-digitando span:nth-child(2) {
+
+    animation-delay: .15s;
+}
+
+
+.assistente-digitando span:nth-child(3) {
+
+    animation-delay: .3s;
+}
+
+
+@keyframes pulsar {
+
+    0%, 100% {
+        opacity: .3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+}
+
+
+/* INPUT */
+
+.assistente-input {
+
+    padding: 12px;
+
+    border-top: 1px solid #eef0f3;
+
+    display: flex;
+
+    gap: 8px;
+
+    background: white;
+}
+
+
+.assistente-input input {
+
+    flex: 1;
+
+    border: 1px solid #e5e7eb;
+
+    outline: none;
+
+    border-radius: 10px;
+
+    padding: 11px 13px;
+
+    font-size: 11px;
+
+    color: #1f2937;
+
+    background: #f8fafc;
+}
+
+
+.assistente-input input:focus {
+
+    border-color: #2563eb;
+
+    background: white;
+}
+
+
+.assistente-input button {
+
+    width: 42px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #2563eb;
+
+    color: white;
+
+    cursor: pointer;
+
+    font-size: 16px;
+}
+
+
+.assistente-input button:disabled {
+
+    opacity: .5;
+
+    cursor: not-allowed;
+}
+
+
+/* MOBILE */
+
+@media(max-width:650px) {
+
+    .assistente-fab {
+
+        right: 15px;
+
+        bottom: 15px;
+
+        padding: 9px 11px;
+    }
+
+
+    .assistente-overlay {
+
+        padding: 0;
+    }
+
+
+    .assistente {
+
+        width: 100%;
+
+        height: 100%;
+
+        max-height: 100%;
+
+        border-radius: 0;
+    }
+
+}
+/* =========================================================
+   POP-UP ADMINISTRADOR
+========================================================= */
+
+.popup-admin-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    z-index: 99999;
+
+    padding: 20px;
+}
+
+.popup-admin-overlay.active {
+    display: flex;
+}
+
+
+.popup-admin {
+    position: relative;
+
+    width: 100%;
+    max-width: 420px;
+
+    background: #ffffff;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+
+    animation: popupAdminEntrada 0.2s ease;
+}
+
+
+@keyframes popupAdminEntrada {
+
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+}
+
+
+.popup-admin-fechar {
+
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 28px;
+
+    color: #777;
+
+    cursor: pointer;
+
+    line-height: 1;
+}
+
+
+.popup-admin-fechar:hover {
+    color: #000;
+}
+
+
+.popup-admin-icone {
+
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    background: #f3f4f6;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+
+    margin-bottom: 15px;
+}
+
+
+.popup-admin h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 22px;
+
+    color: #111827;
+}
+
+
+.popup-admin > p {
+
+    margin: 0 0 25px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+}
+
+
+.popup-admin-campo {
+
+    margin-bottom: 16px;
+}
+
+
+.popup-admin-campo label {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    color: #374151;
+}
+
+
+.popup-admin-campo input {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 13px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition: border-color 0.2s;
+}
+
+
+.popup-admin-campo input:focus {
+
+    border-color: #111827;
+
+}
+
+
+.popup-admin-erro {
+
+    display: none;
+
+    margin-bottom: 15px;
+
+    padding: 10px 12px;
+
+    border-radius: 8px;
+
+    background: #fef2f2;
+
+    color: #dc2626;
+
+    font-size: 13px;
+}
+
+
+.popup-admin-erro.active {
+    display: block;
+}
+
+
+.popup-admin-acoes {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 22px;
+}
+
+
+.popup-admin-acoes button {
+
+    flex: 1;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.btn-admin-cancelar {
+
+    border: 1px solid #d1d5db;
+
+    background: #ffffff;
+
+    color: #374151;
+}
+
+
+.btn-admin-entrar {
+
+    border: none;
+
+    background: #111827;
+
+    color: #ffffff;
+}
+
+
+.btn-admin-entrar:hover {
+
+    background: #000000;
+}
+
+
+@media (max-width: 480px) {
+
+    .popup-admin {
+
+        padding: 25px 20px;
+
+        border-radius: 15px;
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+<div class="app">
+
+
+<!-- =====================================================
+     MENU LATERAL
+===================================================== -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <div class="logo-mark">
+            SC
+        </div>
+
+        <div>
+            <strong>SalonConnect</strong>
+
+            <small>
+                <br>GESTÃO INTELIGENTE
+            </small>
+        </div>
+
+    </div>
+
+
+
+
+    <nav class="menu">
+
+
+        <!-- DASHBOARD -->
+
+        <a
+            href="/pagina_inicial"
+            class="active"
+            data-page="dashboard"
+        >
+
+            <span class="icon">
+                ⌂
+            </span>
+
+            Página Inicial
+
+        </a>
+
+
+        <!-- AGENDA -->
+
+        {% if modulos.agenda %}
+
+        <a
+            href="/agenda"
+            data-page="agenda"
+        >
+
+            <span class="icon">
+                ◫
+            </span>
+
+            Agenda
+
+        </a>
+
+        {% endif %}
+
+<!-- VISITAS --> <a href="/visitas" data-page="visitas" > <span class="icon"> 👥 </span> Visitas </a>
+        <!-- CONTRATOS -->
+
+        {% if modulos.contratos %}
+
+        <a
+            href="/contratos"
+            data-page="contratos"
+        >
+
+            <span class="icon">
+                ▤
+            </span>
+
+            Contratos
+
+        </a>
+
+        {% endif %}
+
+
+        <!-- NOVO CONTRATO -->
+
+        {% if modulos.novo_contrato %}
+
+        <a
+            href="/novo_contrato"
+            data-page="novo_contrato"
+        >
+
+            <span class="icon">
+                ＋
+            </span>
+
+            Novo contrato
+
+        </a>
+
+        {% endif %}
+<!-- SERVIÇOS CONTRATADOS -->
+
+<a
+    href="/servicos_contratados"
+    data-page="servicos_contratados"
+>
+
+    <span class="icon">
+        🧰
+    </span>
+
+    Serviços Contratados
+
+</a>
+
+        <!-- FINANCEIRO -->
+
+        {% if modulos.financeiro %}
+
+        <a
+            href="/financeiro"
+            data-page="financeiro"
+        >
+
+            <span class="icon">
+                ◈
+            </span>
+
+            Financeiro
+
+        </a>
+
+        {% endif %}
+
+
+        <!-- ESTOQUE -->
+
+        {% if modulos.estoque %}
+
+        <a
+            href="/estoque"
+            data-page="estoque"
+        >
+
+            <span class="icon">
+                ▦
+            </span>
+
+            Estoque
+
+        </a>
+
+        {% endif %}
+<!-- COMPROVANTES -->
+
+<a
+    href="/comprovantes"
+    data-page="comprovantes"
+>
+
+    <span class="icon">
+        📎
+    </span>
+
+    Comprovantes
+
+</a>
+    </nav>
+
+
+    <!-- CONFIGURAÇÕES -->
+
+    <div
+        class="menu-title"
+        style="margin-top:16px"
+    >
+        Configurações
+    </div>
+
+
+    <nav class="menu">
+
+        {% if modulos.novo_contrato %}
+
+        <a
+            href="/contrato"
+            data-page="configuracao"
+        >
+
+            <span class="icon">
+                ⚙
+            </span>
+
+            Configuração Contrato
+
+        </a>
+<a
+    href="/logout"
+    class="menu-sair"
+    onclick="sairSistema(event)"
+>
+    <span class="icon">
+        ⇥
+    </span>
+
+    Sair
+</a>
+
+        {% endif %}
+
+    </nav>
+
+
+    <!-- SALÃO -->
+
+    <div class="sidebar-bottom">
+
+        <div class="salao-mini">
+
+            <small>
+                SALÃO CONECTADO
+            </small>
+
+            <strong>
+                {{ salao.nome if salao else "Meu Salão" }}
+            </strong>
+
+        </div>
+
+    </div>
+
+</aside>
+
+<div
+    class="sidebar-overlay"
+    id="sidebarOverlay"
+></div>
+
+<!-- =====================================================
+     CONTEÚDO
+===================================================== -->
+
+<main class="content">
+<button
+    class="sidebar-toggle"
+    id="sidebarToggle"
+    type="button"
+    aria-label="Abrir ou minimizar menu"
+>
+    ☰
+</button>
+
+    <!-- =================================================
+         DASHBOARD
+    ================================================= -->
+
+    <div
+        id="dashboardContent"
+        class="dashboard-content"
+    >
+
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <div>
+
+                <h1><BR><bR>
+                    Visão geral
+                </h1>
+
+                <p>
+                    Bem-vindo de volta,
+                    {{ salao.nome if salao else "seu salão" }}.
+                </p>
+
+            </div>
+
+
+            <div class="top-actions">
+
+                {% if modulos.financeiro %}
+                <div class="month-filter-dashboard">
+                    <label for="mesVisaoGeral">Mês</label>
+                    <select id="mesVisaoGeral" onchange="carregarFinanceiro()"></select>
+                </div>
+                {% endif %}
+
+                <div
+                    class="date"
+                    id="dataAtual"
+                >
+                </div>
+
+                <div class="avatar">
+
+                    {{ (salao.nome[:2] if salao and salao.nome else "SC")|upper }}
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- =================================================
+             KPIs
+        ================================================= -->
+
+        <section class="kpis">
+
+
+            {% if modulos.financeiro %}
+
+
+            <div class="kpi">
+
+                <div class="kpi-head">
+
+                    <span>
+                        FATURAMENTO
+                    </span>
+
+                    <div class="kpi-icon">
+                        R$
+                    </div>
+
+                </div>
+
+                <div
+                    class="kpi-value"
+                    id="faturamento"
+                >
+                    R$ 0,00
+                </div>
+
+                <div class="kpi-bottom up">
+                    ● contratos do período
+                </div>
+
+            </div>
+
+
+
+            <div class="kpi">
+
+                <div class="kpi-head">
+
+                    <span>
+                        RECEBIDO
+                    </span>
+
+                    <div class="kpi-icon">
+                        ✓
+                    </div>
+
+                </div>
+
+                <div
+                    class="kpi-value"
+                    id="recebido"
+                >
+                    R$ 0,00
+                </div>
+
+                <div
+                    class="kpi-bottom up"
+                    id="percent"
+                >
+                    0% do faturamento
+                </div>
+
+            </div>
+
+
+
+            <div class="kpi">
+
+                <div class="kpi-head">
+
+                    <span>
+                        A RECEBER
+                    </span>
+
+                    <div class="kpi-icon">
+                        ◷
+                    </div>
+
+                </div>
+
+                <div
+                    class="kpi-value gold"
+                    id="aReceber"
+                >
+                    R$ 0,00
+                </div>
+
+                <div class="kpi-bottom">
+                    saldo dos contratos
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+
+            {% if modulos.estoque %}
+
+
+            <div class="kpi">
+
+                <div class="kpi-head">
+
+                    <span>
+                        ESTOQUE
+                    </span>
+
+                    <div class="kpi-icon">
+                        ▦
+                    </div>
+
+                </div>
+
+                <div
+                    class="kpi-value"
+                    id="itensEstoque"
+                >
+                    0
+                </div>
+
+                <div
+                    class="kpi-bottom"
+                    id="estoqueDesc"
+                >
+                    itens cadastrados
+                </div>
+
+            </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             GRÁFICO + AGENDA
+        ================================================= -->
+
+        <section class="grid">
+
+
+            {% if modulos.financeiro %}
+
+
+            <div class="card">
+
+                <div class="card-head">
+
+                    <div>
+
+                        <h2>
+                            Desempenho financeiro
+                        </h2>
+
+                        <span>
+                            Resumo do período atual
+                        </span>
+
+                    </div>
+
+                    <span id="mesGrafico"></span>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div class="chart-wrap">
+
+                        <canvas
+                            id="financeChart"
+                        ></canvas>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% endif %}
+
+
+
+            {% if modulos.agenda %}
+
+
+            <div class="card">
+
+                <div class="card-head">
+
+                    <div>
+
+                        <h2>
+                            Próximos eventos
+                        </h2>
+
+                        <span>
+                            Agenda
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="/agenda"
+                        data-page="agenda"
+                        style="font-size:9px;color:#aaa"
+                    >
+                        Ver tudo →
+                    </a>
+
+                </div>
+
+
+                <div class="card-body">
+
+                    <div
+                        class="agenda"
+                        id="agendaList"
+                    >
+
+                        <div class="empty">
+                            Carregando...
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ESTOQUE + CONTRATOS
+        ================================================= -->
+
+        <section class="grid">
+
+
+            {% if modulos.estoque %}
+
+
+            <div class="card">
+
+                <div class="card-head">
+
+                    <div>
+
+                        <h2>
+                            Estoque
+                        </h2>
+
+                        <span>
+                            Visão rápida
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="/estoque"
+                        data-page="estoque"
+                        style="font-size:9px;color:#aaa"
+                    >
+                        Gerenciar →
+                    </a>
+
+                </div>
+
+
+                <div class="card-body">
+
+
+                    <div class="stock-row">
+
+                        <span class="stock-label">
+                            Disponível
+                        </span>
+
+                        <div class="bar">
+
+                            <i
+                                id="barDisponivel"
+                                style="width:75%"
+                            ></i>
+
+                        </div>
+
+                        <span
+                            class="stock-num"
+                            id="stockTotal"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="stock-row">
+
+                        <span class="stock-label">
+                            Estoque médio
+                        </span>
+
+                        <div class="bar">
+
+                            <i
+                                id="barMedio"
+                                style="width:0%"
+                            ></i>
+
+                        </div>
+
+                        <span
+                            class="stock-num"
+                            id="stockMedio"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="stock-row">
+
+                        <span class="stock-label">
+                            Estoque baixo
+                        </span>
+
+                        <div class="bar">
+
+                            <i
+                                id="barBaixo"
+                                style="width:0%;background:#777"
+                            ></i>
+
+                        </div>
+
+                        <span
+                            class="stock-num danger"
+                            id="stockBaixo"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            {% endif %}
+
+
+
+            {% if modulos.contratos %}
+
+
+            <div class="card">
+
+                <div class="card-head">
+
+                    <div>
+
+                        <h2>
+                            Contratos
+                        </h2>
+
+                        <span>
+                            Resumo do período
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="/contratos"
+                        data-page="contratos"
+                        style="font-size:9px;color:#aaa"
+                    >
+                        Ver tudo →
+                    </a>
+
+                </div>
+
+
+                <div class="card-body">
+
+
+                    <div class="stock-row">
+
+                        <span class="stock-label">
+                            Total
+                        </span>
+
+                        <div class="bar">
+
+                            <i
+                                id="barContratos"
+                                style="width:100%"
+                            ></i>
+
+                        </div>
+
+                        <span
+                            class="stock-num"
+                            id="qtdContratos"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+
+                    <div class="stock-row">
+
+                        <span class="stock-label">
+                            Quitados
+                        </span>
+
+                        <div class="bar">
+
+                            <i
+                                id="barQuitados"
+                                style="width:0%"
+                            ></i>
+
+                        </div>
+
+                        <span
+                            class="stock-num up"
+                            id="qtdQuitados"
+                        >
+                            0
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            {% endif %}
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             CONTRATOS RECENTES
+        ================================================= -->
+
+        {% if modulos.contratos %}
+
+
+        <section class="card contracts">
+
+            <div class="card-head">
+
+                <div>
+
+                    <h2>
+                        Contratos recentes
+                    </h2>
+
+                    <span>
+                        Últimas movimentações
+                    </span>
+
+                </div>
+
+
+                <a
+                    href="/contratos"
+                    data-page="contratos"
+                    style="font-size:9px;color:#aaa"
+                >
+                    Abrir contratos →
+                </a>
+
+            </div>
+
+
+            <div style="overflow-x:auto">
+
+                <table class="contract-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Contrato
+                            </th>
+
+                            <th>
+                                Cliente
+                            </th>
+
+                            <th>
+                                Aniversariante
+                            </th>
+
+                            <th>
+                                Valor
+                            </th>
+
+                            <th>
+                                Situação
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="contractsBody">
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="empty"
+                            >
+                                Carregando...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        {% endif %}
+
+    </div>
+
+
+
+    <!-- =================================================
+         IFRAME DAS PÁGINAS
+    ================================================= -->
+
+    <iframe
+        id="pageFrame"
+        class="page-frame"
+        title="Conteúdo SalonConnect"
+    ></iframe>
+
+
+</main>
+
+</div>
+
+
+
+<!-- =====================================================
+     LOADING
+===================================================== -->
+
+<div
+    id="frameLoading"
+    class="frame-loading"
+>
+
+    <div class="loader-box">
+
+        <div class="spinner"></div>
+
+        <span>
+            Carregando página...
+        </span>
+
+    </div>
+
+</div>
+<!-- =========================================================
+     POP-UP DE ACESSO ADMINISTRADOR
+========================================================= -->
+
+<div id="popupAdmin" class="popup-admin-overlay">
+
+    <div class="popup-admin">
+
+        <button
+            type="button"
+            class="popup-admin-fechar"
+            onclick="fecharPopupAdmin()"
+        >
+            ×
+        </button>
+
+        <div class="popup-admin-icone">
+            🔐
+        </div>
+
+        <h2>Acesso restrito</h2>
+
+        <p>
+            Esta área é exclusiva do administrador do salão.
+        </p>
+
+        <form id="formAdmin">
+
+            <div class="popup-admin-campo">
+
+                <label for="loginAdmin">
+                    Login do administrador
+                </label>
+
+                <input
+                    type="text"
+                    id="loginAdmin"
+                    autocomplete="username"
+                    placeholder="Digite o login"
+                    required
+                >
+
+            </div>
+
+
+            <div class="popup-admin-campo">
+
+                <label for="senhaAdmin">
+                    Senha do administrador
+                </label>
+
+                <input
+                    type="password"
+                    id="senhaAdmin"
+                    autocomplete="current-password"
+                    placeholder="Digite a senha"
+                    required
+                >
+
+            </div>
+
+
+            <div
+                id="erroAdmin"
+                class="popup-admin-erro"
+            ></div>
+
+
+            <div class="popup-admin-acoes">
+
+                <button
+                    type="button"
+                    class="btn-admin-cancelar"
+                    onclick="fecharPopupAdmin()"
+                >
+                    Cancelar
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn-admin-entrar"
+                >
+                    Entrar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+<script>
+function sairSistema(event) {
+
+    event.preventDefault();
+
+    // Remove o login salvo no navegador
+    localStorage.removeItem("logado");
+
+    // Chama o logout do Flask para destruir a sessão
+    fetch("/logout", {
+        method: "GET",
+        credentials: "same-origin"
+    })
+    .then(() => {
+
+        // Volta para o index
+        window.top.location.href = "/";
+
+    })
+    .catch(() => {
+
+        // Mesmo se houver erro na requisição,
+        // remove o login local e volta para o index
+        localStorage.removeItem("logado");
+
+        window.top.location.href = "/";
+
+    });
+
+}
+/* =========================================================
+   UTILITÁRIOS
+========================================================= */
+
+const moeda = valor => {
+
+    return new Intl.NumberFormat(
+        "pt-BR",
+        {
+            style:"currency",
+            currency:"BRL"
+        }
+    ).format(
+        Number(valor || 0)
+    );
+
+};
+
+
+const esc = valor => {
+
+    return String(valor ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+};
+
+
+const set = (id, valor) => {
+
+    const elemento =
+        document.getElementById(id);
+
+    if(elemento){
+
+        elemento.textContent = valor;
+
+    }
+
+};
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const dataAtualElemento =
+    document.getElementById("dataAtual");
+
+if(dataAtualElemento){
+
+    dataAtualElemento.textContent =
+        new Date().toLocaleDateString(
+            "pt-BR",
+            {
+                day:"2-digit",
+                month:"short",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+const mesGrafico =
+    document.getElementById("mesGrafico");
+
+if(mesGrafico){
+
+    mesGrafico.textContent =
+        new Date().toLocaleDateString(
+            "pt-BR",
+            {
+                month:"long",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   IFRAME
+========================================================= */
+
+const pageFrame =
+    document.getElementById("pageFrame");
+
+const dashboardContent =
+    document.getElementById("dashboardContent");
+
+const frameLoading =
+    document.getElementById("frameLoading");
+
+
+
+function abrirPagina(url, elemento){
+
+    if(!url){
+
+        return;
+
+    }
+
+
+    /*
+     * Se clicar no Dashboard,
+     * volta para o conteúdo principal.
+     */
+
+    if(
+        url === "/pagina_inicial" ||
+        url === "/pagina_inicial/"
+    ){
+
+        mostrarDashboard();
+
+        atualizarMenu(elemento);
+
+        history.pushState(
+            {pagina:"dashboard"},
+            "",
+            "/pagina_inicial"
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * Mostra loading
+     */
+
+    if(frameLoading){
+
+        frameLoading.classList.add("active");
+
+    }
+
+
+    /*
+     * Esconde dashboard
+     */
+
+    if(dashboardContent){
+
+        dashboardContent.classList.add("hidden");
+
+    }
+
+
+    /*
+     * Mostra iframe
+     */
+
+    if(pageFrame){
+
+        pageFrame.classList.add("active");
+
+        /*
+         * Só troca o src quando
+         * realmente necessário.
+         */
+
+        if(pageFrame.src !== window.location.origin + url){
+
+            pageFrame.src = url;
+
+        }
+
+    }
+
+
+    atualizarMenu(elemento);
+
+
+    /*
+     * Atualiza URL sem recarregar
+     */
+
+    history.pushState(
+        {pagina:url},
+        "",
+        url
+    );
+
+}
+
+
+/* =========================================================
+   MOSTRAR DASHBOARD
+========================================================= */
+
+function mostrarDashboard(){
+
+    if(pageFrame){
+
+        pageFrame.classList.remove("active");
+
+        /*
+         * Não removemos o src.
+         * Assim a página pode continuar carregada
+         * caso o usuário volte.
+         */
+
+    }
+
+
+    if(dashboardContent){
+
+        dashboardContent.classList.remove("hidden");
+
+    }
+
+}
+
+
+/* =========================================================
+   MENU ATIVO
+========================================================= */
+
+function atualizarMenu(elemento){
+
+    document
+        .querySelectorAll(".menu a")
+        .forEach(link => {
+
+            link.classList.remove("active");
+
+        });
+
+
+    if(elemento){
+
+        elemento.classList.add("active");
+
+    }
+
+}
+
+
+/* =========================================================
+   LINKS DO MENU
+========================================================= */
+
+document
+    .querySelectorAll(".menu a")
+    .forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                function(event){
+
+                    if (this.classList.contains("menu-sair")) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+
+                    const url =
+                        this.getAttribute("href");
+
+
+                    /*
+                     * Verifica se a página
+                     * exige autorização admin.
+                     */
+
+                    if (paginaProtegida(url)) {
+
+                        abrirPopupAdmin(
+                            url,
+                            this
+                        );
+
+                        return;
+                    }
+
+
+                    /*
+                     * Página normal
+                     */
+
+                    abrirPagina(
+                        url,
+                        this
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+
+/*
+ * Links internos do dashboard
+ * que também devem abrir no iframe.
+ */
+
+document
+    .querySelectorAll(
+        '#dashboardContent a[data-page]'
+    )
+    .forEach(link => {
+
+        link.addEventListener(
+            "click",
+            function(event){
+
+                event.preventDefault();
+
+                const url =
+                    this.getAttribute("href");
+
+                /*
+                 * Procura o link correspondente
+                 * no menu lateral.
+                 */
+
+                const menuLink =
+                    document.querySelector(
+                        `.menu a[data-page="${this.dataset.page}"]`
+                    );
+
+                abrirPagina(
+                    url,
+                    menuLink
+                );
+
+            }
+        );
+
+    });
+
+
+
+/* =========================================================
+   IFRAME CARREGOU
+========================================================= */
+
+if(pageFrame){
+
+    pageFrame.addEventListener(
+        "load",
+        function(){
+
+            if(frameLoading){
+
+                frameLoading.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+
+/* =========================================================
+   VOLTAR / AVANÇAR DO NAVEGADOR
+========================================================= */
+
+window.addEventListener(
+    "popstate",
+    function(){
+
+        const caminho =
+            window.location.pathname;
+
+
+        if(
+            caminho === "/pagina_inicial" ||
+            caminho === "/pagina_inicial/"
+        ){
+
+            mostrarDashboard();
+
+            const link =
+                document.querySelector(
+                    '.menu a[data-page="dashboard"]'
+                );
+
+            atualizarMenu(link);
+
+            return;
+
+        }
+
+
+        const link =
+            document.querySelector(
+                `.menu a[href="${caminho}"]`
+            );
+
+
+        abrirPagina(
+            caminho,
+            link
+        );
+
+    }
+);
+
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+
+/* =========================================================
+   FINANCEIRO
+========================================================= */
+
+let financeChart;
+
+
+function preencherMesesVisaoGeral(){
+
+    const select =
+        document.getElementById("mesVisaoGeral");
+
+    if(!select) return;
+
+    const inicio = new Date(2026, 7, 1);
+    const fim = new Date(2027, 11, 1);
+
+    select.innerHTML = "";
+
+    for(
+        let d = new Date(inicio);
+        d <= fim;
+        d.setMonth(d.getMonth() + 1)
+    ){
+        const value =
+            d.getFullYear() +
+            "-" +
+            String(d.getMonth()+1).padStart(2,"0");
+
+        const texto = d.toLocaleDateString("pt-BR", {
+            month:"long",
+            year:"numeric"
+        });
+
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent =
+            texto.charAt(0).toUpperCase() + texto.slice(1);
+
+        select.appendChild(option);
+    }
+
+    select.value = "2026-08";
+}
+
+
+async function carregarFinanceiro(){
+
+    try{
+
+        const select =
+            document.getElementById("mesVisaoGeral");
+
+        const mes =
+            select && select.value
+                ? select.value
+                : "2026-08";
+
+
+        const resposta =
+            await fetch(
+                "/api/financeiro?mes=" +
+                encodeURIComponent(mes)
+            );
+
+
+        const data =
+            await resposta.json();
+
+
+        if(
+            !resposta.ok ||
+            !data.sucesso
+        ){
+
+            throw new Error(
+                data.mensagem ||
+                "Erro financeiro"
+            );
+
+        }
+
+
+        const x =
+            data.resumo || {};
+
+
+        const faturamento =
+            Number(
+                x.faturamento || 0
+            );
+
+
+        const recebido =
+            Number(
+                x.recebido || 0
+            );
+
+
+        const receber =
+            Number(
+                x.a_receber || 0
+            );
+
+
+        const qtd =
+            Number(
+                x.qtd_contratos || 0
+            );
+
+
+        const quit =
+            Number(
+                x.qtd_quitados || 0
+            );
+
+
+        const pct =
+            faturamento
+            ? Math.round(
+                recebido /
+                faturamento *
+                100
+            )
+            : 0;
+
+
+        set(
+            "faturamento",
+            moeda(faturamento)
+        );
+
+
+        set(
+            "recebido",
+            moeda(recebido)
+        );
+
+
+        set(
+            "aReceber",
+            moeda(receber)
+        );
+
+
+        set(
+            "percent",
+            pct + "% do faturamento"
+        );
+
+
+        set(
+            "qtdContratos",
+            qtd
+        );
+
+
+        set(
+            "qtdQuitados",
+            quit
+        );
+
+
+        const bc =
+            document.getElementById(
+                "barContratos"
+            );
+
+
+        const bq =
+            document.getElementById(
+                "barQuitados"
+            );
+
+
+        if(bc){
+
+            bc.style.width =
+                "100%";
+
+        }
+
+
+        if(bq){
+
+            bq.style.width =
+                (
+                    qtd
+                    ? Math.min(
+                        100,
+                        quit / qtd * 100
+                    )
+                    : 0
+                ) + "%";
+
+        }
+
+
+        renderChart(
+            faturamento,
+            recebido,
+            receber
+        );
+
+
+        renderContracts(
+            data.contratos || []
+        );
+
+
+    }catch(erro){
+
+        console.error(
+            "Erro ao carregar financeiro:",
+            erro
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   GRÁFICO
+========================================================= */
+
+function renderChart(
+    faturamento,
+    recebido,
+    receber
+){
+
+    const canvas =
+        document.getElementById(
+            "financeChart"
+        );
+
+
+    if(!canvas){
+
+        return;
+
+    }
+
+
+    if(financeChart){
+
+        financeChart.destroy();
+
+    }
+
+
+    financeChart =
+        new Chart(
+            canvas,
+            {
+
+                type:"bar",
+
+                data:{
+
+                    labels:[
+                        "Contratado",
+                        "Recebido",
+                        "A receber"
+                    ],
+
+                    datasets:[
+                        {
+
+                            data:[
+                                faturamento,
+                                recebido,
+                                receber
+                            ],
+
+                            backgroundColor:[
+                                "#2563EB",
+                                "#16A34A",
+                                "#D97706"
+                            ],
+
+                            borderRadius:7,
+
+                            borderSkipped:false,
+
+                            barThickness:32
+
+                        }
+                    ]
+
+                },
+
+                options:{
+
+                    responsive:true,
+
+                    maintainAspectRatio:false,
+
+                    plugins:{
+
+                        legend:{
+                            display:false
+                        },
+
+                        tooltip:{
+
+                            callbacks:{
+
+                                label:
+                                    ctx =>
+                                    moeda(
+                                        ctx.raw
+                                    )
+
+                            }
+
+                        }
+
+                    },
+
+                    scales:{
+
+                        x:{
+
+                            grid:{
+                                display:false
+                            },
+
+                            ticks:{
+
+                                color:"#777",
+
+                                font:{
+                                    size:9
+                                }
+
+                            }
+
+                        },
+
+                        y:{
+
+                            grid:{
+                                color:"#E5E7EB"
+                            },
+
+                            ticks:{
+
+                                color:"#666",
+
+                                font:{
+                                    size:8
+                                },
+
+                                callback:
+                                    valor =>
+                                    moeda(
+                                        valor
+                                    )
+
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   CONTRATOS
+========================================================= */
+
+function renderContracts(lista){
+
+    const tabela =
+        document.getElementById(
+            "contractsBody"
+        );
+
+
+    if(!tabela){
+
+        return;
+
+    }
+
+
+    if(!lista.length){
+
+        tabela.innerHTML =
+            `
+            <tr>
+                <td
+                    colspan="5"
+                    class="empty"
+                >
+                    Nenhum contrato no período.
+                </td>
+            </tr>
+            `;
+
+        return;
+
+    }
+
+
+    tabela.innerHTML =
+        lista
+            .slice(0,5)
+            .map(
+                contrato => {
+
+                    const valor =
+                        Number(
+                            contrato.valor_total ??
+                            contrato.valorTotal ??
+                            0
+                        );
+
+
+                    const pago =
+                        Number(
+                            contrato.valor_pago ??
+                            contrato.valorPago ??
+                            0
+                        );
+
+
+                    const quitado =
+                        valor > 0 &&
+                        pago >= valor;
+
+
+                    const parcial =
+                        pago > 0 &&
+                        !quitado;
+
+
+                    const label =
+                        quitado
+                        ? "Quitado"
+                        : parcial
+                        ? "Parcial"
+                        : "Pendente";
+
+
+                    const classe =
+                        quitado
+                        ? "ok"
+                        : parcial
+                        ? "pending"
+                        : "";
+
+
+                    return `
+
+                        <tr>
+
+                            <td>
+                                #${esc(
+                                    contrato.id
+                                )}
+                            </td>
+
+                            <td>
+                                ${esc(
+                                    contrato.cliente ||
+                                    "—"
+                                )}
+                            </td>
+
+                            <td>
+                                ${esc(
+                                    contrato.aniversariante ||
+                                    "—"
+                                )}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    ${moeda(valor)}
+                                </strong>
+                            </td>
+
+                            <td>
+
+                                <span
+                                    class="status ${classe}"
+                                >
+                                    ${label}
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                }
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   AGENDA RESUMIDA
+========================================================= */
+
+async function carregarAgenda(){
+
+    const box =
+        document.getElementById(
+            "agendaList"
+        );
+
+
+    if(!box){
+
+        return;
+
+    }
+
+
+    try{
+
+        const resposta =
+            await fetch(
+                "/api/agenda"
+            );
+
+
+        const data =
+            await resposta.json();
+
+
+        const hoje =
+            new Date();
+
+
+        hoje.setHours(
+            0,0,0,0
+        );
+
+
+        const lista =
+            (
+                Array.isArray(data)
+                ? data
+                : []
+            )
+
+            .map(
+                item => {
+
+                    let dt = null;
+
+
+                    if(
+                        item.data_evento
+                    ){
+
+                        if(
+                            /^\d{4}-\d{2}-\d{2}$/
+                            .test(
+                                String(
+                                    item.data_evento
+                                )
+                            )
+                        ){
+
+                            const partes =
+                                String(
+                                    item.data_evento
+                                )
+                                .split("-")
+                                .map(Number);
+
+
+                            dt =
+                                new Date(
+                                    partes[0],
+                                    partes[1]-1,
+                                    partes[2]
+                                );
+
+                        }else{
+
+                            dt =
+                                new Date(
+                                    item.data_evento
+                                );
+
+                        }
+
+                    }
+
+
+                    return {
+                        ...item,
+                        _dt:dt
+                    };
+
+                }
+            )
+
+            .filter(
+                item =>
+                    item._dt &&
+                    item._dt >= hoje
+            )
+
+            .sort(
+                (a,b) =>
+                    a._dt - b._dt
+            )
+
+            .slice(0,4);
+
+
+        if(!lista.length){
+
+            box.innerHTML =
+                `
+                <div class="empty">
+                    Nenhum próximo evento.
+                </div>
+                `;
+
+            return;
+
+        }
+
+
+        box.innerHTML =
+            lista
+                .map(
+                    item => {
+
+                        const dt =
+                            item._dt;
+
+
+                        const dia =
+                            String(
+                                dt.getDate()
+                            )
+                            .padStart(
+                                2,
+                                "0"
+                            );
+
+
+                        const mes =
+                            dt
+                            .toLocaleDateString(
+                                "pt-BR",
+                                {
+                                    month:"short"
+                                }
+                            )
+                            .replace(
+                                ".",
+                                ""
+                            );
+
+
+                        const nome =
+                            item.aniversariante ||
+                            item.cliente ||
+                            "Festa";
+
+
+                        const hora =
+                            item.horario ||
+                            item.hora_inicio ||
+                            item.horaInicio ||
+                            "";
+
+
+                        return `
+
+                            <a
+                                class="event"
+                                href="/novo_contrato?id=${item.id || ""}&modo=visualizar"
+                                data-page="novo_contrato"
+                            >
+
+                                <div class="event-date">
+
+                                    <strong>
+                                        ${dia}
+                                    </strong>
+
+                                    <small>
+                                        ${mes}
+                                    </small>
+
+                                </div>
+
+
+                                <div class="event-info">
+
+                                    <strong>
+                                        ${esc(nome)}
+                                    </strong>
+
+                                    <small>
+                                        ${esc(
+                                            item.cliente ||
+                                            "Evento"
+                                        )}
+                                    </small>
+
+                                </div>
+
+
+                                <div class="event-time">
+
+                                    ${esc(
+                                        hora || "—"
+                                    )}
+
+                                </div>
+
+                            </a>
+
+                        `;
+
+                    }
+                )
+                .join("");
+
+
+        /*
+         * Adiciona comportamento aos links
+         * criados dinamicamente.
+         */
+
+        box
+            .querySelectorAll(
+                "a[data-page]"
+            )
+            .forEach(
+                link => {
+
+                    link.addEventListener(
+                        "click",
+                        function(event){
+
+                            event.preventDefault();
+
+
+                            const url =
+                                this.getAttribute(
+                                    "href"
+                                );
+
+
+                            const menuLink =
+                                document.querySelector(
+                                    `.menu a[data-page="${this.dataset.page}"]`
+                                );
+
+
+                            abrirPagina(
+                                url,
+                                menuLink
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+    }catch(erro){
+
+        console.error(
+            "Erro ao carregar agenda:",
+            erro
+        );
+
+
+        box.innerHTML =
+            `
+            <div class="empty">
+                Agenda indisponível.
+            </div>
+            `;
+
+    }
+
+}
+
+
+/* =========================================================
+   ESTOQUE
+========================================================= */
+
+async function carregarEstoque(){
+
+    try{
+
+        const resposta =
+            await fetch(
+                "/api/estoque"
+            );
+
+
+        const data =
+            await resposta.json();
+
+
+        if(
+            !data.sucesso
+        ){
+
+            return;
+
+        }
+
+
+        const itens =
+            data.itens || [];
+
+
+        let medio = 0;
+        let baixo = 0;
+
+
+        itens.forEach(
+            item => {
+
+                if(
+                    item.nivel === "medio"
+                ){
+
+                    medio++;
+
+                }
+
+
+                if(
+                    item.nivel === "baixo"
+                ){
+
+                    baixo++;
+
+                }
+
+            }
+        );
+
+
+        const total =
+            itens.length;
+
+
+        set(
+            "itensEstoque",
+            total
+        );
+
+
+        set(
+            "estoqueDesc",
+            total +
+            " item(ns) cadastrados"
+        );
+
+
+        set(
+            "stockTotal",
+            total
+        );
+
+
+        set(
+            "stockMedio",
+            medio
+        );
+
+
+        set(
+            "stockBaixo",
+            baixo
+        );
+
+
+        const pm =
+            document.getElementById(
+                "barMedio"
+            );
+
+
+        const pb =
+            document.getElementById(
+                "barBaixo"
+            );
+
+
+        if(pm){
+
+            pm.style.width =
+                (
+                    total
+                    ? medio / total * 100
+                    : 0
+                ) + "%";
+
+        }
+
+
+        if(pb){
+
+            pb.style.width =
+                (
+                    total
+                    ? baixo / total * 100
+                    : 0
+                ) + "%";
+
+        }
+
+    }catch(erro){
+
+        console.error(
+            "Erro ao carregar estoque:",
+            erro
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   INICIALIZAÇÃO
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        preencherMesesVisaoGeral();
+        carregarFinanceiro();
+        carregarAgenda();
+        carregarEstoque();
+
+        // Abre a Agenda automaticamente dentro do iframe
+        const agendaLink = document.querySelector(
+            '.menu a[data-page="agenda"]'
+        );
+
+        abrirPagina(
+            "/agenda",
+            agendaLink
+        );
+
+    }
+);
+
+</script>
+<!-- =====================================================
+     SALONCONNECT IA
+===================================================== -->
+
+<button id="btnAbrirAssistente" class="assistente-fab">
+    <span>✦</span>
+    <div>
+        <strong>Assistente</strong>
+        <small>SalonConnect IA</small>
+    </div>
+</button>
+
+
+<div id="assistenteOverlay" class="assistente-overlay">
+
+    <div class="assistente">
+
+        <div class="assistente-header">
+
+            <div class="assistente-identidade">
+
+                <div class="assistente-logo">
+                    ✦
+                </div>
+
+                <div>
+                    <strong>SalonConnect IA</strong>
+                    <small>Assistente inteligente</small>
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                id="btnFecharAssistente"
+                class="assistente-fechar"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <div
+            id="assistenteMensagens"
+            class="assistente-mensagens"
+        >
+
+            <div class="mensagem assistente-msg">
+
+                <div class="msg-avatar">
+                    ✦
+                </div>
+
+                <div class="msg-conteudo">
+
+                    <strong>SalonConnect IA</strong>
+
+                    <p>
+                        Olá! 👋<br><br>
+
+                        Posso consultar informações do seu salão,
+                        como contratos, pagamentos, agenda e
+                        financeiro.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="sugestoes">
+
+                <button onclick="perguntaRapida(
+                    'Quanto vendemos este mês?'
+                )">
+                    💰 Quanto vendemos este mês?
+                </button>
+
+                <button onclick="perguntaRapida(
+                    'Quais são os próximos eventos?'
+                )">
+                    📅 Próximos eventos
+                </button>
+
+                <button onclick="perguntaRapida(
+                    'Existe algum contrato que ainda não foi totalmente pago?'
+                )">
+                    📄 Pagamentos pendentes
+                </button>
+
+                <button onclick="perguntaRapida(
+                    'Quais contratos temos?'
+                )">
+                    🎉 Me mostre os contratos
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="assistenteDigitando"
+            class="assistente-digitando"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+
+            Assistente está pensando...
+        </div>
+
+
+        <form
+            id="assistenteForm"
+            class="assistente-input"
+        >
+
+            <input
+                type="text"
+                id="assistenteInput"
+                placeholder="Pergunte alguma coisa..."
+                autocomplete="off"
+            >
+
+            <button
+                type="submit"
+                id="btnEnviarAssistente"
+            >
+                ➤
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+<script>
+
+const btnAbrirAssistente =
+    document.getElementById("btnAbrirAssistente");
+
+const btnFecharAssistente =
+    document.getElementById("btnFecharAssistente");
+
+const overlayAssistente =
+    document.getElementById("assistenteOverlay");
+
+const mensagensAssistente =
+    document.getElementById("assistenteMensagens");
+
+const inputAssistente =
+    document.getElementById("assistenteInput");
+
+const formAssistente =
+    document.getElementById("assistenteForm");
+
+const digitandoAssistente =
+    document.getElementById("assistenteDigitando");
+
+const btnEnviarAssistente =
+    document.getElementById("btnEnviarAssistente");
+
+
+/* =====================================================
+   ABRIR
+===================================================== */
+
+btnAbrirAssistente.addEventListener(
+    "click",
+    () => {
+
+        overlayAssistente.classList.add("active");
+
+        setTimeout(() => {
+            inputAssistente.focus();
+        }, 150);
+
+    }
+);
+
+
+/* =====================================================
+   FECHAR
+===================================================== */
+
+btnFecharAssistente.addEventListener(
+    "click",
+    () => {
+
+        overlayAssistente.classList.remove("active");
+
+    }
+);
+
+
+overlayAssistente.addEventListener(
+    "click",
+    event => {
+
+        if(event.target === overlayAssistente) {
+
+            overlayAssistente.classList.remove("active");
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESC
+===================================================== */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if(
+            event.key === "Escape" &&
+            overlayAssistente.classList.contains("active")
+        ){
+
+            overlayAssistente.classList.remove("active");
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   ESCAPAR HTML
+===================================================== */
+
+function escaparHtml(texto) {
+
+    const div = document.createElement("div");
+
+    div.textContent = texto;
+
+    return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   ADICIONAR MENSAGEM
+===================================================== */
+
+function adicionarMensagem(
+    texto,
+    usuario = false
+){
+
+    const mensagem =
+        document.createElement("div");
+
+    mensagem.className =
+        usuario
+            ? "mensagem usuario-msg"
+            : "mensagem assistente-msg";
+
+
+    const conteudo =
+        document.createElement("div");
+
+    conteudo.className =
+        "msg-conteudo";
+
+
+    const p =
+        document.createElement("p");
+
+
+    /*
+       Mantemos quebras de linha da resposta.
+    */
+
+    p.innerHTML =
+        escaparHtml(texto)
+        .replace(/\n/g, "<br>");
+
+
+    if(!usuario){
+
+        const avatar =
+            document.createElement("div");
+
+        avatar.className =
+            "msg-avatar";
+
+        avatar.textContent = "✦";
+
+        mensagem.appendChild(avatar);
+
+    }
+
+
+    conteudo.appendChild(p);
+
+    mensagem.appendChild(conteudo);
+
+    mensagensAssistente.appendChild(mensagem);
+
+
+    mensagensAssistente.scrollTop =
+        mensagensAssistente.scrollHeight;
+}
+
+
+/* =====================================================
+   PERGUNTA RÁPIDA
+===================================================== */
+
+function perguntaRapida(pergunta){
+
+    inputAssistente.value =
+        pergunta;
+
+    enviarPergunta();
+
+}
+
+
+/* =====================================================
+   ENVIAR
+===================================================== */
+
+formAssistente.addEventListener(
+    "submit",
+    function(event){
+
+        event.preventDefault();
+
+        enviarPergunta();
+
+    }
+);
+
+
+/* =====================================================
+   API
+===================================================== */
+
+async function enviarPergunta(){
+
+    const pergunta =
+        inputAssistente.value.trim();
+
+
+    if(!pergunta){
+
+        return;
+
+    }
+
+
+    adicionarMensagem(
+        pergunta,
+        true
+    );
+
+
+    inputAssistente.value = "";
+
+    inputAssistente.disabled = true;
+
+    btnEnviarAssistente.disabled = true;
+
+    digitandoAssistente.classList.add("active");
+
+
+    try{
+
+        const resposta =
+            await fetch(
+                "/api/assistente",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        mensagem: pergunta
+                    })
+                }
+            );
+
+
+        const data =
+            await resposta.json();
+
+
+        if(
+            !resposta.ok ||
+            !data.sucesso
+        ){
+
+            throw new Error(
+                data.mensagem ||
+                "Erro ao consultar o assistente."
+            );
+
+        }
+
+
+        adicionarMensagem(
+            data.resposta,
+            false
+        );
+
+
+    }catch(erro){
+
+        console.error(
+            "Erro chatbot:",
+            erro
+        );
+
+
+        adicionarMensagem(
+            "Não consegui processar sua pergunta agora. Verifique a configuração do assistente e tente novamente.",
+            false
+        );
+
+
+    }finally{
+
+        inputAssistente.disabled = false;
+
+        btnEnviarAssistente.disabled = false;
+
+        digitandoAssistente.classList.remove("active");
+
+        inputAssistente.focus();
+
+    }
+
+}
+/* =========================================================
+   CONTROLE DE ACESSO ADMINISTRADOR
+========================================================= */
+
+let paginaAdminPendente = null;
+let elementoAdminPendente = null;
+
+
+/*
+ * Páginas que exigem autenticação administrativa
+ */
+function paginaProtegida(url) {
+
+    return (
+        url === "/pagina_inicial" ||
+        url === "/pagina_inicial/" ||
+        url === "/financeiro" ||
+        url === "/contrato"
+    );
+
+}
+
+
+/*
+ * Abre o popup
+ */
+function abrirPopupAdmin(url, elemento) {
+
+    paginaAdminPendente = url;
+    elementoAdminPendente = elemento;
+
+    const popup =
+        document.getElementById("popupAdmin");
+
+    const erro =
+        document.getElementById("erroAdmin");
+
+    const login =
+        document.getElementById("loginAdmin");
+
+    const senha =
+        document.getElementById("senhaAdmin");
+
+
+    if (!popup) {
+        return;
+    }
+
+
+    if (erro) {
+        erro.textContent = "";
+        erro.classList.remove("active");
+    }
+
+
+    if (login) {
+        login.value = "";
+    }
+
+
+    if (senha) {
+        senha.value = "";
+    }
+
+
+    popup.classList.add("active");
+
+
+    setTimeout(() => {
+
+        if (login) {
+            login.focus();
+        }
+
+    }, 100);
+
+}
+
+
+/*
+ * Fecha o popup
+ */
+function fecharPopupAdmin() {
+
+    const popup =
+        document.getElementById("popupAdmin");
+
+    if (popup) {
+        popup.classList.remove("active");
+    }
+
+
+    paginaAdminPendente = null;
+    elementoAdminPendente = null;
+
+}
+
+
+/* =========================================================
+   FORMULÁRIO DE AUTENTICAÇÃO DO ADMINISTRADOR
+========================================================= */
+
+const formAdmin =
+    document.getElementById("formAdmin");
+
+
+if (formAdmin) {
+
+    formAdmin.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const login =
+                document
+                    .getElementById("loginAdmin")
+                    .value
+                    .trim();
+
+
+            const senha =
+                document
+                    .getElementById("senhaAdmin")
+                    .value
+                    .trim();
+
+
+            const erro =
+                document.getElementById("erroAdmin");
+
+
+            if (!login || !senha) {
+
+                erro.textContent =
+                    "Informe o login e a senha.";
+
+                erro.classList.add("active");
+
+                return;
+
+            }
+
+
+            try {
+
+                const resposta =
+                    await fetch(
+                        "/verificar_admin",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            credentials: "same-origin",
+
+                            body: JSON.stringify({
+                                login_admin: login,
+                                senha_admin: senha
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await resposta.json();
+
+
+                if (!resposta.ok || !data.sucesso) {
+
+                    erro.textContent =
+                        data.mensagem ||
+                        "Login ou senha de administrador inválidos.";
+
+                    erro.classList.add("active");
+
+                    return;
+
+                }
+
+
+                /* =================================================
+                   GUARDA A PÁGINA ANTES DE FECHAR O POPUP
+                ================================================= */
+
+                const paginaLiberada =
+                    paginaAdminPendente;
+
+                const elementoLiberado =
+                    elementoAdminPendente;
+
+
+                /* =================================================
+                   FECHA O POPUP
+                ================================================= */
+
+                fecharPopupAdmin();
+
+
+                /* =================================================
+                   ABRE A PÁGINA NO IFRAME
+                ================================================= */
+
+                if (paginaLiberada) {
+
+                    abrirPagina(
+                        paginaLiberada,
+                        elementoLiberado
+                    );
+
+                }
+
+
+            } catch (e) {
+
+                console.error(
+                    "Erro ao verificar administrador:",
+                    e
+                );
+
+
+                erro.textContent =
+                    "Erro ao verificar o acesso. Tente novamente.";
+
+                erro.classList.add("active");
+
+            }
+
+        }
+    );
+
+}
+</script>
+<script>
+    /* =========================================================
+   SIDEBAR — DESKTOP + MOBILE
+========================================================= */
+
+const sidebar =
+    document.querySelector(".sidebar");
+
+const sidebarToggle =
+    document.getElementById("sidebarToggle");
+
+const sidebarOverlay =
+    document.getElementById("sidebarOverlay");
+
+
+if(sidebarToggle){
+
+    sidebarToggle.addEventListener(
+        "click",
+        function(){
+
+            if(!sidebar){
+
+                return;
+
+            }
+
+
+            /*
+             * CELULAR
+             */
+
+            if(window.innerWidth <= 650){
+
+                sidebar.classList.toggle(
+                    "mobile-open"
+                );
+
+                if(sidebarOverlay){
+
+                    sidebarOverlay.classList.toggle(
+                        "active"
+                    );
+
+                }
+
+                return;
+
+            }
+
+
+            /*
+             * DESKTOP
+             * Minimiza / expande
+             */
+
+            sidebar.classList.toggle(
+                "collapsed"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FECHAR MENU CLICANDO FORA — CELULAR
+========================================================= */
+
+if(sidebarOverlay){
+
+    sidebarOverlay.addEventListener(
+        "click",
+        function(){
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            sidebarOverlay.classList.remove(
+                "active"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FECHAR MENU AO CLICAR EM UMA OPÇÃO — CELULAR
+========================================================= */
+
+document
+    .querySelectorAll(".menu a")
+    .forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                function(){
+
+                    if(
+                        window.innerWidth <= 650 &&
+                        !this.classList.contains("menu-sair")
+                    ){
+
+                        sidebar.classList.remove(
+                            "mobile-open"
+                        );
+
+                        if(sidebarOverlay){
+
+                            sidebarOverlay.classList.remove(
+                                "active"
+                            );
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   REDIMENSIONAMENTO
+========================================================= */
+
+window.addEventListener(
+    "resize",
+    function(){
+
+        if(window.innerWidth > 650){
+
+            sidebar.classList.remove(
+                "mobile-open"
+            );
+
+            if(sidebarOverlay){
+
+                sidebarOverlay.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+
+    }
+);
+</script>
+<script>
+document.addEventListener('gesturestart', e => e.preventDefault());
+document.addEventListener('gesturechange', e => e.preventDefault());
+document.addEventListener('gestureend', e => e.preventDefault());
+
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (e) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+    }
+    lastTouchEnd = now;
+}, { passive: false });
+</script>
+</body>
+</html>

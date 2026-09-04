@@ -1,0 +1,2772 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+      <meta charset="utf-8"/>
+<title>Novo Contrato</title>
+<style>
+:root{
+    --bg:#F4F6F8;
+    --white:#FFF;
+    --panel:#FFF;
+    --panel2:#F8FAFC;
+
+    --line:#E5E7EB;
+    --line2:#EEF0F3;
+
+    --text:#1F2937;
+    --text2:#374151;
+    --muted:#6B7280;
+    --muted2:#9CA3AF;
+
+    --primary:#2563EB;
+    --primary-light:#EFF6FF;
+    --primary-border:#DBEAFE;
+
+    --green:#16A34A;
+    --green-light:#ECFDF3;
+
+    --gold:#D97706;
+    --gold-light:#FFF7ED;
+
+    --red:#DC2626;
+    --red-light:#FEF2F2;
+
+    --shadow:0 2px 10px rgba(15,23,42,.04);
+    --shadow-hover:0 6px 18px rgba(15,23,42,.07);
+}
+.btn-comprovante {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 9px 14px;
+    border: 1px solid #d8dce5;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #4b5563;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.btn-comprovante:hover {
+    background: #f7f8fb;
+    border-color: #bfc5d1;
+    color: #222;
+
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+.btn-comprovante:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+/* RESET */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',Arial,sans-serif;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    padding:18px;
+    overflow-x:hidden;
+}
+
+/* TOPO */
+
+.topbar{
+    margin-bottom:18px;
+}
+
+.topbar h1{
+    font-size:26px;
+    font-weight:700;
+    letter-spacing:-.5px;
+    color:var(--text);
+}
+
+.topbar p{
+    margin-top:4px;
+    font-size:13px;
+    color:var(--muted);
+}
+
+/* LAYOUT */
+
+.container{
+    width:100%;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+    align-items:start;
+}
+
+.column{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    min-width:0;
+}
+
+/* CARDS */
+
+.card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px;
+    box-shadow:var(--shadow);
+}
+
+.card h2{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:14px;
+    font-size:14px;
+    font-weight:700;
+    color:var(--text);
+}
+
+.card h3{
+    font-size:12px;
+    font-weight:600;
+    color:var(--text2);
+    margin-bottom:8px;
+}
+
+/* GRIDS */
+
+.grid-2,
+.grid-3,
+.grid-4{
+    display:grid;
+    gap:12px;
+}
+
+.grid-2{grid-template-columns:repeat(2,1fr);}
+.grid-3{grid-template-columns:repeat(3,1fr);}
+.grid-4{grid-template-columns:repeat(4,1fr);}
+
+/* FORMULÁRIOS */
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+}
+
+.form-group label,
+.convidados-extra label{
+    font-size:11px;
+    font-weight:500;
+    color:var(--muted);
+}
+
+input,
+select,
+textarea{
+    width:100%;
+    border:1px solid var(--line);
+    border-radius:10px;
+    background:#FFF;
+    color:var(--text);
+    font-size:13px;
+    padding:10px 12px;
+    outline:none;
+    transition:.2s;
+}
+
+input,
+select{
+    height:42px;
+}
+
+textarea{
+    min-height:90px;
+    resize:vertical;
+}
+
+input:hover,
+select:hover,
+textarea:hover{
+    border-color:#D1D5DB;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(37,99,235,.08);
+}
+
+/* LISTAS */
+
+.lista-itens{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.item{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    background:var(--panel2);
+    border:1px solid var(--line2);
+    border-radius:10px;
+    transition:.2s;
+}
+
+.item:hover{
+    background:#FFF;
+    border-color:var(--primary-border);
+}
+
+.item input[type=checkbox]{
+    width:16px;
+    height:16px;
+    accent-color:var(--primary);
+}
+
+.item label{
+    flex:1;
+    font-size:13px;
+    color:var(--text2);
+    cursor:pointer;
+}
+
+.valor{
+    color:var(--green);
+    font-size:12px;
+    font-weight:700;
+}
+
+/* CONTAINERS */
+
+#buffetContainer>.card,
+#docesContainer>.card,
+#adicionaisContainer>.card{
+    padding:12px;
+    border-radius:12px;
+    border:1px solid var(--line2);
+    box-shadow:none;
+    margin-bottom:10px;
+}
+
+/* PACOTES */
+
+.pacote{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:12px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:#FFF;
+    cursor:pointer;
+    transition:.2s;
+    margin-bottom:8px;
+}
+
+.pacote:hover{
+    background:var(--panel2);
+    border-color:var(--primary-border);
+}
+
+.pacote:has(input:checked){
+    background:var(--primary-light);
+    border-color:var(--primary);
+}
+
+.pacote input{
+    width:16px;
+    height:16px;
+    accent-color:var(--primary);
+}
+
+.pacote-info{
+    flex:1;
+}
+
+.pacote-info h3{
+    font-size:13px;
+    margin:0 0 3px;
+}
+
+.pacote-info span{
+    font-size:11px;
+    color:var(--muted);
+}
+
+.pacote-valor{
+    color:var(--green);
+    font-weight:700;
+    font-size:13px;
+}
+
+/* CONVIDADOS */
+
+.convidados-extra{
+    display:grid;
+    grid-template-columns:1.5fr .7fr 1fr;
+    gap:12px;
+    align-items:end;
+}
+
+.convidados-extra>label{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.convidados-extra input[type=checkbox]{
+    width:16px;
+    height:16px;
+}
+
+/* SINAIS */
+
+.sinal-item{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    margin-top:10px;
+}
+
+/* BOTÕES */
+
+.btn{
+    border:none;
+    border-radius:10px;
+    padding:11px 16px;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+}
+
+.btn-add{
+    background:var(--primary);
+    color:#FFF;
+}
+
+.btn-add:hover{
+    background:#1D4ED8;
+}
+
+.btn-remove{
+    background:var(--red);
+    color:#FFF;
+}
+
+.btn-remove:hover{
+    background:#B91C1C;
+}
+
+.btn-finalizar{
+    background:var(--green);
+    color:#FFF;
+}
+
+.btn-finalizar:hover{
+    background:#15803D;
+}
+
+.btn-pdf{
+    background:var(--red);
+    color:#FFF;
+}
+
+.btn-pdf:hover{
+    background:#B91C1C;
+}
+
+/* RESUMO */
+
+.resumo{
+    border:1px solid var(--line);
+    border-radius:16px;
+}
+
+.resumo h2{
+    justify-content:center;
+    margin-bottom:16px;
+}
+
+.linha-total{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:6px 0;
+    font-size:13px;
+    color:var(--muted);
+}
+
+.linha-total strong{
+    color:var(--text);
+}
+
+.total-final{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+    font-size:22px;
+    font-weight:700;
+    color:var(--green);
+}
+
+.resumo-footer{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin-top:18px;
+    flex-wrap:wrap;
+}
+
+/* AUXILIARES */
+
+hr{
+    border:none;
+    border-top:1px solid var(--line2);
+    margin:12px 0;
+}
+
+.badge{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:999px;
+    background:var(--gold-light);
+    color:var(--gold);
+    font-size:11px;
+    font-weight:600;
+}
+
+.sem-itens{
+    padding:18px;
+    border:1px dashed var(--line);
+    border-radius:10px;
+    text-align:center;
+    color:var(--muted2);
+    font-size:13px;
+}
+
+.loading{
+    text-align:center;
+    padding:25px;
+    color:var(--muted);
+    font-size:13px;
+}
+
+.oculto{
+    display:none!important;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1000px){
+
+    .container{
+        grid-template-columns:1fr;
+    }
+
+    .grid-4{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .convidados-extra{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .convidados-extra>label{
+        grid-column:1/-1;
+    }
+}
+
+@media(max-width:680px){
+
+    body{
+        padding:12px;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .sinal-item,
+    .convidados-extra{
+        grid-template-columns:1fr;
+    }
+
+    .card{
+        padding:15px;
+    }
+
+    .topbar h1{
+        font-size:22px;
+    }
+
+    .total-final{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:6px;
+        font-size:20px;
+    }
+
+    .resumo-footer{
+        flex-direction:column;
+    }
+
+    .btn-finalizar,
+    .btn-pdf{
+        width:100%;
+    }
+}
+/* =========================================================
+   BOTÃO FINALIZAR / SALVAR ALTERAÇÕES
+   ========================================================= */
+
+#btnFinalizarContrato{
+    background:var(--green);
+    color:#fff;
+
+    border:none;
+    border-radius:7px;
+
+    min-height:34px;
+
+    padding:8px 21px;
+
+    font-family:Inter,Arial,sans-serif;
+    font-size:10px;
+    font-weight:600;
+
+    cursor:pointer;
+
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    line-height:1.2;
+
+    transition:
+        background .18s ease,
+        box-shadow .18s ease,
+        transform .18s ease;
+}
+
+#btnFinalizarContrato:hover{
+    background:#15803D;
+
+    box-shadow:
+        0 3px 8px rgba(22,163,74,.18);
+}
+
+#btnFinalizarContrato:active{
+    transform:translateY(1px);
+}
+
+#btnFinalizarContrato:disabled{
+    opacity:.65;
+    cursor:not-allowed;
+}
+
+
+/* Quando estiver escrito "Salvar Alterações" */
+
+#btnFinalizarContrato.salvar-alteracoes{
+    background:var(--primary);
+}
+
+#btnFinalizarContrato.salvar-alteracoes:hover{
+    background:#1D4ED8;
+}
+
+</style>
+</head>
+<body>
+<input id="contrato_id" type="hidden" value="{{ contrato.id if contrato else '' }}"/>
+<input id="convidados" type="hidden" value="0"/>
+<div class="container"><div class="column column-left"><div class="card">
+<h2>👤 Dados do Contratante</h2>
+<div class="grid-3">
+<div class="form-group">
+<label>Nome do Contratante</label>
+<input id="cliente" type="text"/>
+</div>
+<div class="form-group">
+<label>Telefone</label>
+<input id="telefone" type="text"/>
+</div>
+<div class="form-group">
+<label>E-mail</label>
+<input id="email" type="email"/>
+</div>
+<div class="form-group">
+<label>CPF</label>
+<input id="cpf" type="text"/>
+</div>
+<div class="form-group">
+<label>Responsável I</label>
+<input id="responsavel1" type="text"/>
+</div>
+<div class="form-group">
+<label>Responsável II</label>
+<input id="responsavel2" type="text"/>
+</div>
+</div>
+</div><div class="card">
+<h2>🎉 Dados do Evento</h2>
+<div class="grid-4">
+<div class="form-group">
+<label>Aniversariante</label>
+<input id="aniversariante" type="text"/>
+</div>
+<div class="form-group">
+<label>Data do Evento</label>
+<input id="dataEvento" type="date"/>
+</div>
+<div class="form-group">
+<label>Hora Início</label>
+<input id="horaInicio" type="time"/>
+</div>
+<div class="form-group">
+<label>Hora Fim</label>
+<input id="horaFim" type="time"/>
+</div>
+<div class="form-group">
+<label>Data de Aniversário</label>
+<input id="dataAniversario" type="date"/>
+</div>
+</div>
+</div><div class="card">
+<h2>🎁 Pacotes</h2>
+<div id="pacotesContainer">
+<div class="loading">
+<h3>Carregando pacotes...</h3>
+</div>
+</div>
+</div><div class="card">
+<h2>🐾 Serviços</h2>
+<div id="servicosContainer">
+<div class="loading">
+<h3>Carregando serviços...</h3>
+</div>
+</div>
+</div><div class="card">
+<h2>🍽 Buffet</h2>
+<div id="buffetContainer">
+<div class="loading">
+<h3>Carregando buffet...</h3>
+</div>
+</div>
+</div><div class="card">
+<h2>🍬 Doces</h2>
+<div id="docesContainer">
+<div class="loading">
+<h3>Carregando doces...</h3>
+</div>
+</div>
+</div></div><div class="column column-right"><div class="card">
+<h2>✨ Adicionais</h2>
+<div id="adicionaisContainer">
+<div class="loading">
+<h3>Carregando adicionais...</h3>
+</div>
+</div>
+</div><div class="card">
+<h2>👥 Convidados Extras</h2>
+<div class="convidados-extra">
+<label>
+<input id="convidadoExtra" type="checkbox"/>
+
+                Cobrar convidados extras
+
+            </label>
+<div>
+<label>Quantidade</label>
+<input id="qtdExtra" min="0" type="number" value="0"/>
+</div>
+<div>
+<label>Valor por convidado</label>
+<input id="valorExtra" readonly="" type="number"/>
+</div>
+</div>
+</div><div class="card">
+<h2>💳 Forma de Pagamento</h2>
+<div class="grid-2">
+<select id="formaPagamento">
+<option>PIX</option>
+<option>DINHEIRO</option>
+<option>CARTÃO</option>
+</select>
+<select id="desconto">
+<option>Sem desconto</option>
+<option>10%</option>
+<option>20%</option>
+<option>30%</option>
+<option>40%</option>
+<option>50%</option>
+</select>
+</div>
+</div><div class="card">
+<h2>💵 Pagamentos / Sinais</h2>
+<div id="listaSinais">
+</div>
+<br/>
+<button class="btn btn-add" onclick="adicionarSinal()" type="button">
+
+            ➕ Adicionar Novo Sinal
+
+        </button>
+</div><div class="card">
+<h2>📝 Observações</h2>
+<textarea id="observacoes" rows="6"></textarea>
+</div><div class="card resumo">
+<h2>💰 Resumo Financeiro</h2>
+<div class="linha-total">
+<span>Pacote</span>
+<strong id="resumoPacote">
+
+                R$ 0,00
+
+            </strong>
+</div>
+<div class="linha-total">
+<span>Adicionais</span>
+<strong id="resumoAdicionais">
+
+                R$ 0,00
+
+            </strong>
+</div>
+<div class="linha-total">
+<span>Convidados Extras</span>
+<strong id="resumoExtras">
+
+                R$ 0,00
+
+            </strong>
+</div>
+<div class="linha-total">
+<span>Desconto</span>
+<strong id="resumoDesconto">
+
+                R$ 0,00
+
+            </strong>
+</div>
+<hr/>
+<div class="total-final">
+<span>Total do Contrato</span>
+<span id="valorTotal">
+
+                R$ 0,00
+
+            </span>
+</div>
+<br/>
+<div class="linha-total">
+<span>Valor Pago</span>
+<strong id="valorPago">
+
+                R$ 0,00
+
+            </strong>
+</div>
+<div class="linha-total">
+<span>Valor Restante</span>
+<strong id="valorRestante">
+
+                R$ 0,00
+
+            </strong>
+</div>
+<div class="resumo-footer">
+<button class="btn-pdf" id="btnGerarPDF" onclick="gerarPDFContrato()" style="display:none;" type="button">
+
+        📄 Gerar PDF
+
+        </button>
+<button class="btn-finalizar" id="btnFinalizarContrato" onclick="finalizarContrato()" type="button">
+
+        ✅ Finalizar Contrato
+
+        </button>
+</div>
+</div></div></div>
+<script>
+
+const configuracao = {};
+let contratoSalvo = null;
+const modoPagina = "{{ modo|default('novo') }}";
+
+let pacoteSelecionado = null;
+
+let totalPacote = 0;
+let totalAdicionais = 0;
+let totalExtras = 0;
+let totalPago = 0;
+let totalContrato = 0;
+
+
+/*==================================================
+    CARREGA CONFIGURAÇÃO
+==================================================*/
+
+window.addEventListener("DOMContentLoaded", inicializarPagina);
+
+async function carregarConfiguracao(){
+
+    try{
+
+        const response = await fetch("/configuracao");
+
+        if(!response.ok){
+
+            throw new Error("Erro ao carregar configuração.");
+
+        }
+
+        const dados = await response.json();
+
+        configuracao.servicos = dados.servicos || "";
+        configuracao.buffet = dados.buffet || [];
+        configuracao.doces = dados.doces || [];
+        configuracao.adicionais = dados.adicionais || [];
+        configuracao.pacotes = dados.pacotes || [];
+        configuracao.valorExtra = Number(dados.valorExtra || 0);
+
+        document.getElementById("valorExtra").value =
+            configuracao.valorExtra.toFixed(2);
+
+        montarPacotes();
+
+        montarServicos();
+
+        montarBuffet();
+
+        montarDoces();
+
+        montarAdicionais();
+
+        // Buffet, Doces e Adicionais
+        // serão feitos na Parte 2.2
+
+    }
+
+    catch(erro){
+
+        console.error(erro);
+        throw erro;
+
+    }
+
+}
+
+
+async function inicializarPagina(){
+    try{
+        await carregarConfiguracao();
+        const contratoId = document.getElementById("contrato_id").value;
+        if(contratoId){
+            await carregarContrato(contratoId);
+        }else{
+            adicionarSinal();
+            atualizarTituloPagina();
+        }
+    }catch(erro){
+        console.error(erro);
+        alert("Erro ao carregar o contrato.\n\n" + erro.message);
+    }
+}
+
+async function carregarContrato(id){
+    const response = await fetch(`/contrato_json/${id}`);
+    if(!response.ok){
+        throw new Error("Não foi possível carregar os dados do contrato.");
+    }
+    contratoSalvo = await response.json();
+    preencherContrato(contratoSalvo);
+    atualizarTituloPagina();
+}
+
+function setValor(id, valor){
+    const campo = document.getElementById(id);
+    if(campo) campo.value = valor ?? "";
+}
+
+function preencherSinais(sinais){
+    const lista = document.getElementById("listaSinais");
+    lista.innerHTML = "";
+    const dados = Array.isArray(sinais) ? sinais : [];
+    if(dados.length === 0){
+        adicionarSinal();
+        return;
+    }
+    dados.forEach(sinal=>{
+        adicionarSinal();
+        const itens = lista.querySelectorAll(".sinal-item");
+        const item = itens[itens.length - 1];
+        item.querySelector(".valor-sinal").value = sinal.valor ?? "";
+        item.querySelector(".data-sinal").value = sinal.data ?? "";
+        item.querySelector(".forma-sinal").value = sinal.forma ?? "PIX";
+    });
+}
+
+function preencherContrato(dados){
+    setValor("cliente", dados.cliente);
+    setValor("aniversariante", dados.aniversariante);
+    setValor("telefone", dados.telefone);
+    setValor("email", dados.email);
+    setValor("cpf", dados.cpf);
+    setValor("responsavel1", dados.responsavel1);
+    setValor("responsavel2", dados.responsavel2);
+    setValor("dataEvento", dados.dataEvento);
+    setValor("horaInicio", dados.horaInicio);
+    setValor("horaFim", dados.horaFim);
+    setValor("dataAniversario", dados.dataAniversario);
+    setValor("convidados", dados.convidados || 0);
+    setValor("qtdExtra", dados.qtdConvidadosExtras || 0);
+    setValor("valorExtra", dados.valorExtra ?? configuracao.valorExtra ?? 0);
+    setValor("observacoes", dados.observacoes);
+
+    const forma = document.getElementById("formaPagamento");
+    if(forma && dados.formaPagamento) forma.value = dados.formaPagamento;
+    const desconto = document.getElementById("desconto");
+    if(desconto && dados.desconto) desconto.value = dados.desconto;
+    const extra = document.getElementById("convidadoExtra");
+    if(extra) extra.checked = Boolean(dados.convidadoExtra);
+
+    pacoteSelecionado = null;
+    totalPacote = 0;
+    document.querySelectorAll('input[name="pacote"]').forEach(radio=>{
+        const pacote = configuracao.pacotes[Number(radio.value)];
+        const selecionado = pacote && pacote.nome === dados.pacote;
+        radio.checked = Boolean(selecionado);
+        if(selecionado){
+            pacoteSelecionado = pacote;
+            totalPacote = Number(pacote.valor || 0);
+        }
+    });
+
+    const servicos = Array.isArray(dados.servicosSelecionados) ? dados.servicosSelecionados : [];
+    document.querySelectorAll('#servicosContainer input[type="checkbox"]').forEach(check=>{
+        const label = check.nextElementSibling;
+        const nome = label ? label.innerText.trim() : "";
+        check.checked = servicos.some(item => String(item).trim() === nome);
+    });
+
+    document.querySelectorAll('#buffetContainer input[type="checkbox"]').forEach(check=>{
+        check.checked = (dados.buffetSelecionado || []).some(item =>
+            item && item.categoria === check.dataset.categoria && item.nome === check.dataset.nome
+        );
+    });
+    document.querySelectorAll('#docesContainer input[type="checkbox"]').forEach(check=>{
+        check.checked = (dados.docesSelecionados || []).some(item =>
+            item && item.categoria === check.dataset.categoria && item.nome === check.dataset.nome
+        );
+    });
+    document.querySelectorAll('#adicionaisContainer input[type="checkbox"]').forEach(check=>{
+        check.checked = (dados.adicionaisSelecionados || []).some(item =>
+            item && item.categoria === check.dataset.categoria && item.nome === check.dataset.nome
+        );
+    });
+
+    preencherSinais(dados.sinais);
+    calcularTotal();
+}
+
+function atualizarTituloPagina(){
+
+    const titulo = document.querySelector("h1");
+    const botao = document.getElementById("btnFinalizarContrato");
+
+    if(modoPagina === "visualizar"){
+
+        // Se existir título, altera
+        if(titulo){
+            titulo.innerHTML = "👁 Visualizar Contrato";
+        }
+
+        // Esconde o botão finalizar
+        if(botao){
+            botao.style.display = "none";
+        }
+
+        // Ativa o modo somente leitura
+        ativarModoVisualizacao();
+
+    }else if(modoPagina === "editar"){
+
+        if(titulo){
+            titulo.innerHTML = "Novo Contrato";
+        }
+
+if(botao){
+    botao.innerHTML = "💾 Salvar Alterações";
+    botao.classList.add("salvar-alteracoes");
+}
+
+    }else{
+
+        if(titulo){
+            titulo.innerHTML = "Novo Contrato";
+        }
+
+    }
+}
+
+function ativarModoVisualizacao(){
+    document.querySelectorAll("input, select, textarea").forEach(campo=>{
+        campo.disabled = true;
+    });
+
+    document.querySelectorAll("button").forEach(campo=>{
+        if(campo.id !== "btnGerarPDF") campo.disabled = true;
+    });
+
+    const botao = document.getElementById("btnFinalizarContrato");
+    if(botao) botao.style.display = "none";
+
+    const botaoPDF = document.getElementById("btnGerarPDF");
+    if(botaoPDF){
+        botaoPDF.style.display = "inline-block";
+        botaoPDF.disabled = false;
+    }
+}
+
+async function gerarPDFContrato(){
+    const id = document.getElementById("contrato_id")?.value;
+
+    if(!id){
+        alert("Não foi possível identificar o contrato.");
+        return;
+    }
+
+    const botao = document.getElementById("btnGerarPDF");
+
+    try{
+        if(botao){
+            botao.disabled = true;
+            botao.dataset.textoOriginal = botao.innerHTML;
+            botao.innerHTML = "⏳ Gerando PDF...";
+        }
+
+        const resposta = await fetch(`/gerar_pdf_contrato/${id}`);
+
+        if(!resposta.ok){
+            let mensagem = "Não foi possível gerar o PDF.";
+            try{
+                const erro = await resposta.json();
+                mensagem = erro.mensagem || erro.erro || mensagem;
+            }catch(e){}
+            throw new Error(mensagem);
+        }
+
+        const blob = await resposta.blob();
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `Contrato_${id}.pdf`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(url);
+
+    }catch(erro){
+        console.error("ERRO AO GERAR PDF:", erro);
+        alert("Erro ao gerar PDF:\n\n" + erro.message);
+    }finally{
+        if(botao){
+            botao.disabled = false;
+            botao.innerHTML = botao.dataset.textoOriginal || "📄 Gerar PDF";
+        }
+    }
+}
+
+/*==================================================
+    PACOTES
+==================================================*/
+
+function montarPacotes(){
+
+    const container =
+        document.getElementById("pacotesContainer");
+
+
+    container.innerHTML = "";
+
+
+    if(!configuracao.pacotes || configuracao.pacotes.length === 0){
+
+        container.innerHTML = `
+
+            <div class="sem-itens">
+
+                Nenhum pacote cadastrado.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+
+    configuracao.pacotes.forEach((pacote,index)=>{
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className = "pacote";
+
+
+
+        div.innerHTML = `
+
+            <input
+                type="radio"
+                name="pacote"
+                value="${index}">
+
+
+            <div class="pacote-info">
+
+                <h3>
+
+                    ${pacote.nome}
+
+                </h3>
+
+
+                <span>
+
+                    ${pacote.convidados}
+                    convidados
+
+                </span>
+
+
+            </div>
+
+
+
+            <div class="pacote-valor">
+
+                ${formatarMoeda(
+                    Number(pacote.valor)
+                )}
+
+            </div>
+
+
+        `;
+
+
+
+        const radio =
+            div.querySelector("input");
+
+
+
+radio.addEventListener("change",()=>{
+
+    pacoteSelecionado = pacote;
+
+    totalPacote =
+        Number(pacote.valor || 0);
+
+    document.getElementById("convidados").value =
+        Number(pacote.convidados || 0);
+
+    calcularTotal();
+
+});
+
+
+
+        container.appendChild(div);
+
+
+
+    });
+
+
+}
+
+
+/*==================================================
+    SERVIÇOS
+==================================================*/
+
+function montarServicos(){
+
+    const container =
+        document.getElementById("servicosContainer");
+
+    container.innerHTML="";
+
+    if(!configuracao.servicos){
+
+        container.innerHTML=`
+
+            <div class="sem-itens">
+
+                Nenhum serviço cadastrado.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    const linhas =
+        configuracao.servicos
+        .split("\n")
+        .filter(x=>x.trim()!="");
+
+    const lista =
+        document.createElement("div");
+
+    lista.className="lista-itens";
+
+    linhas.forEach(servico=>{
+
+        const item =
+            document.createElement("div");
+
+        item.className="item";
+
+       item.innerHTML = `
+    <span style="font-size:13px; color:var(--text2);">
+        ${servico}
+    </span>
+`;
+
+        lista.appendChild(item);
+
+    });
+
+    container.appendChild(lista);
+
+}
+
+
+/*==================================================
+    UTILIDADES
+==================================================*/
+
+function formatarMoeda(valor){
+
+    return Number(valor).toLocaleString(
+        "pt-BR",
+        {
+            style:"currency",
+            currency:"BRL"
+        }
+    );
+
+}
+/*==================================================
+    BUFFET
+==================================================*/
+
+function montarBuffet(){
+
+    const container =
+        document.getElementById("buffetContainer");
+
+    container.innerHTML = "";
+
+    if(
+        !configuracao.buffet ||
+        configuracao.buffet.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div class="sem-itens">
+
+                Nenhum buffet cadastrado.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    configuracao.buffet.forEach((categoria,categoriaIndex)=>{
+
+        const card =
+            document.createElement("div");
+
+        card.className = "card";
+
+        card.style.marginBottom = "20px";
+
+        card.innerHTML = `
+
+            <h3 style="margin-bottom:15px;">
+
+                🍽 ${categoria.categoria}
+
+            </h3>
+
+        `;
+
+        const lista =
+            document.createElement("div");
+
+        lista.className = "lista-itens";
+
+        (categoria.itens || []).forEach((item,itemIndex)=>{
+
+            const linha =
+                document.createElement("div");
+
+            linha.className = "item";
+
+            linha.innerHTML = `
+
+                <input
+                    type="checkbox"
+                    id="buffet_${categoriaIndex}_${itemIndex}">
+
+                <label
+                    for="buffet_${categoriaIndex}_${itemIndex}">
+
+                    ${item}
+
+                </label>
+
+            `;
+
+            const checkbox =
+                linha.querySelector("input");
+
+            checkbox.dataset.categoria =
+                categoria.categoria;
+
+            checkbox.dataset.nome =
+                item;
+
+            checkbox.addEventListener(
+
+                "change",
+
+                calcularTotal
+
+            );
+
+            lista.appendChild(linha);
+
+        });
+
+        card.appendChild(lista);
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/*==================================================
+    RETORNA ITENS DO BUFFET
+==================================================*/
+
+function buffetSelecionado(){
+
+    const lista = [];
+
+    document
+        .querySelectorAll(
+            "#buffetContainer input[type='checkbox']:checked"
+        )
+        .forEach(check=>{
+
+            lista.push({
+
+                categoria:
+                    check.dataset.categoria,
+
+                nome:
+                    check.dataset.nome
+
+            });
+
+        });
+
+    return lista;
+
+}
+
+
+/*==================================================
+    QUANTIDADE DE ITENS DO BUFFET
+==================================================*/
+
+function quantidadeBuffet(){
+
+    return document
+        .querySelectorAll(
+            "#buffetContainer input[type='checkbox']:checked"
+        )
+        .length;
+
+}
+/*==================================================
+    DOCES
+==================================================*/
+
+function montarDoces(){
+
+    const container =
+        document.getElementById("docesContainer");
+
+    container.innerHTML = "";
+
+    if(
+        !configuracao.doces ||
+        configuracao.doces.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div class="sem-itens">
+
+                Nenhuma categoria de doces cadastrada.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    configuracao.doces.forEach((categoria,categoriaIndex)=>{
+
+        const card =
+            document.createElement("div");
+
+        card.className = "card";
+
+        card.style.marginBottom = "20px";
+
+        card.innerHTML = `
+
+            <h3 style="margin-bottom:15px;">
+
+                🍬 ${categoria.categoria}
+
+            </h3>
+
+        `;
+
+        const lista =
+            document.createElement("div");
+
+        lista.className = "lista-itens";
+
+        (categoria.itens || []).forEach((item,itemIndex)=>{
+
+            const linha =
+                document.createElement("div");
+
+            linha.className = "item";
+
+            linha.innerHTML = `
+
+                <input
+                    type="checkbox"
+                    id="doce_${categoriaIndex}_${itemIndex}">
+
+                <label
+                    for="doce_${categoriaIndex}_${itemIndex}">
+
+                    ${item}
+
+                </label>
+
+            `;
+
+            const checkbox =
+                linha.querySelector("input");
+
+            checkbox.dataset.categoria =
+                categoria.categoria;
+
+            checkbox.dataset.nome =
+                item;
+
+            checkbox.addEventListener(
+
+                "change",
+
+                calcularTotal
+
+            );
+
+            lista.appendChild(linha);
+
+        });
+
+        card.appendChild(lista);
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/*==================================================
+    RETORNA DOCES SELECIONADOS
+==================================================*/
+
+function docesSelecionados(){
+
+    const lista = [];
+
+    document
+        .querySelectorAll(
+            "#docesContainer input[type='checkbox']:checked"
+        )
+        .forEach(check=>{
+
+            lista.push({
+
+                categoria:
+                    check.dataset.categoria,
+
+                nome:
+                    check.dataset.nome
+
+            });
+
+        });
+
+    return lista;
+
+}
+
+
+/*==================================================
+    QUANTIDADE DE DOCES
+==================================================*/
+
+function quantidadeDoces(){
+
+    return document
+        .querySelectorAll(
+            "#docesContainer input[type='checkbox']:checked"
+        )
+        .length;
+
+}
+/*==================================================
+    ADICIONAIS
+==================================================*/
+
+function montarAdicionais(){
+
+    const container =
+        document.getElementById("adicionaisContainer");
+
+    container.innerHTML = "";
+
+    if(
+        !configuracao.adicionais ||
+        configuracao.adicionais.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div class="sem-itens">
+
+                Nenhum adicional cadastrado.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    configuracao.adicionais.forEach((categoria,categoriaIndex)=>{
+
+        const card =
+            document.createElement("div");
+
+        card.className = "card";
+
+        card.style.marginBottom = "20px";
+
+        card.innerHTML = `
+
+            <h3 style="margin-bottom:15px;">
+
+                ✨ ${categoria.categoria}
+
+            </h3>
+
+        `;
+
+        const lista =
+            document.createElement("div");
+
+        lista.className = "lista-itens";
+
+        (categoria.itens || []).forEach((item,itemIndex)=>{
+
+            const nome = item.nome || "";
+            const valor = Number(item.valor || 0);
+
+            const linha =
+                document.createElement("div");
+
+            linha.className = "item";
+
+            linha.innerHTML = `
+
+                <input
+                    type="checkbox"
+                    id="adicional_${categoriaIndex}_${itemIndex}">
+
+                <label
+                    for="adicional_${categoriaIndex}_${itemIndex}">
+
+                    ${nome}
+
+                </label>
+
+                <span class="valor">
+
+                    ${formatarMoeda(valor)}
+
+                </span>
+
+            `;
+
+            const checkbox =
+                linha.querySelector("input");
+
+            checkbox.dataset.categoria =
+                categoria.categoria;
+
+            checkbox.dataset.nome =
+                nome;
+
+            checkbox.dataset.valor =
+                valor;
+
+            checkbox.addEventListener(
+
+                "change",
+
+                calcularTotal
+
+            );
+
+            lista.appendChild(linha);
+
+        });
+
+        card.appendChild(lista);
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/*==================================================
+    ADICIONAIS SELECIONADOS
+==================================================*/
+
+function adicionaisSelecionados(){
+
+    const lista = [];
+
+    document
+        .querySelectorAll(
+            "#adicionaisContainer input[type='checkbox']:checked"
+        )
+        .forEach(check=>{
+
+            lista.push({
+
+                categoria:
+                    check.dataset.categoria,
+
+                nome:
+                    check.dataset.nome,
+
+                valor:
+                    Number(check.dataset.valor)
+
+            });
+
+        });
+
+    return lista;
+
+}
+
+
+/*==================================================
+    SOMA DOS ADICIONAIS
+==================================================*/
+
+function calcularTotalAdicionais(){
+
+    let total = 0;
+
+    document
+        .querySelectorAll(
+            "#adicionaisContainer input[type='checkbox']:checked"
+        )
+        .forEach(check=>{
+
+            total += Number(
+                check.dataset.valor
+            );
+
+        });
+
+    totalAdicionais = total;
+
+    return total;
+
+}
+
+
+/*==================================================
+    QUANTIDADE DE ADICIONAIS
+==================================================*/
+
+function quantidadeAdicionais(){
+
+    return document
+        .querySelectorAll(
+            "#adicionaisContainer input[type='checkbox']:checked"
+        )
+        .length;
+
+}
+/*==================================================
+    EVENTOS
+==================================================*/
+
+document.getElementById("convidadoExtra")
+.addEventListener("change",calcularTotal);
+
+document.getElementById("qtdExtra")
+.addEventListener("input",calcularTotal);
+
+document.getElementById("desconto")
+.addEventListener("change",calcularTotal);
+
+
+
+/*==================================================
+    DESCONTO
+==================================================*/
+
+function obterPercentualDesconto(){
+
+    const valor =
+        document.getElementById("desconto").value;
+
+    if(valor==="Sem desconto")
+        return 0;
+
+    return Number(
+        valor.replace("%","")
+    );
+
+}
+
+
+
+/*==================================================
+    CONVIDADOS EXTRAS
+==================================================*/
+
+function calcularExtras(){
+
+    const marcado =
+        document.getElementById("convidadoExtra").checked;
+
+    if(!marcado){
+
+        totalExtras = 0;
+
+        return 0;
+
+    }
+
+    const quantidade =
+        Number(
+            document.getElementById("qtdExtra").value
+        ) || 0;
+
+    const valorUnitario =
+        Number(
+            document.getElementById("valorExtra").value
+        ) || 0;
+
+    totalExtras =
+        quantidade * valorUnitario;
+
+    return totalExtras;
+
+}
+
+
+
+/*==================================================
+    CALCULAR TOTAL
+==================================================*/
+
+function calcularTotal(){
+
+    /*
+     * ÚNICA rotina financeira da página.
+     * Tudo que representa preço entra no total do contrato:
+     * pacote + adicionais + convidados extras.
+     * O desconto é aplicado sobre esse subtotal.
+     * Os sinais NÃO aumentam o total do contrato:
+     * eles representam valores já pagos e entram apenas em "Valor Pago".
+     */
+
+    totalPacote = pacoteSelecionado
+        ? Number(pacoteSelecionado.valor || 0)
+        : 0;
+
+    totalAdicionais = calcularTotalAdicionais();
+    totalExtras = calcularExtras();
+
+        const convidadosPacote = pacoteSelecionado
+        ? Number(pacoteSelecionado.convidados || 0)
+        : 0;
+
+    const convidadosExtras =
+        Number(document.getElementById("qtdExtra").value || 0);
+
+    document.getElementById("convidados").value =
+        convidadosPacote + convidadosExtras;
+
+    const subtotal =
+        totalPacote +
+        totalAdicionais +
+        totalExtras;
+
+    const percentual = obterPercentualDesconto();
+
+    const valorDesconto =
+        subtotal * (percentual / 100);
+
+    totalContrato =
+        Math.max(0, subtotal - valorDesconto);
+
+    // Soma TODOS os sinais cadastrados.
+    totalPago = 0;
+
+    document
+        .querySelectorAll(".sinal-item .valor-sinal")
+        .forEach(input => {
+            totalPago += Number(input.value || 0);
+        });
+
+    const restante =
+        Math.max(0, totalContrato - totalPago);
+
+    atualizarResumo(valorDesconto);
+
+    document.getElementById("valorPago").innerText =
+        formatarMoeda(totalPago);
+
+    document.getElementById("valorRestante").innerText =
+        formatarMoeda(restante);
+
+    return totalContrato;
+}
+
+
+/*==================================================
+    ATUALIZA O RESUMO FINANCEIRO
+==================================================*/
+
+function atualizarResumo(valorDesconto = 0){
+
+    document.getElementById("resumoPacote").innerHTML =
+        formatarMoeda(totalPacote);
+
+    document.getElementById("resumoAdicionais").innerHTML =
+        formatarMoeda(totalAdicionais);
+
+    document.getElementById("resumoExtras").innerHTML =
+        formatarMoeda(totalExtras);
+
+    document.getElementById("resumoDesconto").innerHTML =
+        valorDesconto > 0
+            ? "- " + formatarMoeda(valorDesconto)
+            : formatarMoeda(0);
+
+    document.getElementById("valorTotal").innerHTML =
+        formatarMoeda(totalContrato);
+}
+
+
+/*==================================================
+    SINAIS
+==================================================*/
+
+function adicionarSinal(){
+
+    const lista =
+        document.getElementById("listaSinais");
+
+    const div =
+        document.createElement("div");
+
+    div.className =
+        "grid-3 sinal-item";
+
+    div.style.marginTop="15px";
+
+    div.innerHTML=`
+
+        <input
+            type="number"
+            class="valor-sinal"
+            placeholder="Valor do sinal"
+            min="0"
+            step="0.01">
+
+        <input
+            type="date"
+            class="data-sinal">
+
+        <select
+            class="forma-sinal">
+
+            <option>PIX</option>
+            <option>DINHEIRO</option>
+            <option>CARTÃO</option>
+
+        </select>
+        <div class="comprovante-sinal">
+
+    <input
+        type="file"
+        class="input-comprovante"
+        accept="image/png,image/jpeg,image/webp"
+        hidden
+    >
+
+    <button
+        type="button"
+        class="btn-comprovante"
+        onclick="selecionarComprovante(this)"
+    >
+        📎 Comprovante
+    </button>
+
+    <span class="nome-comprovante">
+        Nenhum arquivo
+    </span>
+
+</div>
+    `;
+
+    lista.appendChild(div);
+
+    div.querySelector(".valor-sinal")
+        .addEventListener(
+            "input",
+            calcularTotal
+        );
+
+    calcularTotal();
+}
+
+
+function calcularPago(){
+
+    totalPago = 0;
+
+    document
+        .querySelectorAll(".sinal-item .valor-sinal")
+        .forEach(input => {
+            totalPago += Number(input.value || 0);
+        });
+
+    calcularTotal();
+}
+
+
+/*==================================================
+    CÁLCULO FINANCEIRO ÚNICO
+==================================================*/
+
+function atualizarFinanceiro(){
+
+    calcularTotal();
+
+}
+
+
+function obterSinais(){
+
+    const sinais=[];
+
+    document
+    .querySelectorAll(".sinal-item")
+    .forEach(item=>{
+
+        sinais.push({
+
+            valor:
+                item.querySelector(".valor-sinal").value,
+
+            data:
+                item.querySelector(".data-sinal").value,
+
+            forma:
+                item.querySelector(".forma-sinal").value
+
+        });
+
+    });
+
+    return sinais;
+
+}
+/*==================================================
+    RESUMO FINANCEIRO COMPLETO
+==================================================*/
+
+
+function calcularResumoFinanceiro(){
+
+    calcularTotal();
+
+    return {
+
+        pacote: totalPacote,
+
+        adicionais: totalAdicionais,
+
+        extras: totalExtras,
+
+        desconto:
+            (
+                totalPacote +
+                totalAdicionais +
+                totalExtras
+            ) * (
+                obterPercentualDesconto() / 100
+            ),
+
+        total: totalContrato,
+
+        pago: totalPago,
+
+        restante:
+            Math.max(0, totalContrato - totalPago)
+
+    };
+
+}
+
+
+function obterValoresContrato(){
+
+
+    const financeiro =
+
+        calcularResumoFinanceiro();
+
+
+
+    return {
+
+        valorTotal:
+
+            formatarMoeda(
+                financeiro.total
+            ),
+
+
+        valorPago:
+
+            formatarMoeda(
+                financeiro.pago
+            ),
+
+
+        valorRestante:
+
+            formatarMoeda(
+                financeiro.restante
+            )
+
+    };
+
+
+}
+/*==================================================
+    FINALIZAR CONTRATO
+==================================================*/
+function finalizarContrato() {
+
+    try {
+
+        const el = id => document.getElementById(id);
+
+        const valor = id => {
+
+            const campo = el(id);
+
+            return campo
+                ? campo.value
+                : "";
+        };
+
+        const numero = id => {
+
+            const campo = el(id);
+
+            return campo
+                ? Number(campo.value || 0)
+                : 0;
+        };
+
+
+        // =====================================================
+        // PEGA O TOTAL EXATAMENTE COMO APARECE NO RESUMO
+        // "Total do Contrato"
+        // =====================================================
+
+        const elementoTotal =
+            document.getElementById("valorTotal");
+
+        let valorTotal = 0;
+
+        if (elementoTotal) {
+
+            let textoTotal =
+                elementoTotal.innerText || "";
+
+            textoTotal = textoTotal
+                .replace("R$", "")
+                .replace(/\s/g, "")
+                .replace(/\./g, "")
+                .replace(",", ".");
+
+            valorTotal =
+                parseFloat(textoTotal) || 0;
+        }
+
+
+        // =====================================================
+        // VALORES FINANCEIROS
+        // =====================================================
+
+        const financeiro =
+            obterValoresContrato();
+
+
+        // =====================================================
+        // MONTA OS DADOS DO CONTRATO
+        // =====================================================
+
+        const dados = {
+
+            id: valor("contrato_id"),
+
+            // ---------------------------------------------
+            // CONTRATANTE
+            // ---------------------------------------------
+
+            cliente:
+                valor("cliente"),
+
+            aniversariante:
+                valor("aniversariante"),
+
+            telefone:
+                valor("telefone"),
+
+            email:
+                valor("email"),
+
+            cpf:
+                valor("cpf"),
+
+
+            // ---------------------------------------------
+            // RESPONSÁVEIS
+            // ---------------------------------------------
+
+            responsavel1:
+                valor("responsavel1"),
+
+            responsavel2:
+                valor("responsavel2"),
+
+
+            // ---------------------------------------------
+            // DATA / HORÁRIO
+            // ---------------------------------------------
+
+            dataEvento:
+                valor("dataEvento"),
+
+            horaInicio:
+                valor("horaInicio"),
+
+            horaFim:
+                valor("horaFim"),
+
+            dataAniversario:
+                valor("dataAniversario"),
+
+
+            // ---------------------------------------------
+            // EVENTO
+            // ---------------------------------------------
+
+            convidados:
+                numero("convidados"),
+
+            pacote:
+                pacoteSelecionado
+                    ? pacoteSelecionado.nome
+                    : "",
+
+            convidadoExtra:
+                el("convidadoExtra")
+                    ? el("convidadoExtra").checked
+                    : false,
+
+            qtdConvidadosExtras:
+                valor("qtdExtra"),
+
+            valorExtra:
+                valor("valorExtra"),
+
+
+            // ---------------------------------------------
+            // PAGAMENTO
+            // ---------------------------------------------
+
+            formaPagamento:
+                valor("formaPagamento"),
+
+            desconto:
+                valor("desconto"),
+
+            valorTotal:
+                valorTotal,
+
+            valorPago:
+                financeiro.valorPago,
+
+            valorRestante:
+                financeiro.valorRestante,
+
+
+            // ---------------------------------------------
+            // OBSERVAÇÕES
+            // ---------------------------------------------
+
+            observacoes:
+                valor("observacoes"),
+
+
+            // ---------------------------------------------
+            // SINAIS
+            // ---------------------------------------------
+
+            sinais:
+                obterSinais(),
+
+
+            // ---------------------------------------------
+            // SERVIÇOS
+            // ---------------------------------------------
+
+            servicosSelecionados:
+
+                [
+                    ...document.querySelectorAll(
+                        "#servicosContainer input:checked"
+                    )
+                ].map(x =>
+
+                    x.nextElementSibling
+                        ? x.nextElementSibling.innerText
+                        : ""
+
+                ),
+
+
+            // ---------------------------------------------
+            // BUFFET
+            // ---------------------------------------------
+
+            buffetSelecionado:
+                buffetSelecionado(),
+
+
+            // ---------------------------------------------
+            // DOCES
+            // ---------------------------------------------
+
+            docesSelecionados:
+                docesSelecionados(),
+
+
+            // ---------------------------------------------
+            // ADICIONAIS
+            // ---------------------------------------------
+
+            adicionaisSelecionados:
+                adicionaisSelecionados()
+        };
+
+
+        // =====================================================
+        // DEBUG
+        // =====================================================
+
+        console.log(
+            "================================="
+        );
+
+        console.log(
+            "TOTAL MOSTRADO NA TELA:",
+            elementoTotal
+                ? elementoTotal.innerText
+                : "não encontrado"
+        );
+
+        console.log(
+            "TOTAL ENVIADO AO FLASK:",
+            dados.valorTotal
+        );
+
+        console.log(
+            "DADOS DO CONTRATO:",
+            dados
+        );
+
+        console.log(
+            "================================="
+        );
+
+
+        // =====================================================
+        // DESABILITA O BOTÃO
+        // =====================================================
+
+        const botao =
+            document.querySelector(
+                ".btn-finalizar"
+            );
+
+        if (botao) {
+
+            botao.disabled = true;
+
+            botao.dataset.textoOriginal =
+                botao.innerHTML;
+
+            botao.innerHTML =
+                "Salvando...";
+        }
+
+
+        // =====================================================
+        // 1º PASSO
+        // SALVA O CONTRATO
+        // =====================================================
+
+        fetch(
+            "/salvar_contrato",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify(dados)
+            }
+        )
+
+        .then(async res => {
+
+            const resultado =
+                await res.json();
+
+            if (!res.ok) {
+
+                throw new Error(
+                    resultado.mensagem ||
+                    resultado.erro ||
+                    "Erro ao salvar contrato."
+                );
+            }
+
+            return resultado;
+        })
+
+
+        // =====================================================
+        // 2º PASSO
+        // ENVIA OS COMPROVANTES
+        // =====================================================
+
+        .then(async resultado => {
+
+            if (!resultado.sucesso) {
+
+                throw new Error(
+                    resultado.mensagem ||
+                    "Não foi possível salvar o contrato."
+                );
+            }
+
+
+            // ---------------------------------------------
+            // O FLASK DEVOLVE O ID DO CONTRATO
+            // ---------------------------------------------
+
+            const contratoId =
+                resultado.id;
+
+
+            console.log(
+                "CONTRATO SALVO. ID:",
+                contratoId
+            );
+
+
+            // ---------------------------------------------
+            // ENVIA OS COMPROVANTES
+            // ---------------------------------------------
+
+            try {
+
+                await enviarComprovantes(
+                    contratoId
+                );
+
+                console.log(
+                    "COMPROVANTES PROCESSADOS."
+                );
+
+            } catch (erroComprovante) {
+
+                console.error(
+                    "ERRO AO ENVIAR COMPROVANTES:",
+                    erroComprovante
+                );
+
+                /*
+                 * O contrato já foi salvo.
+                 *
+                 * Portanto, não vamos considerar
+                 * o contrato como perdido apenas
+                 * porque o comprovante apresentou erro.
+                 */
+
+                alert(
+                    "Contrato salvo com sucesso!\n\n" +
+                    "Porém, não foi possível salvar " +
+                    "um ou mais comprovantes."
+                );
+
+                window.location.href =
+                    "/contratos";
+
+                return;
+            }
+
+
+            // =================================================
+            // SUCESSO COMPLETO
+            // =================================================
+
+            alert(
+                "Contrato e comprovantes " +
+                "salvos com sucesso!"
+            );
+
+
+            window.location.href =
+                "/contratos";
+
+        })
+
+
+        // =====================================================
+        // ERRO GERAL
+        // =====================================================
+
+        .catch(erro => {
+
+            console.error(
+                "ERRO AO FINALIZAR CONTRATO:",
+                erro
+            );
+
+
+            alert(
+                "Erro ao salvar contrato:\n\n" +
+                erro.message
+            );
+
+
+            // ---------------------------------------------
+            // RESTAURA O BOTÃO
+            // ---------------------------------------------
+
+            if (botao) {
+
+                botao.disabled = false;
+
+                botao.innerHTML =
+                    botao.dataset.textoOriginal ||
+                    "✅ Finalizar Contrato";
+            }
+
+        });
+
+
+    } catch (erro) {
+
+        console.error(
+            "ERRO ANTES DE ENVIAR O CONTRATO:",
+            erro
+        );
+
+
+        alert(
+            "Não foi possível finalizar o contrato:\n\n" +
+            erro.message
+        );
+
+    }
+}
+
+
+// =========================================================
+// ATUALIZAÇÃO AUTOMÁTICA DO FINANCEIRO
+// =========================================================
+
+document.addEventListener(
+    "input",
+    atualizarFinanceiro
+);
+
+document.addEventListener(
+    "change",
+    atualizarFinanceiro
+);
+</script>
+<script>
+document.addEventListener('gesturestart', e => e.preventDefault());
+document.addEventListener('gesturechange', e => e.preventDefault());
+document.addEventListener('gestureend', e => e.preventDefault());
+
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (e) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        e.preventDefault();
+    }
+    lastTouchEnd = now;
+}, { passive: false });
+// ==========================================================
+// COMPROVANTE DE PAGAMENTO
+// ==========================================================
+
+function selecionarComprovante(botao) {
+
+    const item =
+        botao.closest(".sinal-item");
+
+    const input =
+        item.querySelector(
+            ".input-comprovante"
+        );
+
+    input.click();
+}
+
+
+document.addEventListener(
+    "change",
+    function(event) {
+
+        if (
+            !event.target.classList.contains(
+                "input-comprovante"
+            )
+        ) {
+            return;
+        }
+
+        const input =
+            event.target;
+
+        const item =
+            input.closest(".sinal-item");
+
+        const nome =
+            item.querySelector(
+                ".nome-comprovante"
+            );
+
+        if (
+            input.files &&
+            input.files.length
+        ) {
+
+            nome.textContent =
+                input.files[0].name;
+
+            nome.classList.add(
+                "arquivo-selecionado"
+            );
+
+        } else {
+
+            nome.textContent =
+                "Nenhum arquivo";
+
+            nome.classList.remove(
+                "arquivo-selecionado"
+            );
+        }
+    }
+);
+async function enviarComprovantes(
+    contratoId
+) {
+
+    const sinais =
+        document.querySelectorAll(
+            "#listaSinais .sinal-item"
+        );
+
+    for (
+        let i = 0;
+        i < sinais.length;
+        i++
+    ) {
+
+        const item =
+            sinais[i];
+
+        const input =
+            item.querySelector(
+                ".input-comprovante"
+            );
+
+        if (
+            !input ||
+            !input.files ||
+            !input.files.length
+        ) {
+            continue;
+        }
+
+        const arquivo =
+            input.files[0];
+
+        const formData =
+            new FormData();
+
+        formData.append(
+            "contrato_id",
+            contratoId
+        );
+
+        formData.append(
+            "sinal_index",
+            i
+        );
+
+        formData.append(
+            "comprovante",
+            arquivo
+        );
+
+        const response =
+            await fetch(
+                "/upload_comprovante",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+        const resultado =
+            await response.json();
+
+        if (!resultado.sucesso) {
+
+            throw new Error(
+                resultado.mensagem ||
+                "Erro ao enviar comprovante."
+            );
+        }
+    }
+}
+</script>
+</body>
+</html>
