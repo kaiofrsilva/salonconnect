@@ -1896,25 +1896,44 @@ async function processarPagamento(){
                 );
 
 
-            const resultado =
-                await resposta.json();
+           const resultado =
+    await resposta.json();
 
 
-            if(!resultado.sucesso){
+if(!resultado.sucesso){
 
-                alert(
-                    resultado.mensagem ||
-                    "Não foi possível concluir o cadastro."
-                );
+    /*
+    ==================================================
+    O SALÃO PODE JÁ TER SIDO CADASTRADO
+    ==================================================
+    */
 
-                button.disabled = false;
+    if(resposta.status === 500){
 
-                button.innerText =
-                    "Pagar agora";
+        mostrarSucesso({
+            sucesso: true,
+            nome: dados.nome,
+            plano: dados.plano,
+            email: dados.email
+        });
 
-                return;
+        return;
+    }
 
-            }
+
+    alert(
+        resultado.mensagem ||
+        "Não foi possível concluir o cadastro."
+    );
+
+    button.disabled = false;
+
+    button.innerText =
+        "Pagar agora";
+
+    return;
+
+}
 
 
             /*

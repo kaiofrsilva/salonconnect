@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, redirect, send_file, session, send_from_directory
+from flask import Flask, render_template, request, jsonify, redirect, send_file, session, send_from_directory, url_for
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from werkzeug.utils import secure_filename
@@ -127,19 +127,12 @@ class Permissao(db.Model):
     )
 
     dashboard = db.Column(db.Boolean, default=True)
-
     agenda = db.Column(db.Boolean, default=True)
-
     contratos = db.Column(db.Boolean, default=True)
-
     estoque = db.Column(db.Boolean, default=False)
-
     financeiro = db.Column(db.Boolean, default=False)
-
     funcionarios = db.Column(db.Boolean, default=False)
-
     relatorios = db.Column(db.Boolean, default=False)
-
     configuracoes = db.Column(db.Boolean, default=False)
 
 class Orcamento(db.Model):
@@ -178,6 +171,8 @@ class ConfiguracaoContrato(db.Model):
     adicionais = db.Column(db.Text)
 
     pacotes = db.Column(db.Text)
+
+    contratos_feitos_por = db.Column(db.Text)
 
     valor_extra = db.Column(db.Float)
 # ===========================
@@ -1447,11 +1442,20 @@ def home():
 
 @app.route("/admin")
 def admin():
-    return render_template("admin.html")
-# ==========================================================
-# UPLOAD DE COMPROVANTE
-# ==========================================================
 
+    if session.get("tipo") != "admin":
+        return redirect("/")
+
+    total_saloes = Salao.query.count()
+    saloes_ativos = Salao.query.filter_by(ativo=True).count()
+    total_orcamentos = Orcamento.query.count()
+
+    return render_template(
+        "admin.html",
+        total_saloes=total_saloes,
+        saloes_ativos=saloes_ativos,
+        total_orcamentos=total_orcamentos
+    )
 @app.route(
     "/upload_comprovante",
     methods=["POST"]
@@ -2268,6 +2272,10 @@ def salvar_configuracao():
     configuracao.doces = json.dumps(dados.get("doces", []))
     configuracao.adicionais = json.dumps(dados.get("adicionais", []))
     configuracao.pacotes = json.dumps(dados.get("pacotes", []))
+    configuracao.contratos_feitos_por = json.dumps(
+    dados.get("contratosFeitosPor", []),
+    ensure_ascii=False
+)
     configuracao.valor_extra = dados.get("valorExtra", 0)
 
     db.session.commit()
@@ -2282,10 +2290,7 @@ def obter_configuracao():
 
     if "salao_id" not in session:
         return jsonify({"erro": "Usuário não autenticado"}), 401
-    if not admin_salao_autorizado():
-        return jsonify({
-            "erro": "Acesso de administrador necessário"
-        }), 403
+
     configuracao = ConfiguracaoContrato.query.filter_by(
         salao_id=session["salao_id"]
     ).first()
@@ -2297,7 +2302,8 @@ def obter_configuracao():
             "doces": [],
             "adicionais": [],
             "pacotes": [],
-            "valorExtra": 0
+            "valorExtra": 0,
+            "contratosFeitosPor": []
         })
 
     return jsonify({
@@ -2306,7 +2312,25 @@ def obter_configuracao():
         "doces": json.loads(configuracao.doces or "[]"),
         "adicionais": json.loads(configuracao.adicionais or "[]"),
         "pacotes": json.loads(configuracao.pacotes or "[]"),
-        "valorExtra": configuracao.valor_extra or 0
+        "valorExtra": configuracao.valor_extra or 0,
+        "contratosFeitosPor": json.loads(
+            configuracao.contratos_feitos_por or "[]"
+        )
+    })
+@app.route("/admin/dados")
+def admin_dados():
+    total_saloes = Salao.query.count()
+
+    saloes_ativos = Salao.query.filter_by(
+        ativo=True
+    ).count()
+
+    total_orcamentos = Orcamento.query.count()
+
+    return jsonify({
+        "total_saloes": total_saloes,
+        "saloes_ativos": saloes_ativos,
+        "total_orcamentos": total_orcamentos
     })
 @app.route("/contrato_json/<int:id>")
 def contrato_json(id):
@@ -2621,14 +2645,16 @@ def novo_contrato():
 @app.route("/logout")
 def logout():
 
+    print("====================================")
+    print("LOGOUT EXECUTADO")
+    print("SESSÃO ANTES:", dict(session))
+
     session.clear()
 
-    resposta = redirect("/")
+    print("SESSÃO DEPOIS:", dict(session))
+    print("====================================")
 
-    # Remove o cookie/localStorage não pode ser removido pelo Flask,
-    # mas a página index vai executar a limpeza abaixo.
-
-    return resposta
+    return redirect("/")
 @app.route("/novo_salao")
 def novo_salao():
     return render_template("novo_salao.html")
@@ -3939,32 +3965,27 @@ def cadastrar_salao():
         db.session.commit()
 
 
-        # =====================================================
+         # =====================================================
         # CRIA AS PERMISSÕES
         # =====================================================
 
         permissao = Permissao(
-
             salao_id=novo.id,
 
             dashboard=False,
-
             agenda=False,
-
             contratos=False,
-
+            novo_contrato=False,
+            financeiro=False,
+            comprovantes=False,
+            servicos_contratados=False,
             estoque=False,
 
-            financeiro=False,
-
             funcionarios=False,
-
             relatorios=False,
-
-            configuracoes=False
-
+            configuracoes=False,
+            visitas=False
         )
-
 
         # =====================================================
         # PLANO ESSENCIAL
@@ -3972,12 +3993,14 @@ def cadastrar_salao():
 
         if plano == "Essencial":
 
-            permissao.dashboard = True
-
+            permissao.dashboard = False
             permissao.agenda = True
-
             permissao.contratos = True
-
+            permissao.novo_contrato = True
+            permissao.financeiro = True
+            permissao.comprovantes = True
+            permissao.servicos_contratados = False
+            permissao.estoque = False
 
         # =====================================================
         # PLANO PROFISSIONAL
@@ -3986,17 +4009,13 @@ def cadastrar_salao():
         elif plano == "Profissional":
 
             permissao.dashboard = True
-
             permissao.agenda = True
-
             permissao.contratos = True
-
-            permissao.estoque = True
-
+            permissao.novo_contrato = True
             permissao.financeiro = True
-
-            permissao.relatorios = True
-
+            permissao.comprovantes = True
+            permissao.servicos_contratados = True
+            permissao.estoque = False
 
         # =====================================================
         # PLANO PREMIUM
@@ -4005,24 +4024,19 @@ def cadastrar_salao():
         elif plano == "Premium":
 
             permissao.dashboard = True
-
             permissao.agenda = True
-
             permissao.contratos = True
-
+            permissao.novo_contrato = True
+            permissao.financeiro = True
+            permissao.comprovantes = True
+            permissao.servicos_contratados = True
             permissao.estoque = True
 
-            permissao.financeiro = True
-
-            permissao.funcionarios = True
-
-            permissao.relatorios = True
-
-            permissao.configuracoes = True
-
+        # =====================================================
+        # SALVA AS PERMISSÕES
+        # =====================================================
 
         db.session.add(permissao)
-
         db.session.commit()
 
 
@@ -4080,7 +4094,6 @@ def cadastrar_salao():
 
         }), 500
 
-
 @app.route("/pagina_inicial")
 def pagina_inicial():
 
@@ -4090,7 +4103,7 @@ def pagina_inicial():
     # Busca o salão logado
     salao = Salao.query.get_or_404(session["salao_id"])
 
-    # Busca as permissões desse salão diretamente no banco
+    # Busca as permissões existentes no banco
     permissao = Permissao.query.filter_by(
         salao_id=salao.id
     ).first()
@@ -4106,24 +4119,74 @@ def pagina_inicial():
         "relatorios": False,
         "configuracoes": False,
         "novo_contrato": False,
-        "pre_contrato": False
+        "pre_contrato": False,
+        "comprovantes": False,
+        "servicos_contratados": False,
+        "visitas": False
     }
 
-    # Carrega as permissões salvas no banco
+    # =========================================================
+    # DEFINE OS MÓDULOS DE ACORDO COM O PLANO
+    # =========================================================
+
+    plano = (salao.plano or "").strip().lower()
+
+    # -------------------------
+    # PLANO ESSENCIAL
+    # -------------------------
+    if plano == "essencial":
+
+        modulos["dashboard"] = False
+        modulos["agenda"] = True
+        modulos["contratos"] = True
+        modulos["novo_contrato"] = True
+        modulos["financeiro"] = True
+        modulos["comprovantes"] = True
+
+        modulos["servicos_contratados"] = False
+        modulos["estoque"] = False
+        modulos["visitas"] = False
+
+    # -------------------------
+    # PLANO PROFISSIONAL
+    # -------------------------
+    elif plano == "profissional":
+
+        modulos["dashboard"] = True
+        modulos["agenda"] = True
+        modulos["contratos"] = True
+        modulos["novo_contrato"] = True
+        modulos["financeiro"] = True
+        modulos["comprovantes"] = True
+        modulos["servicos_contratados"] = True
+
+        modulos["estoque"] = False
+        modulos["visitas"] = False
+
+    # -------------------------
+    # PLANO PREMIUM
+    # -------------------------
+    elif plano == "premium":
+
+        # PREMIUM TEM TODOS OS MÓDULOS
+        modulos["dashboard"] = True
+        modulos["agenda"] = True
+        modulos["contratos"] = True
+        modulos["novo_contrato"] = True
+        modulos["financeiro"] = True
+        modulos["comprovantes"] = True
+        modulos["servicos_contratados"] = True
+        modulos["estoque"] = True
+        modulos["visitas"] = True
+
+    # =========================================================
+    # MANTÉM AS CONFIGURAÇÕES EXISTENTES DO BANCO
+    # =========================================================
+
     if permissao:
-        modulos["dashboard"] = bool(permissao.dashboard)
-        modulos["agenda"] = bool(permissao.agenda)
-        modulos["contratos"] = bool(permissao.contratos)
-        modulos["estoque"] = bool(permissao.estoque)
-        modulos["financeiro"] = bool(permissao.financeiro)
         modulos["funcionarios"] = bool(permissao.funcionarios)
         modulos["relatorios"] = bool(permissao.relatorios)
         modulos["configuracoes"] = bool(permissao.configuracoes)
-
-        # Não existem colunas próprias para estes módulos na tabela permissoes.
-        # Por enquanto, ambos seguem a permissão de contratos.
-        modulos["novo_contrato"] = bool(permissao.contratos)
-        modulos["pre_contrato"] = bool(permissao.contratos)
 
     return render_template(
         "pagina_inicial.html",
@@ -4140,13 +4203,152 @@ def listar_saloes():
         "saloes.html",
         saloes=saloes
     )
-@app.route("/editar_salao/<int:id>")
-def editar_salao(id):
-    return "Tela de edição em construção"
+
+
+@app.route("/editar_salao", methods=["POST"])
+def editar_salao():
+
+    id = request.form.get("id")
+
+    if not id:
+        return "ID do salão não informado.", 400
+
+    salao = Salao.query.get_or_404(id)
+
+    salao.nome = request.form.get("nome", "").strip()
+    salao.responsavel = request.form.get("responsavel", "").strip()
+    salao.telefone = request.form.get("telefone", "").strip()
+    salao.cnpj = request.form.get("cnpj", "").strip()
+    salao.cidade = request.form.get("cidade", "").strip()
+    salao.plano = request.form.get("plano", "").strip()
+
+    senha = request.form.get("senha", "").strip()
+
+    if senha:
+        salao.senha = generate_password_hash(senha)
+
+    db.session.commit()
+
+    return redirect(url_for("listar_saloes"))
+
+
+# ==========================================================
+# PERMISSÕES
+# ==========================================================
 
 @app.route("/permissoes/<int:id>")
 def permissoes(id):
-    return "Tela de permissões em construção"
+
+    salao = Salao.query.get_or_404(id)
+
+    return jsonify({
+        "id": salao.id,
+        "nome": salao.nome
+    })
+
+
+@app.route("/permissoes_json/<int:id>")
+def permissoes_json(id):
+
+    salao = Salao.query.get_or_404(id)
+
+    permissao = Permissao.query.filter_by(
+        salao_id=salao.id
+    ).first()
+
+    if not permissao:
+
+        return jsonify({
+            "dashboard": False,
+            "agenda": False,
+            "contratos": False,
+            "novo_contrato": False,
+            "financeiro": False,
+            "estoque": False,
+            "comprovantes": False,
+            "visitas": False
+        })
+
+    return jsonify({
+        "dashboard": bool(permissao.dashboard),
+        "agenda": bool(permissao.agenda),
+        "contratos": bool(permissao.contratos),
+        "novo_contrato": bool(permissao.contratos),
+        "financeiro": bool(permissao.financeiro),
+        "estoque": bool(permissao.estoque),
+        "comprovantes": False,
+        "visitas": bool(permissao.contratos)
+    })
+
+
+@app.route("/salvar_permissoes", methods=["POST"])
+def salvar_permissoes():
+
+    salao_id = request.form.get("id", type=int)
+
+    if not salao_id:
+        return "ID do salão não informado.", 400
+
+    salao = Salao.query.get_or_404(salao_id)
+
+    permissao = Permissao.query.filter_by(
+        salao_id=salao.id
+    ).first()
+
+    if not permissao:
+
+        permissao = Permissao(
+            salao_id=salao.id
+        )
+
+        db.session.add(permissao)
+
+    permissao.dashboard = (
+        request.form.get("dashboard") == "on"
+    )
+
+    permissao.agenda = (
+        request.form.get("agenda") == "on"
+    )
+
+    permissao.contratos = (
+        request.form.get("contratos") == "on"
+    )
+
+    permissao.financeiro = (
+        request.form.get("financeiro") == "on"
+    )
+
+    permissao.estoque = (
+        request.form.get("estoque") == "on"
+    )
+
+    try:
+
+        db.session.commit()
+
+        return redirect(
+            url_for("listar_saloes")
+        )
+
+    except Exception as erro:
+
+        db.session.rollback()
+
+        print(
+            "ERRO AO SALVAR PERMISSÕES:",
+            erro
+        )
+
+        return (
+            "Erro ao salvar as permissões.",
+            500
+        )
+
+
+# ==========================================================
+# EXCLUIR SALÃO
+# ==========================================================
 
 @app.route("/excluir_salao/<int:id>")
 def excluir_salao(id):
@@ -4166,6 +4368,7 @@ def excluir_salao(id):
 
     return redirect("/saloes")
 
+
 @app.route("/excluir_contrato/<int:id>")
 def excluir_contrato(id):
 
@@ -4181,13 +4384,6 @@ def excluir_contrato(id):
     db.session.commit()
 
     return redirect("/contratos")
-
-# ===========================
-# EXECUTAR
-# ===========================
-# ===========================
-# AGENDA
-# ===========================
 
 @app.route("/agenda")
 def agenda():

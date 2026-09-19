@@ -404,6 +404,21 @@ textarea:focus{
     background:#B91C1C;
 }
 
+/* =========================================================
+   CONTRATO FEITO POR
+   ========================================================= */
+
+.contrato-feito-por-select-info{
+    padding:9px 11px;
+    margin-top:6px;
+    border:1px solid var(--primary-border);
+    border-radius:8px;
+    background:var(--primary-light);
+    color:var(--muted);
+    font-size:10px;
+    line-height:1.45;
+}
+
 /* RESUMO */
 
 .resumo{
@@ -691,7 +706,24 @@ hr{
 <h3>Carregando doces...</h3>
 </div>
 </div>
-</div></div><div class="column column-right"><div class="card">
+</div></div><div class="column column-right">
+
+<div class="card">
+    <h2>👤 Contrato feito por</h2>
+
+    <div class="form-group">
+        <label>Responsável pela criação do contrato</label>
+        <select id="contratoFeitoPor">
+            <option value="">Selecione uma pessoa</option>
+        </select>
+        <div class="contrato-feito-por-select-info">
+            Os nomes disponíveis são cadastrados na página
+            <strong>Contrato</strong>. Aqui você pode apenas escolher um deles.
+        </div>
+    </div>
+</div>
+
+<div class="card">
 <h2>✨ Adicionais</h2>
 <div id="adicionaisContainer">
 <div class="loading">
@@ -859,7 +891,14 @@ async function carregarConfiguracao(){
         configuracao.doces = dados.doces || [];
         configuracao.adicionais = dados.adicionais || [];
         configuracao.pacotes = dados.pacotes || [];
+        configuracao.contratosFeitosPor = Array.isArray(dados.contratosFeitosPor)
+            ? dados.contratosFeitosPor.filter(nome => String(nome).trim())
+            : [];
         configuracao.valorExtra = Number(dados.valorExtra || 0);
+        configuracao.contratosFeitosPor =
+        dados.contratosFeitosPor || [];
+
+        montarContratosFeitosPor();
 
         document.getElementById("valorExtra").value =
             configuracao.valorExtra.toFixed(2);
@@ -873,6 +912,8 @@ async function carregarConfiguracao(){
         montarDoces();
 
         montarAdicionais();
+
+        montarContratosFeitosPor();
 
         // Buffet, Doces e Adicionais
         // serão feitos na Parte 2.2
@@ -888,6 +929,29 @@ async function carregarConfiguracao(){
 
 }
 
+function montarContratosFeitosPor(){
+
+    const select = document.getElementById("contratoFeitoPor");
+
+    if(!select) return;
+
+    select.innerHTML = "";
+
+    const opcaoInicial = document.createElement("option");
+    opcaoInicial.value = "";
+    opcaoInicial.textContent = "Selecione...";
+    select.appendChild(opcaoInicial);
+
+    (configuracao.contratosFeitosPor || []).forEach(nome => {
+
+        const option = document.createElement("option");
+
+        option.value = nome;
+        option.textContent = nome;
+
+        select.appendChild(option);
+    });
+}
 
 async function inicializarPagina(){
     try{
@@ -954,6 +1018,7 @@ function preencherContrato(dados){
     setValor("qtdExtra", dados.qtdConvidadosExtras || 0);
     setValor("valorExtra", dados.valorExtra ?? configuracao.valorExtra ?? 0);
     setValor("observacoes", dados.observacoes);
+    setValor("contratoFeitoPor", dados.contratoFeitoPor);
 
     const forma = document.getElementById("formaPagamento");
     if(forma && dados.formaPagamento) forma.value = dados.formaPagamento;
@@ -1108,6 +1173,37 @@ async function gerarPDFContrato(){
         }
     }
 }
+
+/*==================================================
+    CONTRATO FEITO POR
+==================================================*/
+
+function montarContratosFeitosPor(){
+
+    const select = document.getElementById("contratoFeitoPor");
+    if(!select) return;
+
+    const valorAtual = select.value;
+
+    select.innerHTML = `
+        <option value="">Selecione uma pessoa</option>
+    `;
+
+    (configuracao.contratosFeitosPor || []).forEach(nome=>{
+        const option = document.createElement("option");
+        option.value = nome;
+        option.textContent = nome;
+        select.appendChild(option);
+    });
+
+    if(
+        valorAtual &&
+        (configuracao.contratosFeitosPor || []).includes(valorAtual)
+    ){
+        select.value = valorAtual;
+    }
+}
+
 
 /*==================================================
     PACOTES
@@ -2222,6 +2318,13 @@ function finalizarContrato() {
         const dados = {
 
             id: valor("contrato_id"),
+
+            // ---------------------------------------------
+            // CONTRATO FEITO POR
+            // ---------------------------------------------
+
+            contratoFeitoPor:
+                valor("contratoFeitoPor"),
 
             // ---------------------------------------------
             // CONTRATANTE

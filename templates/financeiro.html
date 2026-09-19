@@ -810,41 +810,70 @@
 
         return ["pendente","Pendente","badge-red"];
     }
+function preencherMeses(){
 
-    function preencherMeses(){
-        const select = document.getElementById("mesFiltro");
+    const select =
+        document.getElementById("mesFiltro");
 
-        // Período fixo: Agosto/2026 até Dezembro/2027
-        const inicio = new Date(2026, 7, 1);   // Agosto/2026
-        const fim = new Date(2027, 11, 1);     // Dezembro/2027
+    if(!select) return;
 
-        select.innerHTML = "";
+    const hoje = new Date();
 
-        // Preenche em ordem cronológica: Agosto/2026 → Dezembro/2027
-        for(
-            let d = new Date(inicio);
-            d <= fim;
-            d.setMonth(d.getMonth() + 1)
-        ){
-            const value =
-                d.getFullYear() + "-" +
-                String(d.getMonth()+1).padStart(2,"0");
+    const inicio =
+        new Date(2026, 0, 1);
 
-            const label = d.toLocaleDateString("pt-BR", {
-                month:"long",
-                year:"numeric"
-            });
+    const fim =
+        new Date(2027, 11, 1);
 
-            const option = document.createElement("option");
-            option.value = value;
-            option.textContent = label.charAt(0).toUpperCase() + label.slice(1);
-            select.appendChild(option);
-        }
+    select.innerHTML = "";
 
-        // Abre inicialmente em Agosto/2026
-        select.value = "2026-08";
+    for(
+        let d = new Date(inicio);
+        d <= fim;
+        d.setMonth(d.getMonth() + 1)
+    ){
+
+        const value =
+            d.getFullYear() +
+            "-" +
+            String(
+                d.getMonth() + 1
+            ).padStart(2,"0");
+
+        const label =
+            d.toLocaleDateString(
+                "pt-BR",
+                {
+                    month:"long",
+                    year:"numeric"
+                }
+            );
+
+        const option =
+            document.createElement("option");
+
+        option.value = value;
+
+        option.textContent =
+            label.charAt(0).toUpperCase() +
+            label.slice(1);
+
+        select.appendChild(option);
     }
 
+    /*
+     * Seleciona automaticamente
+     * o mês atual.
+     */
+    const mesAtual =
+        hoje.getFullYear() +
+        "-" +
+        String(
+            hoje.getMonth() + 1
+        ).padStart(2,"0");
+
+    select.value = mesAtual;
+}
     async function carregarFinanceiro(){
         const mes = document.getElementById("mesFiltro").value;
 

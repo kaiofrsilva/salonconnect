@@ -1269,17 +1269,12 @@ tr:hover td {
 
                         <div class="bloco-consumo-titulo">
 
-                            📊 Consumo por grupo
+                            📊 Consumo por pessoa
 
                         </div>
 
 
                         <div class="bloco-consumo-texto">
-
-                            Em vez de informar o consumo individual,
-                            informe quantas pessoas formam um grupo
-                            e quantas unidades desse produto são
-                            necessárias para esse grupo.
 
                             <br><br>
 
@@ -1300,7 +1295,7 @@ tr:hover td {
                             <div class="campo">
 
                                 <label>
-                                    Pessoas por grupo
+                                    Pessoas
                                 </label>
 
                                 <input
@@ -1319,7 +1314,7 @@ tr:hover td {
                             <div class="campo">
 
                                 <label>
-                                    Quantidade por grupo
+                                    Quantidade por pessoas
                                 </label>
 
                                 <input
@@ -2404,7 +2399,7 @@ async function salvarItem() {
     ) {
 
         alert(
-            "Informe quantas pessoas formam cada grupo."
+            "Informe quantas pessoas."
         );
 
         return;
@@ -2417,7 +2412,7 @@ async function salvarItem() {
     ) {
 
         alert(
-            "Informe a quantidade utilizada por grupo."
+            "Informe a quantidade utilizada por pessoa."
         );
 
         return;

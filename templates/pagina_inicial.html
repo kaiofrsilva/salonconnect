@@ -2226,12 +2226,14 @@ canvas{
     </div>
 
 
-
-
     <nav class="menu">
 
 
-        <!-- DASHBOARD -->
+        <!-- =====================================================
+             DASHBOARD / PÁGINA INICIAL
+             ===================================================== -->
+
+        {% if modulos.dashboard %}
 
         <a
             href="/pagina_inicial"
@@ -2247,8 +2249,12 @@ canvas{
 
         </a>
 
+        {% endif %}
 
-        <!-- AGENDA -->
+
+        <!-- =====================================================
+             AGENDA
+             ===================================================== -->
 
         {% if modulos.agenda %}
 
@@ -2267,8 +2273,32 @@ canvas{
 
         {% endif %}
 
-<!-- VISITAS --> <a href="/visitas" data-page="visitas" > <span class="icon"> 👥 </span> Visitas </a>
-        <!-- CONTRATOS -->
+
+        <!-- =====================================================
+             VISITAS
+             ===================================================== -->
+
+        {% if modulos.visitas %}
+
+        <a
+            href="/visitas"
+            data-page="visitas"
+        >
+
+            <span class="icon">
+                👥
+            </span>
+
+            Visitas
+
+        </a>
+
+        {% endif %}
+
+
+        <!-- =====================================================
+             CONTRATOS
+             ===================================================== -->
 
         {% if modulos.contratos %}
 
@@ -2288,7 +2318,9 @@ canvas{
         {% endif %}
 
 
-        <!-- NOVO CONTRATO -->
+        <!-- =====================================================
+             NOVO CONTRATO
+             ===================================================== -->
 
         {% if modulos.novo_contrato %}
 
@@ -2306,22 +2338,33 @@ canvas{
         </a>
 
         {% endif %}
-<!-- SERVIÇOS CONTRATADOS -->
 
-<a
-    href="/servicos_contratados"
-    data-page="servicos_contratados"
->
 
-    <span class="icon">
-        🧰
-    </span>
+        <!-- =====================================================
+             SERVIÇOS CONTRATADOS
+             ===================================================== -->
 
-    Serviços Contratados
+        {% if modulos.servicos_contratados %}
 
-</a>
+        <a
+            href="/servicos_contratados"
+            data-page="servicos_contratados"
+        >
 
-        <!-- FINANCEIRO -->
+            <span class="icon">
+                🧰
+            </span>
+
+            Serviços Contratados
+
+        </a>
+
+        {% endif %}
+
+
+        <!-- =====================================================
+             FINANCEIRO
+             ===================================================== -->
 
         {% if modulos.financeiro %}
 
@@ -2341,7 +2384,9 @@ canvas{
         {% endif %}
 
 
-        <!-- ESTOQUE -->
+        <!-- =====================================================
+             ESTOQUE
+             ===================================================== -->
 
         {% if modulos.estoque %}
 
@@ -2359,24 +2404,37 @@ canvas{
         </a>
 
         {% endif %}
-<!-- COMPROVANTES -->
 
-<a
-    href="/comprovantes"
-    data-page="comprovantes"
->
 
-    <span class="icon">
-        📎
-    </span>
+        <!-- =====================================================
+             COMPROVANTES
+             ===================================================== -->
 
-    Comprovantes
+        {% if modulos.comprovantes %}
 
-</a>
+        <a
+            href="/comprovantes"
+            data-page="comprovantes"
+        >
+
+            <span class="icon">
+                📎
+            </span>
+
+            Comprovantes
+
+        </a>
+
+        {% endif %}
+
     </nav>
 
 
-    <!-- CONFIGURAÇÕES -->
+    <!-- =========================================================
+         CONFIGURAÇÕES
+         TÍTULO DO SUBMENU
+         APARECE EM TODOS OS PLANOS
+         ========================================================= -->
 
     <div
         class="menu-title"
@@ -2388,7 +2446,12 @@ canvas{
 
     <nav class="menu">
 
-        {% if modulos.novo_contrato %}
+
+        <!-- =====================================================
+             CONFIGURAÇÃO DO CONTRATO
+             BOTÃO
+             APARECE EM TODOS OS PLANOS
+             ===================================================== -->
 
         <a
             href="/contrato"
@@ -2402,24 +2465,33 @@ canvas{
             Configuração Contrato
 
         </a>
-<a
-    href="/logout"
-    class="menu-sair"
-    onclick="sairSistema(event)"
->
-    <span class="icon">
-        ⇥
-    </span>
 
-    Sair
-</a>
 
-        {% endif %}
+        <!-- =====================================================
+             SAIR
+             BOTÃO
+             ===================================================== -->
+
+        <a
+            href="/logout"
+            class="menu-sair"
+            onclick="sairSistema(event)"
+        >
+
+            <span class="icon">
+                ⇥
+            </span>
+
+            Sair
+
+        </a>
 
     </nav>
 
 
-    <!-- SALÃO -->
+    <!-- =========================================================
+         SALÃO CONECTADO
+         ========================================================= -->
 
     <div class="sidebar-bottom">
 
@@ -3437,28 +3509,27 @@ function abrirPagina(url, elemento){
 /* =========================================================
    MOSTRAR DASHBOARD
 ========================================================= */
-
 function mostrarDashboard(){
 
     if(pageFrame){
-
         pageFrame.classList.remove("active");
-
-        /*
-         * Não removemos o src.
-         * Assim a página pode continuar carregada
-         * caso o usuário volte.
-         */
-
     }
-
 
     if(dashboardContent){
-
         dashboardContent.classList.remove("hidden");
-
     }
 
+    /*
+     * Garante que o mês atual esteja selecionado
+     * antes de carregar os dados.
+     */
+    preencherMesesVisaoGeral();
+
+    /*
+     * Agora que o dashboard está visível,
+     * carrega imediatamente os dados do mês atual.
+     */
+    carregarFinanceiro();
 }
 
 
@@ -3667,17 +3738,23 @@ window.addEventListener(
 ========================================================= */
 
 let financeChart;
-
-
 function preencherMesesVisaoGeral(){
 
     const select =
-        document.getElementById("mesVisaoGeral");
+        document.getElementById(
+            "mesVisaoGeral"
+        );
 
     if(!select) return;
 
-    const inicio = new Date(2026, 7, 1);
-    const fim = new Date(2027, 11, 1);
+    const inicio =
+        new Date(2026, 0, 1);
+
+    const fim =
+        new Date(2027, 11, 1);
+
+    const hoje =
+        new Date();
 
     select.innerHTML = "";
 
@@ -3686,39 +3763,90 @@ function preencherMesesVisaoGeral(){
         d <= fim;
         d.setMonth(d.getMonth() + 1)
     ){
+
         const value =
             d.getFullYear() +
             "-" +
-            String(d.getMonth()+1).padStart(2,"0");
+            String(
+                d.getMonth() + 1
+            ).padStart(2, "0");
 
-        const texto = d.toLocaleDateString("pt-BR", {
-            month:"long",
-            year:"numeric"
-        });
+        const texto =
+            d.toLocaleDateString(
+                "pt-BR",
+                {
+                    month: "long",
+                    year: "numeric"
+                }
+            );
 
-        const option = document.createElement("option");
+        const option =
+            document.createElement("option");
+
         option.value = value;
+
         option.textContent =
-            texto.charAt(0).toUpperCase() + texto.slice(1);
+            texto.charAt(0).toUpperCase() +
+            texto.slice(1);
 
         select.appendChild(option);
     }
 
-    select.value = "2026-08";
-}
+    /*
+     * Define o mês atual ANTES
+     * de qualquer carregamento financeiro.
+     */
 
+    const mesAtual =
+        hoje.getFullYear() +
+        "-" +
+        String(
+            hoje.getMonth() + 1
+        ).padStart(2, "0");
+
+    select.value = mesAtual;
+
+}
 
 async function carregarFinanceiro(){
 
     try{
 
         const select =
-            document.getElementById("mesVisaoGeral");
+            document.getElementById(
+                "mesVisaoGeral"
+            );
 
-        const mes =
-            select && select.value
-                ? select.value
-                : "2026-08";
+
+        /*
+         * Se o usuário já escolheu um mês,
+         * continua usando o mês escolhido.
+         *
+         * Caso contrário, usa automaticamente
+         * o mês vigente.
+         */
+
+        let mes = "";
+
+        if(
+            select &&
+            select.value
+        ){
+
+            mes = select.value;
+
+        }else{
+
+            const hoje = new Date();
+
+            mes =
+                hoje.getFullYear() +
+                "-" +
+                String(
+                    hoje.getMonth() + 1
+                ).padStart(2, "0");
+
+        }
 
 
         const resposta =
@@ -3872,6 +4000,46 @@ async function carregarFinanceiro(){
         );
 
 
+        /*
+         * Atualiza o texto do gráfico
+         * para o mês que está selecionado.
+         */
+
+        const mesGrafico =
+            document.getElementById(
+                "mesGrafico"
+            );
+
+
+        if(
+            mesGrafico &&
+            mes
+        ){
+
+            const [ano, numeroMes] =
+                mes.split("-").map(Number);
+
+
+            const dataMes =
+                new Date(
+                    ano,
+                    numeroMes - 1,
+                    1
+                );
+
+
+            mesGrafico.textContent =
+                dataMes.toLocaleDateString(
+                    "pt-BR",
+                    {
+                        month: "long",
+                        year: "numeric"
+                    }
+                );
+
+        }
+
+
     }catch(erro){
 
         console.error(
@@ -3882,7 +4050,6 @@ async function carregarFinanceiro(){
     }
 
 }
-
 
 /* =========================================================
    GRÁFICO
@@ -4610,20 +4777,20 @@ async function carregarEstoque(){
 /* =========================================================
    INICIALIZAÇÃO
 ========================================================= */
-
 document.addEventListener(
     "DOMContentLoaded",
     function(){
 
         preencherMesesVisaoGeral();
-        carregarFinanceiro();
+
         carregarAgenda();
+
         carregarEstoque();
 
-        // Abre a Agenda automaticamente dentro do iframe
-        const agendaLink = document.querySelector(
-            '.menu a[data-page="agenda"]'
-        );
+        const agendaLink =
+            document.querySelector(
+                '.menu a[data-page="agenda"]'
+            );
 
         abrirPagina(
             "/agenda",

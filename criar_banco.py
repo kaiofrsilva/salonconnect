@@ -1,131 +1,43 @@
-import os
 import sqlite3
 
+DB_PATH = "instance/salonconnect.db"
 
-# ============================================================
-# CAMINHO DO BANCO
-# ============================================================
+conn = sqlite3.connect(DB_PATH)
+cursor = conn.cursor()
 
-CAMINHO_BANCO = os.path.join(
-    "instance",
-    "salonconnect.db"
-)
+def adicionar_coluna_se_nao_existir(
+    tabela,
+    coluna,
+    tipo
+):
+    colunas = [
+        row[1]
+        for row in cursor.execute(
+            f"PRAGMA table_info({tabela})"
+        ).fetchall()
+    ]
 
-
-# ============================================================
-# GARANTE QUE A PASTA INSTANCE EXISTE
-# ============================================================
-
-os.makedirs(
-    os.path.dirname(CAMINHO_BANCO),
-    exist_ok=True
-)
-
-
-# ============================================================
-# CONEXÃO COM O BANCO
-# ============================================================
-
-conexao = sqlite3.connect(
-    CAMINHO_BANCO
-)
-
-cursor = conexao.cursor()
-
-
-try:
-
-    # ========================================================
-    # CRIA A TABELA DE SERVIÇOS CONTRATADOS
-    # ========================================================
-
-    cursor.execute("""
-        CREATE TABLE IF NOT EXISTS servicos_contratados (
-
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-
-            salao_id INTEGER NOT NULL,
-
-            contrato_id INTEGER NOT NULL,
-
-            nome VARCHAR(150) NOT NULL,
-
-            valor REAL NOT NULL DEFAULT 0,
-
-            informacoes TEXT,
-
-            status_pagamento VARCHAR(30) NOT NULL
-                DEFAULT 'Pendente pagamento',
-
-            criado_em DATETIME
-                DEFAULT CURRENT_TIMESTAMP,
-
-            FOREIGN KEY (salao_id)
-                REFERENCES saloes(id),
-
-            FOREIGN KEY (contrato_id)
-                REFERENCES contratos(id)
+    if coluna not in colunas:
+        cursor.execute(
+            f"""
+            ALTER TABLE {tabela}
+            ADD COLUMN {coluna} {tipo}
+            """
         )
-    """)
 
+adicionar_coluna_se_nao_existir(
+    "configuracao_contrato",
+    "contratos_feitos_por",
+    "TEXT"
+)
 
-    # ========================================================
-    # SALVA ALTERAÇÕES
-    # ========================================================
+adicionar_coluna_se_nao_existir(
+    "contratos",
+    "contrato_feito_por",
+    "TEXT"
+)
 
-    conexao.commit()
+conn.commit()
+conn.close()
 
-
-    print()
-    print("=" * 60)
-    print(" TABELA DE SERVIÇOS CONTRATADOS")
-    print("=" * 60)
-    print()
-    print("Banco:")
-    print(os.path.abspath(CAMINHO_BANCO))
-    print()
-    print(
-        "Tabela 'servicos_contratados' "
-        "criada/verificada com sucesso!"
-    )
-    print()
-    print("Campos:")
-    print("  - id")
-    print("  - salao_id")
-    print("  - contrato_id")
-    print("  - nome")
-    print("  - valor")
-    print("  - informacoes")
-    print("  - status_pagamento")
-    print("  - criado_em")
-    print()
-    print("=" * 60)
-    print()
-
-
-except Exception as erro:
-
-    # ========================================================
-    # ERRO
-    # ========================================================
-
-    conexao.rollback()
-
-    print()
-    print("=" * 60)
-    print(" ERRO AO CRIAR A TABELA DE SERVIÇOS")
-    print("=" * 60)
-    print()
-    print(erro)
-    print()
-    print("=" * 60)
-    print()
-
-
-finally:
-
-    # ========================================================
-    # FECHA CONEXÃO
-    # ========================================================
-
-    conexao.close()
+print("Colunas verificadas/criadas com sucesso.")

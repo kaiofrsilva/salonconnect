@@ -798,6 +798,52 @@ textarea{
 
 
 /* =========================================================
+   CONTRATO FEITO POR
+   ========================================================= */
+
+.contrato-feito-por-lista{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-bottom:12px;
+}
+.contrato-feito-por-item{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    padding:9px 11px;
+    border:1px solid var(--line2);
+    border-radius:8px;
+    background:var(--panel2);
+    color:var(--text2);
+    font-size:11px;
+}
+.contrato-feito-por-item span{
+    flex:1;
+    min-width:0;
+    word-break:break-word;
+}
+.contrato-feito-por-vazio{
+    padding:12px;
+    border:1px dashed var(--line);
+    border-radius:8px;
+    text-align:center;
+    color:var(--muted);
+    font-size:11px;
+}
+.contrato-feito-por-adicionar{
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:8px;
+    align-items:end;
+}
+@media(max-width:680px){
+    .contrato-feito-por-adicionar{grid-template-columns:1fr;}
+    .contrato-feito-por-adicionar .btn-info{width:100%;}
+}
+
+/* =========================================================
    LINHA
    ========================================================= */
 
@@ -1036,6 +1082,30 @@ hr{
 
         <div class="coluna-principal">
 
+            <!-- CONTRATOS FEITOS POR -->
+            <div class="card">
+                <h2>👤 Contrato feito por</h2>
+
+                <p style="margin-bottom:12px;">
+                    Cadastre os nomes das pessoas que poderão criar contratos.
+                </p>
+
+                <div id="contratoFeitoPorLista" class="contrato-feito-por-lista"></div>
+
+                <div class="contrato-feito-por-adicionar">
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>Nome</label>
+                        <input type="text" id="novoContratoFeitoPor"
+                               placeholder="Ex.: João Silva" maxlength="150">
+                    </div>
+
+                    <button type="button" class="btn-info"
+                            onclick="adicionarContratoFeitoPor()">
+                        ➕ Adicionar Nome
+                    </button>
+                </div>
+            </div>
+
             <!-- ADICIONAIS -->
 
             <div class="card">
@@ -1172,6 +1242,8 @@ hr{
 
 
 <script>
+
+let contratosFeitosPor = [];
 
 const buffet = document.getElementById("buffetContainer");
 
@@ -1480,7 +1552,77 @@ function adicionarSinal(){
 }
 
 
-function salvarConfiguracao(){
+function renderizarContratosFeitosPor(){
+
+    const lista = document.getElementById("contratoFeitoPorLista");
+    if(!lista) return;
+
+    lista.innerHTML = "";
+
+    if(!contratosFeitosPor.length){
+        lista.innerHTML = `
+            <div class="contrato-feito-por-vazio">
+                Nenhum nome cadastrado.
+            </div>
+        `;
+        return;
+    }
+
+    contratosFeitosPor.forEach((nome,index)=>{
+        const item = document.createElement("div");
+        item.className = "contrato-feito-por-item";
+        item.innerHTML = `
+            <span>👤 ${nome}</span>
+            <button type="button" class="btn-remove"
+                    onclick="removerContratoFeitoPor(${index})">
+                🗑 Remover
+            </button>
+        `;
+        lista.appendChild(item);
+    });
+}
+
+function adicionarContratoFeitoPor(){
+
+    const input = document.getElementById("novoContratoFeitoPor");
+    const nome = input ? input.value.trim() : "";
+
+    if(!nome){
+        alert("Digite o nome da pessoa.");
+        input?.focus();
+        return;
+    }
+
+    if(contratosFeitosPor.some(item =>
+        item.toLowerCase() === nome.toLowerCase()
+    )){
+        alert("Esse nome já está cadastrado.");
+        input.focus();
+        return;
+    }
+
+    contratosFeitosPor.push(nome);
+    input.value = "";
+    renderizarContratosFeitosPor();
+
+    salvarConfiguracao(true);
+}
+
+function removerContratoFeitoPor(index){
+
+    if(index < 0 || index >= contratosFeitosPor.length) return;
+
+    const nome = contratosFeitosPor[index];
+
+    if(!confirm(`Remover "${nome}" da lista?`)) return;
+
+    contratosFeitosPor.splice(index,1);
+    renderizarContratosFeitosPor();
+
+    salvarConfiguracao(true);
+}
+
+function salvarConfiguracao(silencioso = false){
 
     const dados = {
 
@@ -1597,6 +1739,9 @@ function salvarConfiguracao(){
             }),
 
 
+        contratosFeitosPor:
+            contratosFeitosPor,
+
         valorExtra:
             document.getElementById("valorExtra").value
 
@@ -1619,7 +1764,9 @@ function salvarConfiguracao(){
 
     .then(resultado=>{
 
-        alert(resultado.mensagem);
+        if(!silencioso){
+            alert(resultado.mensagem);
+        }
 
     })
 
@@ -1691,6 +1838,12 @@ window.addEventListener(
                 await response.json();
 
             if(!dados) return;
+
+            contratosFeitosPor = Array.isArray(dados.contratosFeitosPor)
+                ? dados.contratosFeitosPor.filter(nome => String(nome).trim())
+                : [];
+
+            renderizarContratosFeitosPor();
 
 
             /* SERVIÇOS */

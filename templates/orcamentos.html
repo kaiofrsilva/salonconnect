@@ -1,100 +1,265 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">  <style>
-.hero{
-  padding-top: 0 !important;
-  margin-top: 0 !important;
-}
-</style>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<title>SalonConnect</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-<header class="header">
-  <div class="nav">
 
-    <div class="logo-area">
-      <img src="static/img/logo_preto_hor.png" class="logo">
-    </div>
+    <meta charset="UTF-8">
 
-<div id="loginContainer" style="display:flex;align-items:center;gap:12px;">
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   minimum-scale=1.0,
+                   user-scalable=no,
+                   viewport-fit=cover">
 
-    <button id="btnLogin" class="btn-login" onclick="toggleLogin()">
-        <span class="icon">👤</span>
-        LOGIN
-    </button>
+    <title>Orçamentos — SalonConnect</title>
 
-    <div id="userArea"></div>
-
-</div>
-
-  <div id="loginBox" style="
-    display:none;
-    position:absolute;
-    top:100%;
-    right:0;
-    margin-top:10px;
-    background:white;
-    padding:15px;
-    border-radius:10px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.2);
-    z-index:2000;
-    width:220px;
-  ">
-    <input type="email" id="email" placeholder="Email" style="width:100%; margin-bottom:10px;">
-    <input type="password" id="senha" placeholder="Senha" style="width:100%; margin-bottom:10px;">
-    <button onclick="logar()" style="width:100%;">
-    Entrar
-</button>
-  </div>
-
-</div>
-    </nav>
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-
-  </div>
-</header>
-
-    <title>Orçamentos - SalonConnect</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
 
     <style>
 
+        /* =====================================================
+           RESET
+        ===================================================== */
 
-        .voltar{
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-            color:white;
+        html,
+        body{
+            width:100%;
+            min-height:100%;
+        }
 
-            text-decoration:none;
+        body{
+            font-family:"Poppins", sans-serif;
+            background:#F4F6F8;
+            color:#172033;
+            overflow-x:hidden;
+        }
 
-            background:#444;
 
-            padding:10px 20px;
+        /* =====================================================
+           CONTAINER
+        ===================================================== */
+
+        .page-container{
+
+            width:100%;
+
+            padding:4px 6px 30px;
+
+        }
+
+
+        /* =====================================================
+           CABEÇALHO DA PÁGINA
+        ===================================================== */
+
+        .page-header{
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:space-between;
+
+            gap:20px;
+
+            margin-bottom:22px;
+
+        }
+
+        .page-title-area{
+
+            min-width:0;
+
+        }
+
+        .page-title{
+
+            font-size:23px;
+
+            font-weight:600;
+
+            color:#172033;
+
+            letter-spacing:-.5px;
+
+            line-height:1.2;
+
+        }
+
+        .page-subtitle{
+
+            margin-top:6px;
+
+            font-size:11px;
+
+            color:#6B7280;
+
+            line-height:1.5;
+
+        }
+
+
+        /* =====================================================
+           CONTADOR
+        ===================================================== */
+
+        .total-badge{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:9px;
+
+            background:#FFFFFF;
+
+            border:1px solid #E5E7EB;
+
+            border-radius:10px;
+
+            padding:9px 13px;
+
+            white-space:nowrap;
+
+            box-shadow:
+                0 4px 15px rgba(15,23,42,.04);
+
+        }
+
+        .total-icon{
+
+            width:30px;
+
+            height:30px;
+
+            display:grid;
+
+            place-items:center;
 
             border-radius:8px;
 
-        }
+            background:#EFF6FF;
 
-        .container{
+            color:#2563EB;
 
-            width:95%;
-
-            margin:40px auto;
+            font-size:14px;
 
         }
 
-        .titulo{
+        .total-info{
 
-            margin-bottom:20px;
+            display:flex;
 
-            font-size:28px;
+            flex-direction:column;
 
-            color:#333;
+            gap:1px;
+
+        }
+
+        .total-info small{
+
+            font-size:8px;
+
+            color:#6B7280;
+
+            text-transform:uppercase;
+
+            letter-spacing:.5px;
+
+        }
+
+        .total-info strong{
+
+            font-size:13px;
+
+            color:#172033;
+
+        }
+
+
+        /* =====================================================
+           CARD PRINCIPAL
+        ===================================================== */
+
+        .table-card{
+
+            width:100%;
+
+            background:#FFFFFF;
+
+            border:1px solid #E5E7EB;
+
+            border-radius:13px;
+
+            overflow:hidden;
+
+            box-shadow:
+                0 4px 15px rgba(15,23,42,.05);
+
+        }
+
+
+        /* =====================================================
+           CARD HEADER
+        ===================================================== */
+
+        .table-card-header{
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:space-between;
+
+            padding:17px 19px;
+
+            border-bottom:1px solid #E5E7EB;
+
+            gap:15px;
+
+        }
+
+        .table-card-title{
+
+            font-size:13px;
+
+            font-weight:600;
+
+            color:#172033;
+
+        }
+
+        .table-card-description{
+
+            margin-top:3px;
+
+            font-size:9px;
+
+            color:#6B7280;
+
+        }
+
+
+        /* =====================================================
+           TABELA
+        ===================================================== */
+
+        .table-wrapper{
+
+            width:100%;
+
+            overflow-x:auto;
+
+            -webkit-overflow-scrolling:touch;
 
         }
 
@@ -102,220 +267,816 @@
 
             width:100%;
 
+            min-width:1050px;
+
             border-collapse:collapse;
 
-            background:white;
-
-            border-radius:10px;
-
-            overflow:hidden;
-
-            box-shadow:0 10px 20px rgba(0,0,0,.08);
-
         }
 
-        th{
 
-            background:#111;
+        /* =====================================================
+           THEAD
+        ===================================================== */
 
-            color:white;
+        thead th{
 
-            padding:15px;
+            background:#F8FAFC;
 
-        }
+            color:#667085;
 
-        td{
+            padding:12px 13px;
 
-            padding:15px;
+            font-size:9px;
 
-            border-bottom:1px solid #eee;
+            font-weight:600;
 
             text-align:center;
 
-        }
+            white-space:nowrap;
 
-        tr:hover{
-
-            background:#f9f9f9;
+            border-bottom:1px solid #E5E7EB;
 
         }
 
-        .semDados{
 
-            margin-top:30px;
+        /* =====================================================
+           TD
+        ===================================================== */
+
+        tbody td{
+
+            padding:13px;
+
+            font-size:10px;
+
+            color:#475467;
 
             text-align:center;
 
-            font-size:18px;
+            border-bottom:1px solid #F0F1F3;
 
-            color:#888;
+            vertical-align:middle;
 
         }
+
+        tbody tr{
+
+            transition:
+                background .15s ease;
+
+        }
+
+        tbody tr:hover{
+
+            background:#F8FAFC;
+
+        }
+
+        tbody tr:last-child td{
+
+            border-bottom:none;
+
+        }
+
+
+        /* =====================================================
+           ID
+        ===================================================== */
+
+        .id-cell{
+
+            font-weight:600;
+
+            color:#2563EB;
+
+        }
+
+
+        /* =====================================================
+           GESTÃO
+        ===================================================== */
+
+        .col-gestao{
+
+            max-width:220px;
+
+            min-width:180px;
+
+            white-space:normal;
+
+            word-break:break-word;
+
+            line-height:1.5;
+
+            text-align:left !important;
+
+            color:#475467;
+
+        }
+
+
+        /* =====================================================
+           NOME
+        ===================================================== */
+
+        .nome-cell{
+
+            font-weight:600;
+
+            color:#172033;
+
+            white-space:nowrap;
+
+        }
+
+
+        /* =====================================================
+           SALÃO
+        ===================================================== */
+
+        .salao-cell{
+
+            font-weight:500;
+
+            color:#344054;
+
+        }
+
+
+        /* =====================================================
+           PLANO
+        ===================================================== */
+
+        .plano{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            padding:5px 9px;
+
+            border-radius:6px;
+
+            background:#EFF6FF;
+
+            color:#2563EB;
+
+            font-size:8px;
+
+            font-weight:600;
+
+            white-space:nowrap;
+
+        }
+
+
+        /* =====================================================
+           WHATSAPP / EMAIL
+        ===================================================== */
+
+        .contact-cell{
+
+            white-space:nowrap;
+
+            color:#475467;
+
+        }
+
+
+        /* =====================================================
+           DATA
+        ===================================================== */
+
+        .date-cell{
+
+            white-space:nowrap;
+
+            color:#667085;
+
+        }
+
+
+        /* =====================================================
+           ORIGEM
+        ===================================================== */
+
+        .origem{
+
+            display:inline-block;
+
+            padding:4px 8px;
+
+            border-radius:5px;
+
+            background:#F2F4F7;
+
+            color:#667085;
+
+            font-size:8px;
+
+            white-space:nowrap;
+
+        }
+
+
+        /* =====================================================
+           BOTÃO EXCLUIR
+        ===================================================== */
 
         .btn-excluir{
 
-    background:#dc3545;
+            display:inline-flex;
 
-    color:white;
+            align-items:center;
 
-    padding:8px 16px;
+            justify-content:center;
 
-    border-radius:6px;
+            gap:5px;
 
-    text-decoration:none;
+            border:none;
 
-    font-weight:600;
+            background:#FEF2F2;
 
-    transition:.3s;
+            color:#DC2626;
 
-}
+            padding:7px 11px;
 
-.btn-excluir:hover{
+            border-radius:7px;
 
-    background:#b02a37;
+            text-decoration:none;
 
-}
-.col-gestao{
+            font-family:"Poppins", sans-serif;
 
-    max-width:220px;
+            font-size:9px;
 
-    white-space:normal;
+            font-weight:600;
 
-    word-wrap:break-word;
+            cursor:pointer;
 
-    line-height:1.5;
+            transition:
 
-    text-align:left;
+                background .18s ease,
 
-}
+                color .18s ease,
+
+                transform .18s ease;
+
+            white-space:nowrap;
+
+        }
+
+        .btn-excluir:hover{
+
+            background:#FEE2E2;
+
+            color:#B91C1C;
+
+            transform:translateY(-1px);
+
+        }
+
+
+        /* =====================================================
+           SEM DADOS
+        ===================================================== */
+
+        .empty-state{
+
+            display:flex;
+
+            flex-direction:column;
+
+            align-items:center;
+
+            justify-content:center;
+
+            padding:70px 20px;
+
+            text-align:center;
+
+        }
+
+        .empty-icon{
+
+            width:55px;
+
+            height:55px;
+
+            display:grid;
+
+            place-items:center;
+
+            border-radius:14px;
+
+            background:#F3F6FA;
+
+            color:#98A2B3;
+
+            font-size:23px;
+
+            margin-bottom:15px;
+
+        }
+
+        .empty-state h3{
+
+            font-size:13px;
+
+            font-weight:600;
+
+            color:#344054;
+
+            margin-bottom:5px;
+
+        }
+
+        .empty-state p{
+
+            font-size:10px;
+
+            color:#98A2B3;
+
+        }
+
+
+        /* =====================================================
+           RODAPÉ
+        ===================================================== */
+
+        .table-footer{
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:space-between;
+
+            padding:12px 18px;
+
+            background:#FAFBFC;
+
+            border-top:1px solid #E5E7EB;
+
+        }
+
+        .table-footer span{
+
+            font-size:9px;
+
+            color:#98A2B3;
+
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
+
+        .table-wrapper::-webkit-scrollbar{
+
+            height:7px;
+
+        }
+
+        .table-wrapper::-webkit-scrollbar-track{
+
+            background:#F1F3F5;
+
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb{
+
+            background:#D0D5DD;
+
+            border-radius:10px;
+
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover{
+
+            background:#98A2B3;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ===================================================== */
+
+        @media(max-width:700px){
+
+            .page-container{
+
+                padding:0 0 20px;
+
+            }
+
+            .page-header{
+
+                align-items:flex-start;
+
+                flex-direction:column;
+
+                margin-bottom:16px;
+
+                gap:12px;
+
+            }
+
+            .page-title{
+
+                font-size:19px;
+
+            }
+
+            .page-subtitle{
+
+                font-size:10px;
+
+            }
+
+            .total-badge{
+
+                width:100%;
+
+                justify-content:flex-start;
+
+            }
+
+            .table-card{
+
+                border-radius:10px;
+
+            }
+
+            .table-card-header{
+
+                padding:14px;
+
+            }
+
+            .table-card-title{
+
+                font-size:12px;
+
+            }
+
+            .table-card-description{
+
+                font-size:8px;
+
+            }
+
+            .table-footer{
+
+                padding:10px 14px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           TOUCH / ZOOM
+        ===================================================== */
+
+        html,
+        body{
+
+            overscroll-behavior:none;
+
+        }
+
     </style>
 
 </head>
 
+
 <body>
 
-<header>
 
-    <h2>SalonConnect</h2>
-<br>
-    <a href="/admin" class="voltar">
-        ← Voltar
-    </a>
+<div class="page-container">
 
-</header>
 
-<div class="container">
+    <!-- =================================================
+         CABEÇALHO
+    ================================================== -->
 
-<h1 class="titulo">
+    <header class="page-header">
 
-Orçamentos Recebidos
 
-</h1>
+        <div class="page-title-area">
 
-{% if lista %}
+            <h1 class="page-title">
+                Orçamentos
+            </h1>
 
-<table>
+            <p class="page-subtitle">
+                Consulte e gerencie as solicitações de orçamento recebidas.
+            </p>
 
-<thead>
+        </div>
 
-<tr>
 
-<th>ID</th>
+        {% if lista %}
 
-<th>Gestão Atual</th>
+        <div class="total-badge">
 
-<th>Nome</th>
+            <div class="total-icon">
+                ▤
+            </div>
 
-<th>Salão</th>
+            <div class="total-info">
 
-<th>Plano</th>
+                <small>
+                    Total de registros
+                </small>
 
-<th>WhatsApp</th>
+                <strong>
+                    {{ lista|length }}
+                </strong>
 
-<th>Email</th>
+            </div>
 
-<th>Funcionários</th>
+        </div>
 
-<th>Origem</th>
+        {% endif %}
 
-<th>Data</th>
 
-<th>Ações</th>
+    </header>
 
-</tr>
 
-</thead>
+    <!-- =================================================
+         CARD
+    ================================================== -->
 
-<tbody>
+    <section class="table-card">
 
-{% for o in lista %}
 
-<tr>
+        <div class="table-card-header">
 
-<td>{{ o.id }}</td>
+            <div>
 
-<td class="col-gestao">
-    {{ o.gestao }}
-</td>
+                <div class="table-card-title">
+                    Orçamentos recebidos
+                </div>
 
-<td>{{ o.nome }}</td>
+                <div class="table-card-description">
+                    Informações cadastradas no sistema.
+                </div>
 
-<td>{{ o.salao }}</td>
+            </div>
 
-<td>{{ o.plano }}</td>
+        </div>
 
-<td>{{ o.whatsapp }}</td>
 
-<td>{{ o.email }}</td>
+        {% if lista %}
 
-<td>{{ o.funcionarios }}</td>
 
-<td>{{ o.origem }}</td>
+        <!-- =================================================
+             TABELA
+        ================================================== -->
 
-<td>{{ o.data.strftime('%d/%m/%Y %H:%M') }}</td>
+        <div class="table-wrapper">
 
-<td>
-    <a href="/excluir_orcamento/{{ o.id }}"
-       onclick="return confirm('Deseja realmente excluir este orçamento?');"
-       class="btn-excluir">
-        Excluir
-    </a>
-</td>
+            <table>
 
-</tr>
+                <thead>
 
-{% endfor %}
+                    <tr>
 
-</tbody>
+                        <th>ID</th>
 
-</table>
+                        <th>Gestão Atual</th>
 
-{% else %}
+                        <th>Nome</th>
 
-<div class="semDados">
+                        <th>Salão</th>
 
-Nenhum orçamento encontrado.
+                        <th>Plano</th>
+
+                        <th>WhatsApp</th>
+
+                        <th>Email</th>
+
+                        <th>Funcionários</th>
+
+                        <th>Origem</th>
+
+                        <th>Data</th>
+
+                        <th>Ações</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% for o in lista %}
+
+                    <tr>
+
+
+                        <td class="id-cell">
+                            #{{ o.id }}
+                        </td>
+
+
+                        <td class="col-gestao">
+                            {{ o.gestao }}
+                        </td>
+
+
+                        <td class="nome-cell">
+                            {{ o.nome }}
+                        </td>
+
+
+                        <td class="salao-cell">
+                            {{ o.salao }}
+                        </td>
+
+
+                        <td>
+
+                            <span class="plano">
+                                {{ o.plano }}
+                            </span>
+
+                        </td>
+
+
+                        <td class="contact-cell">
+                            {{ o.whatsapp }}
+                        </td>
+
+
+                        <td class="contact-cell">
+                            {{ o.email }}
+                        </td>
+
+
+                        <td>
+                            {{ o.funcionarios }}
+                        </td>
+
+
+                        <td>
+
+                            <span class="origem">
+                                {{ o.origem }}
+                            </span>
+
+                        </td>
+
+
+                        <td class="date-cell">
+
+                            {{ o.data.strftime('%d/%m/%Y %H:%M') }}
+
+                        </td>
+
+
+                        <td>
+
+                            <a
+                                href="/excluir_orcamento/{{ o.id }}"
+                                class="btn-excluir"
+                                onclick="return confirmarExclusao();">
+
+                                🗑 Excluir
+
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <div class="table-footer">
+
+            <span>
+                {{ lista|length }} orçamento(s) encontrado(s)
+            </span>
+
+            <span>
+                SalonConnect
+            </span>
+
+        </div>
+
+
+        {% else %}
+
+
+        <!-- =================================================
+             ESTADO VAZIO
+        ================================================== -->
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                ▤
+            </div>
+
+            <h3>
+                Nenhum orçamento encontrado
+            </h3>
+
+            <p>
+                Ainda não existem solicitações de orçamento cadastradas.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+
+    </section>
+
 
 </div>
 
-{% endif %}
 
-</div>
-<script src="static/js/script.js"></script>
 <script>
-document.addEventListener('gesturestart', e => e.preventDefault());
-document.addEventListener('gesturechange', e => e.preventDefault());
-document.addEventListener('gestureend', e => e.preventDefault());
+
+/* =========================================================
+   CONFIRMAÇÃO DE EXCLUSÃO
+========================================================= */
+
+function confirmarExclusao(){
+
+    return confirm(
+        "Deseja realmente excluir este orçamento?"
+    );
+
+}
+
+
+/* =========================================================
+   DESABILITAR GESTOS
+========================================================= */
+
+document.addEventListener(
+    "gesturestart",
+    e => e.preventDefault()
+);
+
+document.addEventListener(
+    "gesturechange",
+    e => e.preventDefault()
+);
+
+document.addEventListener(
+    "gestureend",
+    e => e.preventDefault()
+);
+
 
 let lastTouchEnd = 0;
-document.addEventListener('touchend', function (e) {
-    const now = Date.now();
-    if (now - lastTouchEnd <= 300) {
-        e.preventDefault();
+
+document.addEventListener(
+    "touchend",
+    function(e){
+
+        const now =
+            Date.now();
+
+        if(
+            now - lastTouchEnd <= 300
+        ){
+
+            e.preventDefault();
+
+        }
+
+        lastTouchEnd = now;
+
+    },
+    {
+        passive:false
     }
-    lastTouchEnd = now;
-}, { passive: false });
+);
+
 </script>
+
+
 </body>
 
 </html>
