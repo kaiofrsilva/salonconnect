@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <a href="[https://salao-matriz-2.onrender.com]" target="_blank">
+  <a href="https://salao-matriz-2.onrender.com" target="_blank">
     🌐 Acessar o SalonConnect
   </a>
 </p>
